@@ -16,7 +16,7 @@ public class Recipe {
     @Column(unique = true)
     private String recipeName;
 
-    private int preperationTime;
+    private int preparationTime;
 
     private int forAmountOfPeople;
 
@@ -56,12 +56,12 @@ public class Recipe {
         this.forAmountOfPeople = forAmountOfPeople;
     }
 
-    public int getPreperationTime() {
-        return preperationTime;
+    public int getPreparationTime() {
+        return preparationTime;
     }
 
-    public void setPreperationTime(int preperationTime) {
-        this.preperationTime = preperationTime;
+    public void setPreparationTime(int preperationTime) {
+        this.preparationTime = preperationTime;
     }
 
     public String getCoverImageUrl() {
