@@ -1,7 +1,11 @@
 package nl.miwnn.ch17.briljant.receptenradar.repositories;
 
+import nl.miwnn.ch17.briljant.receptenradar.model.Ingredient;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 /**
  * @author Johan Elzinga
  */
-public class IngredientRepository {
+
+public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
 }
