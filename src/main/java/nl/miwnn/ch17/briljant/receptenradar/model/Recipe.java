@@ -16,6 +16,14 @@ public class Recipe {
     @Column(unique = true)
     private String recipeName;
 
+    private int preperationTime;
+
+    private int forAmountOfPeople;
+
+    private int calories;
+
+    private String coverImageUrl;
+
     public Long getRecipeId() {
         return recipeId;
     }
@@ -30,5 +38,37 @@ public class Recipe {
 
     public void setRecipeName(String recipeName) {
         this.recipeName = recipeName;
+    }
+
+    public int getCalories() {
+        return calories;
+    }
+
+    public void setCalories(int calories) {
+        this.calories = calories;
+    }
+
+    public int getForAmountOfPeople() {
+        return forAmountOfPeople;
+    }
+
+    public void setForAmountOfPeople(int forAmountOfPeople) {
+        this.forAmountOfPeople = forAmountOfPeople;
+    }
+
+    public int getPreperationTime() {
+        return preperationTime;
+    }
+
+    public void setPreperationTime(int preperationTime) {
+        this.preperationTime = preperationTime;
+    }
+
+    public String getCoverImageUrl() {
+        return coverImageUrl;
+    }
+
+    public void setCoverImageUrl(String coverImageUrl) {
+        this.coverImageUrl = coverImageUrl;
     }
 }

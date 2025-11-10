@@ -1,7 +1,6 @@
 package nl.miwnn.ch17.briljant.receptenradar.controller;
 
 import nl.miwnn.ch17.briljant.receptenradar.repositories.IngredientRepository;
-import nl.miwnn.ch17.briljant.receptenradar.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +22,8 @@ public class IngredientController {
 
     @GetMapping("/all")
     public String showRecipeOverview(Model datamodel) {
-        datamodel.addAttribute("allIngredienten", ingredientRepository.findAll());
+        datamodel.addAttribute("allIngredients", ingredientRepository.findAll());
 
-        return "ingredientenOverview";
+        return "ingredientOverview";
     }
 }
