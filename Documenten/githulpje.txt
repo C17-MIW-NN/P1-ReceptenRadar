@@ -1,0 +1,36 @@
+Zoals beloofd hier een overzicht en de volgorde van de git commando's die je gebruikt via de commandline/terminal:
+
+// Dit commando gebruik je om zien wat er lokaal allemaal gewijzigd is voordat je verder iets doet. 
+git status
+
+// Dan kun je nu het beste eerst een git pull doen om je lokale branch bij te werken met de zaken die op de server anders zijn. Dit doe je om merge conflicten zoveel mogelijk te voorkomen.
+// Als die conflicten er wel zijn dan heb je nu nog de kans om je eigen aanpassingen ongedaan te maken (als dat kan en wenselijk is) of om de wijzigingen samen te voegen
+git pull
+
+// als er geen merge conflicten meer zijn of ze zijn opgelost dan ga je de lokale nieuwe en gewijzigde bestanden toevoegen aan de 'index' om bij de volgende commit mee te nemen.
+git add :/
+
+// Nu controleer je of alles ok is door weer de status op te vragen
+git status
+
+// als alles naar wens is ga je nu de wijzigingen doorvoeren naar de main branch
+git commit -m "commit bericht in het engels :-)"
+
+// nu ga je nog een keer de wijzigingen ophalen van de server
+git pull
+
+// en als laatste stuur je alle wijzigingen naar de server, en laat je dat je mede team leden weten zodat die deze ook weer op kunnen halen.
+git push
+
+// en je kunt als laatste nog een keer de status checken
+git status
+
+
+Resume:
+git status
+git pull
+git add :/
+git status
+git commit -m "commit bericht in het engels :-)"
+git pull
+git push
