@@ -6,7 +6,21 @@
     <meta charset="UTF-8">
     <title>Ingredients</title>
 </head>
+
 <body>
+
+    <h1>Overview of all ingredients</h1>
+
+    <table>
+        <th>
+        <td>Ingredient name</td>
+        </th>
+        <tr th:each="ingredient : ${allIngredients}">
+            <td th:text="${ingredient.ingredientName}"></td>
+        </tr>
+    </table>
+
+    <a th:href="@{/ingredient/add}">Add a new ingredient</a>
 
 </body>
 </html>

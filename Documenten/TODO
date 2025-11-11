@@ -1,0 +1,12 @@
+10/11
+-   Bootstrap implementeren Gedaan, uitzoeken waarom het niet zichtbaar is
+-   Form voor recepten maken – Douwe Jan
+-   Form voor ingrediënten maken – Douwe Jan
+-   Overzicht van recepten om homepage - Iris
+-   (Een recept wordt weergegeven met een foto. En metadata (kcal, bereidingstijd, aantal personen) toevoegen aan entity)
+-   Per recept een detailpagina maken met foto. - Iris
+-   Initializer maken voor zowel recipe als ingredient - Johan
+
+11/11
+-   Tussen recipe en ingredient moet een tussentabel komen.
+    Deze willen we handmatig aanmaken zodat we hier attributen aan toe kunnen voegen.

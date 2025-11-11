@@ -5,7 +5,19 @@
     <title>Recipes</title>
 </head>
 <body>
-<h1>Recipes</h1>
+    <h1>Overview of all recipes</h1>
+
+    <table>
+        <th>
+            <td>Recipe name</td>
+        </th>
+        <tr th:each="recipe : ${allRecipes}">
+            <td th:text="${recipe.recipeName}"></td>
+        </tr>
+    </table>
+
+    <a th:href="@{/recipe/add}">Add a new Recipe</a>
+
 
 </body>
 </html>

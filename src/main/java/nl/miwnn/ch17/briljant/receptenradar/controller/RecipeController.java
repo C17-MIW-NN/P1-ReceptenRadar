@@ -1,9 +1,13 @@
 package nl.miwnn.ch17.briljant.receptenradar.controller;
 
+import nl.miwnn.ch17.briljant.receptenradar.model.Recipe;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * @author Iris Loermans
@@ -19,10 +23,27 @@ public class RecipeController {
         this.recipeRepository = recipeRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping({"/recipe/all","/"})
     public String showRecipeOverview(Model datamodel) {
         datamodel.addAttribute("allRecipes", recipeRepository.findAll());
 
         return "recipeOverview";
     }
+
+    @GetMapping("/recipe/add")
+    public String showRecipeForm(Model datamodel) {
+        datamodel.addAttribute("formRecipe", new Recipe());
+
+        return ("recipeForm");
+    }
+
+    @PostMapping("/recipe/save")
+    public String saveOrUpdateRecipe (@ModelAttribute("formRecipe") Recipe recipe, BindingResult result) {
+        if (!result.hasErrors()) {
+            recipeRepository.save(recipe);
+        }
+
+        return ("redirect:/recipe/all");
+    }
+
 }
