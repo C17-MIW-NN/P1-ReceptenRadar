@@ -1,9 +1,8 @@
 package nl.miwnn.ch17.briljant.receptenradar.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.Set;
 
 /**
  * @author Douwe Jan Hamersma
@@ -18,6 +17,9 @@ public class Ingredient {
 
     @Column(unique = true)
     private String ingredientName;
+
+    @ManyToMany(mappedBy = "ingredients")
+    private Set<Recipe> recipes;
 
     public Long getIngredientId() {
         return ingredientId;

@@ -2,6 +2,8 @@ package nl.miwnn.ch17.briljant.receptenradar.model;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 /**
  * @author Douwe Jan Hamersma
  * The concept of a recipe.
@@ -23,6 +25,13 @@ public class Recipe {
     private int calories;
 
     private String coverImageUrl;
+
+    @ManyToMany
+    @JoinTable(
+            joinColumns = { @JoinColumn(name = "recipeId") },
+            inverseJoinColumns = { @JoinColumn(name = "ingredientId") }
+    )
+    private Set<Ingredient> ingredients;
 
     public Long getRecipeId() {
         return recipeId;
