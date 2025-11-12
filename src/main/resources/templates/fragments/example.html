@@ -2,20 +2,14 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
     <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
-        <title>Add recipe</title>
+        <title>Replace this title</title>
     </head>
 
     <body>
         <div th:replace="~{fragments/general :: navbar}"></div>
 
         <div class="container">
-            <h1>Add a new recipe</h1>
 
-            <form th:action="@{/recipe/save}" th:object="${formRecipe}" method="post">
-                <label for="recipeName">Recipe name:</label>
-                <input type="text" th:field="*{recipeName}" id="recipeName">
-                <input type="submit" value="Save">
-            </form>
         </div>
 
         <div th:replace="~{fragments/general :: footer}"></div>

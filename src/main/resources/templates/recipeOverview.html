@@ -1,40 +1,36 @@
 <!DOCTYPE html>
-
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
-<head>
+    <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+        <title>Recipes</title>
+    </head>
 
-    <meta charset="UTF-8">
-    <title>Recipes</title>
+    <body>
+        <div th:replace="~{fragments/general :: navbar}"></div>
 
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.min.css}">
+        <div class="container">
+            <h1>Overview of all recipes</h1>
 
-</head>
-<body>
-<div th:replace="~{fragments/general :: navbar}"></div>
-
-<div class="container">
-    <h1>Overview of all recipes</h1>
-
-<div class="recipe-card-display row">
-    <div th:each="recipe : ${allRecipes}" class="col-3 mb-4">
-        <div class=" card text-center" style="width: 18rem; height: 20rem">
-            <div class="card-body">
-                <p th:text="${recipe.recipeName}"></p>
-                <img th:src="${recipe.imageUrl}" alt="" width="120" height="100">
-                <p>Bereidingstijd: <span th:text="${recipe.preparationTime}"></span></p>
-                <p>Aantal personen: <span th:text="${recipe.forAmountOfPeople}"></span></p>
-                <p>Aantal Kcal: <span th:text="${recipe.calories}"></span></p>
+            <div class="recipe-card-display row">
+                <div th:each="recipe : ${allRecipes}" class="col-3 mb-4">
+                    <div class=" card text-center" style="width: 18rem; height: 20rem">
+                        <div class="card-body">
+                            <p th:text="${recipe.recipeName}"></p>
+                            <img th:src="${recipe.imageUrl}" alt="" width="120" height="100">
+                            <p>Bereidingstijd: <span th:text="${recipe.preparationTime}"></span></p>
+                            <p>Aantal personen: <span th:text="${recipe.forAmountOfPeople}"></span></p>
+                            <p>Aantal Kcal: <span th:text="${recipe.calories}"></span></p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <a th:href="@{/recipe/add}" class="btn btn-primary">Add Recipe</a>
         </div>
-    </div>
-</div>
 
-<a th:href="@{/recipe/add}" class="btn btn-primary">Add Recipe</a>
-</div>
+        <div th:replace="~{fragments/general :: footer}"></div>
 
-<div th:replace="~{fragments/general :: footer}"></div>
-<div th:replace="~{fragments/general :: bottomScripts}"></div>
-</body>
+        <div th:replace="~{fragments/general :: bottomScripts}"></div>
+    </body>
+
 </html>
