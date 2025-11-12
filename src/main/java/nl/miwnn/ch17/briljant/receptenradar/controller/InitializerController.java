@@ -71,7 +71,7 @@ public class InitializerController {
 
             for (String[] recipeLine : reader) {
 
-                Recipe recipe = addRecipe(recipeLine[0], Integer.parseInt(recipeLine[1]),
+                Recipe recipe = makeRecipe(recipeLine[0], Integer.parseInt(recipeLine[1]),
                         Integer.parseInt(recipeLine[2]), Integer.parseInt(recipeLine[3]), recipeLine[4]);
 
                 for (String ingredientName : recipeLine[5].split(", ")) {
@@ -85,13 +85,13 @@ public class InitializerController {
         }
     }
 
-    private Recipe addRecipe(String recipeName, int preperationTime, int forASmountOfPeople, int calories,
+    private Recipe makeRecipe(String recipeName, int preparationTime, int forAmountOfPeople, int calories,
                              String coverImageUrl) {
         Recipe recipe = new Recipe();
 
         recipe.setRecipeName(recipeName);
-        recipe.setPreparationTime(preperationTime);
-        recipe.setForAmountOfPeople(forASmountOfPeople);
+        recipe.setPreparationTime(preparationTime);
+        recipe.setForAmountOfPeople(forAmountOfPeople);
         recipe.setCalories(calories);
         recipe.setCoverImageUrl(coverImageUrl);
         recipe.setIngredients(new HashSet<>());
