@@ -86,14 +86,14 @@ public class InitializerController {
     }
 
     private Recipe makeRecipe(String recipeName, int preparationTime, int forAmountOfPeople, int calories,
-                             String coverImageUrl) {
+                             String imageUrl) {
         Recipe recipe = new Recipe();
 
         recipe.setRecipeName(recipeName);
         recipe.setPreparationTime(preparationTime);
         recipe.setForAmountOfPeople(forAmountOfPeople);
         recipe.setCalories(calories);
-        recipe.setImageUrl(coverImageUrl);
+        recipe.setImageUrl(imageUrl);
         recipe.setIngredients(new HashSet<>());
 
         return recipe;
