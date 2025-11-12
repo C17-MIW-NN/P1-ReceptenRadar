@@ -3,6 +3,7 @@ package nl.miwnn.ch17.briljant.receptenradar.controller;
 import com.opencsv.CSVReader;
 import nl.miwnn.ch17.briljant.receptenradar.model.Ingredient;
 import nl.miwnn.ch17.briljant.receptenradar.model.Recipe;
+import nl.miwnn.ch17.briljant.receptenradar.model.RecipeIngredient;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.IngredientRepository;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.RecipeRepository;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -23,6 +24,8 @@ import java.util.*;
 public class InitializerController {
     private static final String SAMPLEDATA_INGREDIENTS_CSV = "/sampledata/ingredients.csv";
     private static final String SAMPLEDATA_RECIPES_CSV = "/sampledata/recipes.csv";
+    private static final double DEFAULT_QUANTITY = 1.0;
+    private static final String DEFAULT_UNIT = "unknown";
 
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
@@ -66,16 +69,35 @@ public class InitializerController {
     private void loadRecipes() {
         try (CSVReader reader = new CSVReader(new FileReader(new ClassPathResource(SAMPLEDATA_RECIPES_CSV)
                 .getFile()))) {
-            // First line contains the header so we skip this line
+
             reader.skip(1);
 
             for (String[] recipeLine : reader) {
 
-                Recipe recipe = makeRecipe(recipeLine[0], Integer.parseInt(recipeLine[1]),
-                        Integer.parseInt(recipeLine[2]), Integer.parseInt(recipeLine[3]), recipeLine[4]);
+                Recipe recipe = makeRecipe(
+                        recipeLine[0],
+                        Integer.parseInt(recipeLine[1]),
+                        Integer.parseInt(recipeLine[2]),
+                        Integer.parseInt(recipeLine[3]),
+                        recipeLine[4]);
+
+                Set<RecipeIngredient> recipeIngredients = new HashSet<>();
 
                 for (String ingredientName : recipeLine[5].split(", ")) {
-                    recipe.getIngredients().add(ingredientCache.get(ingredientName));
+                    Ingredient ingredient = ingredientCache.get(ingredientName);
+
+                    if (ingredient == null) {
+                        System.out.println("Ingredient niet gevonden: " + ingredientName);
+                        continue;
+                    }
+
+                    RecipeIngredient recipeIngredient = new RecipeIngredient();
+                    recipeIngredient.setRecipe(recipe);
+                    recipeIngredient.setIngredient(ingredient);
+                    recipeIngredient.setQuantity(DEFAULT_QUANTITY);
+                    recipeIngredient.setUnit(DEFAULT_UNIT);
+
+                    recipeIngredients.add(recipeIngredient);
                 }
 
                 recipeRepository.save(recipe);
@@ -86,15 +108,15 @@ public class InitializerController {
     }
 
     private Recipe makeRecipe(String recipeName, int preparationTime, int forAmountOfPeople, int calories,
-                             String imageUrl) {
+                             String coverImageUrl) {
         Recipe recipe = new Recipe();
 
         recipe.setRecipeName(recipeName);
         recipe.setPreparationTime(preparationTime);
         recipe.setForAmountOfPeople(forAmountOfPeople);
         recipe.setCalories(calories);
-        recipe.setImageUrl(imageUrl);
-        recipe.setIngredients(new HashSet<>());
+        recipe.setImageUrl(coverImageUrl);
+        recipe.setRecipeIngredients(new HashSet<>());
 
         return recipe;
     }

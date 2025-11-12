@@ -2,6 +2,7 @@ package nl.miwnn.ch17.briljant.receptenradar.model;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -26,12 +27,8 @@ public class Recipe {
 
     private String imageUrl;
 
-    @ManyToMany
-    @JoinTable(
-            joinColumns = { @JoinColumn(name = "recipeId") },
-            inverseJoinColumns = { @JoinColumn(name = "ingredientId") }
-    )
-    private Set<Ingredient> ingredients;
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RecipeIngredient> recipeIngredients = new HashSet<>();
 
     public Long getRecipeId() {
         return recipeId;
@@ -81,11 +78,11 @@ public class Recipe {
         this.imageUrl = coverImageUrl;
     }
 
-    public Set<Ingredient> getIngredients() {
-        return ingredients;
+    public Set<RecipeIngredient> getRecipeIngredients() {
+        return recipeIngredients;
     }
 
-    public void setIngredients(Set<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+    public void setRecipeIngredients(Set<RecipeIngredient> recipeIngredients) {
+        this.recipeIngredients = recipeIngredients;
     }
 }
