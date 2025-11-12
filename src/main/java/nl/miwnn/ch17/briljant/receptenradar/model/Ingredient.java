@@ -38,5 +38,11 @@ public class Ingredient {
         this.ingredientName = ingredientName;
     }
 
+    public Set<RecipeIngredient> getRecipeIngredients() {
+        return recipeIngredients;
+    }
 
+    public void setRecipeIngredients(Set<RecipeIngredient> recipeIngredients) {
+        this.recipeIngredients = recipeIngredients;
+    }
 }

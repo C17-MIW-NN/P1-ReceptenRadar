@@ -99,7 +99,7 @@ public class InitializerController {
 
                     recipeIngredients.add(recipeIngredient);
                 }
-
+                recipe.setRecipeIngredients(recipeIngredients);
                 recipeRepository.save(recipe);
             }
         } catch (IOException ioException) {

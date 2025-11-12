@@ -66,8 +66,8 @@ public class Recipe {
         return preparationTime;
     }
 
-    public void setPreparationTime(int preperationTime) {
-        this.preparationTime = preperationTime;
+    public void setPreparationTime(int preparationTime) {
+        this.preparationTime = preparationTime;
     }
 
     public String getImageUrl() {
