@@ -18,8 +18,8 @@
     <h1>Overview of all recipes</h1>
 
 <div class="recipe-card-display row">
-    <div th:each="recipe : ${allRecipes}" class="mb-4">
-        <div class=" card text-center" style="width: 18rem;">
+    <div th:each="recipe : ${allRecipes}" class="col-3 mb-4">
+        <div class=" card text-center" style="width: 18rem; height: 20rem">
             <div class="card-body">
                 <p th:text="${recipe.recipeName}"></p>
                 <img th:src="${recipe.coverImageUrl}" alt="" width="120" height="100">
