@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+
+<div th:fragment="navbar" class="navbar fixed-top  bg-body-tertiary">
+    <div class="container-fluid">
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/recipe/all}">Recipes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/ingredient/all}">Ingredients</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div th:fragment="footer" class="footer">
+    <footer><p class="text-center text text-muted">Copyright Team Bril-jant &copy;2025</p></footer>
+</div>
+
+<div th:fragment="bottomScripts">
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</div>
+
 </body>
 </html>

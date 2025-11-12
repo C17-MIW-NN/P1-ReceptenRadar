@@ -3,21 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Recipes</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.min.css}">
+
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            class="astro-vvvwv3sm"></script>
+
 </head>
 <body>
+<div th:replace="~{fragments/general :: navbar}"></div>
+
+<div class="container">
     <h1>Overview of all recipes</h1>
 
-    <table>
-        <th>
-            <td>Recipe name</td>
-        </th>
-        <tr th:each="recipe : ${allRecipes}">
-            <td th:text="${recipe.recipeName}"></td>
-        </tr>
-    </table>
+<div class="recipe-card-display row">
+    <div th:each="recipe : ${allRecipes}" class="mb-4">
+        <div class=" card text-center" style="width: 18rem;">
+            <div class="card-body">
+                <p th:text="${recipe.recipeName}"></p>
+                <img th:src="${recipe.coverImageUrl}" alt="" width="120" height="100">
+                <p>Bereidingstijd: <span th:text="${recipe.preparationTime}"></span></p>
+                <p>Aantal mensen: <span th:text="${recipe.forAmountOfPeople}"></span></p>
+                <p>Aantal Kcal: <span th:text="${recipe.calories}"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <a th:href="@{/recipe/add}">Add a new Recipe</a>
+<a th:href="@{/recipe/add}" class="btn btn-primary">Add Recipe</a>
+</div>
 
-
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
 </body>
 </html>

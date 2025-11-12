@@ -5,22 +5,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Ingredients</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.min.css}">
+
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            class="astro-vvvwv3sm"></script>
+
 </head>
 
 <body>
+<div th:replace="~{fragments/general :: navbar}"></div>
 
+<div class="container">
     <h1>Overview of all ingredients</h1>
 
-    <table>
-        <th>
-        <td>Ingredient name</td>
-        </th>
-        <tr th:each="ingredient : ${allIngredients}">
-            <td th:text="${ingredient.ingredientName}"></td>
-        </tr>
-    </table>
+    <div class="ingredient-card-display row">
+        <div th:each="ingredient : ${allIngredients}" class="mb-4">
+            <div class=" card text-center" style="width: 18rem;">
+                <div class="card-body">
+                    <p th:text="${ingredient.ingredientName}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <a th:href="@{/ingredient/add}">Add a new ingredient</a>
+    <a th:href="@{/ingredient/add}" class="btn btn-primary">Add ingredient</a>
+</div>
 
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
 </body>
 </html>

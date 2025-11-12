@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+
 /**
  * @author Iris Loermans
  * Handle requests regarding recipes.
@@ -25,6 +27,8 @@ public class RecipeController {
 
     @GetMapping({"/recipe/all","/"})
     public String showRecipeOverview(Model datamodel) {
+        ArrayList<Recipe> recipes = new ArrayList<>(recipeRepository.findAll());
+
         datamodel.addAttribute("allRecipes", recipeRepository.findAll());
 
         return "recipeOverview";
