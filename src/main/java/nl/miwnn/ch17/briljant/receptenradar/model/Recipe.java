@@ -24,7 +24,7 @@ public class Recipe {
 
     private int calories;
 
-    private String coverImageUrl;
+    private String imageUrl;
 
     @ManyToMany
     @JoinTable(
@@ -73,12 +73,12 @@ public class Recipe {
         this.preparationTime = preperationTime;
     }
 
-    public String getCoverImageUrl() {
-        return coverImageUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setCoverImageUrl(String coverImageUrl) {
-        this.coverImageUrl = coverImageUrl;
+    public void setImageUrl(String coverImageUrl) {
+        this.imageUrl = coverImageUrl;
     }
 
     public Set<Ingredient> getIngredients() {

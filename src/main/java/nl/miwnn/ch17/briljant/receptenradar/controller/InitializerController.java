@@ -93,7 +93,7 @@ public class InitializerController {
         recipe.setPreparationTime(preperationTime);
         recipe.setForAmountOfPeople(forASmountOfPeople);
         recipe.setCalories(calories);
-        recipe.setCoverImageUrl(coverImageUrl);
+        recipe.setImageUrl(coverImageUrl);
         recipe.setIngredients(new HashSet<>());
 
         return recipe;

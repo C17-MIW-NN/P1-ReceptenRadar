@@ -22,9 +22,9 @@
         <div class=" card text-center" style="width: 18rem; height: 20rem">
             <div class="card-body">
                 <p th:text="${recipe.recipeName}"></p>
-                <img th:src="${recipe.coverImageUrl}" alt="" width="120" height="100">
+                <img th:src="${recipe.imageUrl}" alt="" width="120" height="100">
                 <p>Bereidingstijd: <span th:text="${recipe.preparationTime}"></span></p>
-                <p>Aantal mensen: <span th:text="${recipe.forAmountOfPeople}"></span></p>
+                <p>Aantal personen: <span th:text="${recipe.forAmountOfPeople}"></span></p>
                 <p>Aantal Kcal: <span th:text="${recipe.calories}"></span></p>
             </div>
         </div>
