@@ -70,22 +70,33 @@ public class InitializerController {
             reader.skip(1);
 
             for (String[] recipeLine : reader) {
-                Recipe recipe =  new Recipe();
-                recipe.setRecipeName(recipeLine[0]);
-                recipe.setPreparationTime(Integer.parseInt(recipeLine[1]));
-                recipe.setForAmountOfPeople(Integer.parseInt(recipeLine[2]));
-                recipe.setCalories(Integer.parseInt(recipeLine[3]));
-                recipe.setCoverImageUrl(recipeLine[4]);
-                recipe.setIngredients(new HashSet<>());
+
+                Recipe recipe = addRecipe(recipeLine[0], Integer.parseInt(recipeLine[1]),
+                        Integer.parseInt(recipeLine[2]), Integer.parseInt(recipeLine[3]), recipeLine[4]);
 
                 for (String ingredientName : recipeLine[5].split(", ")) {
                     recipe.getIngredients().add(ingredientCache.get(ingredientName));
                 }
+
                 recipeRepository.save(recipe);
             }
         } catch (IOException ioException) {
             throw new RuntimeException(ioException);
         }
+    }
+
+    private Recipe addRecipe(String recipeName, int preperationTime, int forASmountOfPeople, int calories,
+                             String coverImageUrl) {
+        Recipe recipe = new Recipe();
+
+        recipe.setRecipeName(recipeName);
+        recipe.setPreparationTime(preperationTime);
+        recipe.setForAmountOfPeople(forASmountOfPeople);
+        recipe.setCalories(calories);
+        recipe.setCoverImageUrl(coverImageUrl);
+        recipe.setIngredients(new HashSet<>());
+
+        return recipe;
     }
 
 }
