@@ -1,6 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
+
 <head>
+
     <meta charset="UTF-8">
 
     <title>Add ingredient</title>
@@ -8,21 +11,20 @@
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.min.css}">
 
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"
-            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-            class="astro-vvvwv3sm"></script>
 </head>
 
 <body>
 <div th:replace="~{fragments/general :: navbar}"></div>
 
-<h1>Add a new ingredient</h1>
+<div class="container">
+    <h1>Add a new ingredient</h1>
 
-<form th:action="@{/ingredient/save}" th:object="${formIngredient}" method="post">
-    <label for="ingredientName">Ingredient name:</label>
-    <input type="text" th:field="*{ingredientName}" id="ingredientName">
-    <input type="submit" value="Save">
-</form>
+    <form th:action="@{/ingredient/save}" th:object="${formIngredient}" method="post">
+        <label for="ingredientName">Ingredient name:</label>
+        <input type="text" th:field="*{ingredientName}" id="ingredientName">
+        <input type="submit" value="Save">
+    </form>
+</div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
