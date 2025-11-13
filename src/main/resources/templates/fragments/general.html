@@ -46,6 +46,29 @@
                 <a class="dropdown-item" href="#">category 3</a>
             </div>
         </div>
+
+        <div th:fragment="recipeDetailCard">
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img th:src="${recipe.imageUrl}" class="img-fluid rounded-start" alt="Image not found">
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h1 class="card-title"><span th:text="${recipe.recipeName}"></span></h1>
+
+                            <p><i class="bi bi-clock"></i><span th:text="${recipe.preparationTime}"></span> Min.</p>
+                            <p><i class="bi bi-people-fill"></i><span th:text="${recipe.forAmountOfPeople}"></span></p>
+                            <p><i class="bi bi-fire"></i><span th:text="${recipe.calories}"></span></p>
+
+                            <div th:replace="~{fragments/general :: categoryDropdown}"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </body>
 
 </html>
