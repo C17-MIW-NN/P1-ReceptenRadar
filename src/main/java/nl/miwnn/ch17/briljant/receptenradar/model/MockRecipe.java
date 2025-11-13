@@ -21,7 +21,6 @@ public class MockRecipe {
 
     public MockRecipe() {
         this.name = "Default naam";
-        this.steps.add("");
     }
 
     public Long getId() {
