@@ -1,17 +1,23 @@
 package nl.miwnn.ch17.briljant.receptenradar.controller;
 
+import nl.miwnn.ch17.briljant.receptenradar.model.Category;
 import nl.miwnn.ch17.briljant.receptenradar.model.Recipe;
+import nl.miwnn.ch17.briljant.receptenradar.repositories.CategoryRepository;
+import nl.miwnn.ch17.briljant.receptenradar.repositories.IngredientRepository;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * @author Iris Loermans
@@ -21,10 +27,14 @@ import java.util.Optional;
 @Controller
 public class RecipeController {
     private final RecipeRepository recipeRepository;
+    private final IngredientRepository ingredientRepository;
+    private final CategoryRepository categoryRepository;
 
 
-    public RecipeController(RecipeRepository recipeRepository) {
+    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, CategoryRepository categoryRepository) {
         this.recipeRepository = recipeRepository;
+        this.ingredientRepository = ingredientRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @GetMapping({"/recipe/all","/"})
@@ -43,13 +53,35 @@ public class RecipeController {
         return ("recipeForm");
     }
 
+    public String showRecipeForm (Model datamodel, Recipe recipe) {
+        datamodel.addAttribute("formRecipe", recipe);
+        datamodel.addAttribute("allRecipes", recipeRepository.findAll());
+        datamodel.addAttribute("allIngredients",ingredientRepository.findAll());
+        datamodel.addAttribute("allCategories",categoryRepository.findAll());
+
+        return "recipeForm";
+    }
+
     @PostMapping("/recipe/save")
-    public String saveOrUpdateRecipe (@ModelAttribute("formRecipe") Recipe recipe, BindingResult result) {
+    public String saveOrUpdateRecipe (@ModelAttribute("formRecipe") Recipe recipeToBeSaved, BindingResult result, Model datamodel) {
+
+        Optional<Recipe> recipeWithSameName = recipeRepository.findByRecipeName(recipeToBeSaved.getRecipeName());
+        if (recipeWithSameName.isPresent() && !recipeWithSameName.get().getRecipeId().equals(recipeToBeSaved.getRecipeId())) {
+            result.addError(new FieldError("recipe", "recipeName",
+                    "This name is already in use by another recipe"));
+        }
+        boolean isNewRecipe = (recipeToBeSaved.getRecipeId() == null);
+        recipeRepository.save(recipeToBeSaved);
+
         if (!result.hasErrors()) {
-            recipeRepository.save(recipe);
+            recipeRepository.save(recipeToBeSaved);
         }
 
-        return ("redirect:/recipe/all");
+        if (isNewRecipe) {
+            return "redirect:/recipe/edit/" + recipeToBeSaved.getRecipeName();
+        }else {
+            return "redirect:/recipe/detail/" + recipeToBeSaved.getRecipeName();
+        }
     }
 
     @GetMapping("recipe/detail/{recipeName}")
@@ -62,6 +94,22 @@ public class RecipeController {
 
         datamodel.addAttribute("recipe", recipeToShow.get());
         return "recipeDetail";
+    }
+
+    @GetMapping("/recipe/edit/{recipeName}")
+    public String showRecipeEditPage(@PathVariable("recipeName") String recipeName, Model datamodel) {
+        Optional <Recipe> recipeToEdit = recipeRepository.findByRecipeName(recipeName);
+
+        if (recipeToEdit.isEmpty()) {
+            return "redirect:/recipe/all";
+        }
+
+        List<Category> allCategories = categoryRepository.findAll();
+        datamodel.addAttribute("allCategories", allCategories);
+
+        datamodel.addAttribute("recipe", recipeToEdit.get());
+
+        return "recipeEdit";
     }
 
 }

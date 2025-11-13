@@ -36,7 +36,7 @@ public class Recipe {
     private Set<RecipeIngredient> recipeIngredients = new HashSet<>();
 
     @ManyToMany
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
     public Long getRecipeId() {
         return recipeId;

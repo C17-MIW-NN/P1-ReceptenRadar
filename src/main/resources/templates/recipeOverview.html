@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
     <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
-        <title>Recepten</title>
+        <title>ReceptenRadar | Recepten </title>
     </head>
 
     <body>
@@ -17,9 +17,9 @@
                         <div class="card-body">
                             <p th:text="${recipe.recipeName}"></p>
                             <img th:src="${recipe.imageUrl}" alt="" width="120" height="100">
-                            <p>Bereidingstijd: <span th:text="${recipe.preparationTime}"></span></p>
-                            <p>Aantal personen: <span th:text="${recipe.forAmountOfPeople}"></span></p>
-                            <p>Aantal Kcal: <span th:text="${recipe.calories}"></span></p>
+                            <p><i class="bi bi-clock"></i><span th:text="${recipe.preparationTime}"></span> Min.</p>
+                            <p><i class="bi bi-people-fill"></i><span th:text="${recipe.forAmountOfPeople}"></span></p>
+                            <p><i class="bi bi-fire"></i><span th:text="${recipe.calories}"></span></p>
                             <a th:href="@{/recipe/detail/{recipeName}(recipeName=${recipe.recipeName})}" class="overlay-button">Meer info</a>
                         </div>
                     </div>
