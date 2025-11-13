@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 
-<div th:fragment="navbar" class="navbar fixed-top  bg-body-tertiary">
-    <div class="container-fluid justify-content-center">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/recipe/all}">Recipes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/ingredient/all}">Ingredients</a>
-            </li>
-        </ul>
-    </div>
-</div>
+    <head th:fragment="baseheader(title)">
+        <meta charset="UTF-8">
+        <title th:replace="${title}">This is the base title</title>
 
-<div th:fragment="footer" class="footer">
-    <footer><p class="text-center text text-muted">Copyright Team Bril-jant &copy;2025</p></footer>
-</div>
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.min.css}">
 
-<div th:fragment="bottomScripts">
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-</div>
+        <link rel="stylesheet" type="text/css" href="/css/receptenradar.css" />
+    </head>
 
-</body>
+    <body>
+        <div th:fragment="navbar" class="navbar fixed-top  bg-body-tertiary">
+            <div class="container-fluid justify-content-center">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/recipe/all}">Recipes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/ingredient/all}">Ingredients</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div th:fragment="footer" class="footer">
+            <footer><p class="text-center text text-muted">Copyright Team Bril-jant &copy;2025</p></footer>
+        </div>
+
+        <div th:fragment="bottomScripts">
+            <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+        </div>
+    </body>
+
 </html>

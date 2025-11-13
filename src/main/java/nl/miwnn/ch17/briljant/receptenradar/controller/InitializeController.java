@@ -21,7 +21,7 @@ import java.util.*;
  */
 
 @Controller
-public class InitializerController {
+public class InitializeController {
     private static final String SAMPLEDATA_INGREDIENTS_CSV = "/sampledata/ingredients.csv";
     private static final String SAMPLEDATA_RECIPES_CSV = "/sampledata/recipes.csv";
     private static final double DEFAULT_QUANTITY = 1.0;
@@ -31,7 +31,7 @@ public class InitializerController {
     private final IngredientRepository ingredientRepository;
     private final Map<String, Ingredient> ingredientCache;
 
-    public InitializerController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository) {
+    public InitializeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         ingredientCache = new HashMap<>();
@@ -81,25 +81,7 @@ public class InitializerController {
                         Integer.parseInt(recipeLine[3]),
                         recipeLine[4]);
 
-                Set<RecipeIngredient> recipeIngredients = new HashSet<>();
-
-                for (String ingredientName : recipeLine[5].split(", ")) {
-                    Ingredient ingredient = ingredientCache.get(ingredientName);
-
-                    if (ingredient == null) {
-                        System.out.println("Ingredient niet gevonden: " + ingredientName);
-                        continue;
-                    }
-
-                    RecipeIngredient recipeIngredient = new RecipeIngredient();
-                    recipeIngredient.setRecipe(recipe);
-                    recipeIngredient.setIngredient(ingredient);
-                    recipeIngredient.setQuantity(DEFAULT_QUANTITY);
-                    recipeIngredient.setUnit(DEFAULT_UNIT);
-
-                    recipeIngredients.add(recipeIngredient);
-                }
-                recipe.setRecipeIngredients(recipeIngredients);
+                addRecipeIngredient(recipeLine[5], recipe);
                 recipeRepository.save(recipe);
             }
         } catch (IOException ioException) {
@@ -121,4 +103,28 @@ public class InitializerController {
         return recipe;
     }
 
+    private void addRecipeIngredient(String recipeLine, Recipe recipe) {
+
+        Set<RecipeIngredient> recipeIngredients = new HashSet<>();
+
+        for (String ingredientName : recipeLine.split(", ")) {
+            Ingredient ingredient = ingredientCache.get(ingredientName);
+
+            if (ingredient == null) {
+                System.out.println("Ingredient niet gevonden: " + ingredientName);
+                continue;
+            }
+
+            RecipeIngredient recipeIngredient = new RecipeIngredient();
+            recipeIngredient.setRecipe(recipe);
+            recipeIngredient.setIngredient(ingredient);
+            recipeIngredient.setQuantity(DEFAULT_QUANTITY);
+            recipeIngredient.setUnit(DEFAULT_UNIT);
+
+            recipeIngredients.add(recipeIngredient);
+
+        }
+        recipe.setRecipeIngredients(recipeIngredients);
+
+    }
 }

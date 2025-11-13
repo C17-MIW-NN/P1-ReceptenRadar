@@ -1,36 +1,32 @@
 <!DOCTYPE html>
-
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Ingredients</title>
+    <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+        <title>Ingredients</title>
+    </head>
 
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.min.css}">
+    <body>
+        <div th:replace="~{fragments/general :: navbar}"></div>
 
-</head>
+        <div class="container">
+            <h1>Overview of all ingredients</h1>
 
-<body>
-<div th:replace="~{fragments/general :: navbar}"></div>
-
-<div class="container">
-    <h1>Overview of all ingredients</h1>
-
-    <div class="ingredient-card-display row">
-        <div th:each="ingredient : ${allIngredients}" class="mb-4">
-            <div class=" card text-center" style="width: 18rem;">
-                <div class="card-body">
-                    <p th:text="${ingredient.ingredientName}"></p>
+            <div class="ingredient-card-display row">
+                <div th:each="ingredient : ${allIngredients}" class="mb-4">
+                    <div class=" card text-center" style="width: 18rem;">
+                        <div class="card-body">
+                            <p th:text="${ingredient.ingredientName}"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <a th:href="@{/ingredient/add}" class="btn btn-primary">Add ingredient</a>
         </div>
-    </div>
 
-    <a th:href="@{/ingredient/add}" class="btn btn-primary">Add ingredient</a>
-</div>
+        <div th:replace="~{fragments/general :: footer}"></div>
 
-<div th:replace="~{fragments/general :: footer}"></div>
-<div th:replace="~{fragments/general :: bottomScripts}"></div>
-</body>
+        <div th:replace="~{fragments/general :: bottomScripts}"></div>
+    </body>
+
 </html>
