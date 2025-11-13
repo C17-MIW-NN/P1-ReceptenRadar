@@ -3,7 +3,7 @@
 
     <head th:fragment="baseheader(title)">
         <meta charset="UTF-8">
-        <title th:replace="${title}">This is the base title</title>
+        <title th:replace="${title}">Receptenradar</title>
 
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.min.css}">
@@ -16,10 +16,10 @@
             <div class="container-fluid justify-content-center">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/recipe/all}">Recipes</a>
+                        <a class="nav-link" th:href="@{/recipe/all}">Recepten</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/ingredient/all}">Ingredients</a>
+                        <a class="nav-link" th:href="@{/ingredient/all}">Ingrediënten</a>
                     </li>
                 </ul>
             </div>

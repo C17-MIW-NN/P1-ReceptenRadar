@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
     <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
-        <title>Ingredients</title>
+        <title>Ingrediënten</title>
     </head>
 
     <body>
         <div th:replace="~{fragments/general :: navbar}"></div>
 
         <div class="container">
-            <h1>Overview of all ingredients</h1>
+            <h1>Overzicht van alle ingrediënten</h1>
 
             <div class="ingredient-card-display row">
                 <div th:each="ingredient : ${allIngredients}" class="mb-4">
@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <a th:href="@{/ingredient/add}" class="btn btn-primary">Add ingredient</a>
+            <a th:href="@{/ingredient/add}" class="btn btn-primary">Nieuw ingrediënt</a>
         </div>
 
         <div th:replace="~{fragments/general :: footer}"></div>
