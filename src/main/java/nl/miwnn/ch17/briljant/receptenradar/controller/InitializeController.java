@@ -21,7 +21,7 @@ import java.util.*;
  */
 
 @Controller
-public class InitializerController {
+public class InitializeController {
     private static final String SAMPLEDATA_INGREDIENTS_CSV = "/sampledata/ingredients.csv";
     private static final String SAMPLEDATA_RECIPES_CSV = "/sampledata/recipes.csv";
     private static final double DEFAULT_QUANTITY = 1.0;
@@ -31,7 +31,7 @@ public class InitializerController {
     private final IngredientRepository ingredientRepository;
     private final Map<String, Ingredient> ingredientCache;
 
-    public InitializerController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository) {
+    public InitializeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         ingredientCache = new HashMap<>();
