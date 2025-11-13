@@ -10,7 +10,7 @@
 
 <div class="container">
 
-    <form th:object="${recipe}" action="#" method="post" th:action="@{/description/save}">
+    <form th:object="${direction}" action="#" method="post" th:action="@{/description/save}">
         <div id="step-container">
             <div th:each="String, iter : *{steps}">
                 <label For="NextStep">Step [[${iter.index}+1]]:</label>

@@ -29,14 +29,14 @@ public class Recipe {
 
     private String imageUrl;
 
-    @ElementCollection
-    private List<String> steps = new ArrayList<>();
-
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RecipeIngredient> recipeIngredients = new HashSet<>();
 
     @ManyToMany
     private Set<Category> categories = new HashSet<>();
+
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Direction> directions = new ArrayList<>();
 
     public Long getRecipeId() {
         return recipeId;
@@ -100,13 +100,5 @@ public class Recipe {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
-    }
-
-    public List<String> getSteps() {
-        return steps;
-    }
-
-    public void setSteps(List<String> steps) {
-        this.steps = steps;
     }
 }

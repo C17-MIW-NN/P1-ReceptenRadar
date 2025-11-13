@@ -1,6 +1,6 @@
 package nl.miwnn.ch17.briljant.receptenradar.controller;
 
-import nl.miwnn.ch17.briljant.receptenradar.model.Recipe;
+import nl.miwnn.ch17.briljant.receptenradar.model.Direction;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.DirectionsRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,25 +25,23 @@ public class DirectionsController {
 
     @GetMapping
     public String showDirectionsForm(Model datamodel) {
-        Recipe recipe = new Recipe();
-        datamodel.addAttribute("recipe", recipe);
+        Direction direction = new Direction();
+        datamodel.addAttribute("direction", direction);
 
         return "DirectionsForm";
     }
 
     @PostMapping("/add-step")
-    public String addStep(@ModelAttribute Recipe recipe, Model model) {
+    public String addStep(@ModelAttribute Direction direction, Model datamodel) {
         // Add a new empty step to the list
-        recipe.getSteps().add("");
-        model.addAttribute("recipe", recipe);
+        direction.getSteps().add("");
+        datamodel.addAttribute("direction", direction);
         return "DirectionsForm";
     }
 
     @PostMapping("/save")
-    public String saveRecipe(@ModelAttribute Recipe recipe) {
-        // TODO: persist or process recipe
-        System.out.println("Recept opgeslagen: " + recipe.getRecipeName());
-        recipe.getSteps().forEach(step -> System.out.println(" - " + step));
+    public String saveRecipe(@ModelAttribute Direction direction) {
+        direction.getSteps().forEach(step -> System.out.println(" - " + step));
         return "redirect:/recipeOverview";
     }
 }
