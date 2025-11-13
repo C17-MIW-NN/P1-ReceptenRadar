@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add the directions for a recipe</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.min.css}">
+
+    <script>
+        // Function to add a new step input dynamically
+        function addStep() {
+            const stepsContainer = document.getElementById("steps-container");
+
+            // Count current step inputs to know the index for the new one
+            const index = stepsContainer.querySelectorAll(".step").length;
+
+            // Create a wrapper div for the new step
+            const newStepDiv = document.createElement("div");
+            newStepDiv.classList.add("step");
+
+            // Create label and input
+            newStepDiv.innerHTML = `
+                <label>Step ${index + 1}:</label>
+                <input type="text" name="steps[${index}].description" />
+            `;
+
+            stepsContainer.appendChild(newStepDiv);
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+
+    <form th:object="${recipe}" action="#" method="post" th:action="@{/description/save}">
+        <label For="RecipeName">Name:</label>
+        <input type="text" id="RecipeName" th:field="*{name}">
+
+        <div id="step-container">
+            <div th:each="String, iter : *{steps}">
+                <label For="NextStep">Step [[${iter.index}+1]]:</label>
+                <input type="text" id="NextStep" th:field="*{steps[__${iter.index}__]}">
+<!--                <input type="text" id="NextStep" th:field="*{steps[__${iter.index}__].description}"/>-->
+            </div>
+        </div>
+
+        <button type="submit" formaction="/directions/add-step">Voeg een stap toe</button>
+        <button type="submit" formaction="/directions/save">Bewaar recept</button>
+    </form>
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+</body>
+</html>
