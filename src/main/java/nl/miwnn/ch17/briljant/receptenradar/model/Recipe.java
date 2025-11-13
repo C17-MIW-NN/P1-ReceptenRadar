@@ -2,6 +2,7 @@ package nl.miwnn.ch17.briljant.receptenradar.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +28,9 @@ public class Recipe {
     private int calories;
 
     private String imageUrl;
+
+    @ElementCollection
+    private List<String> steps = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RecipeIngredient> recipeIngredients = new HashSet<>();
@@ -96,5 +100,13 @@ public class Recipe {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public List<String> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<String> steps) {
+        this.steps = steps;
     }
 }

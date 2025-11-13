@@ -1,6 +1,6 @@
 package nl.miwnn.ch17.briljant.receptenradar.controller;
 
-import nl.miwnn.ch17.briljant.receptenradar.model.MockRecipe;
+import nl.miwnn.ch17.briljant.receptenradar.model.Recipe;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,7 @@ class DirectionsControllerTest {
     void testTheAmountOfStringsPresentInDirectionsArrayList() {
         int expectedAmountOfStrings = 2;
 
-        MockRecipe recipe = new MockRecipe();
+        Recipe recipe = new Recipe();
         recipe.getSteps().add("Preheat oven to 180°C");
         recipe.getSteps().add("Mix ingredients");
 
