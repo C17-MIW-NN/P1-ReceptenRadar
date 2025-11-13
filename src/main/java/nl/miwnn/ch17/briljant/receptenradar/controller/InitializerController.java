@@ -52,7 +52,7 @@ public class InitializerController {
     private void loadIngredients() {
         try (CSVReader reader = new CSVReader(new FileReader(new ClassPathResource(SAMPLEDATA_INGREDIENTS_CSV)
                 .getFile()))) {
-            // First line contains the header so we skip this line
+
             reader.skip(1);
 
             for (String[] ingredientLine : reader) {
