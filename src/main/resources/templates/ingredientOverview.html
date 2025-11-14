@@ -15,7 +15,10 @@
                 <div th:each="ingredient : ${allIngredients}" class="mb-4">
                     <div class=" card text-center" style="width: 18rem;">
                         <div class="card-body">
-                            <p th:text="${ingredient.ingredientName}"></p>
+                            <a th:href="@{/ingredient/edit/{ingredientName}(ingredientName =
+                                ${ingredient.ingredientName})}">
+                                <p th:text="${ingredient.ingredientName}"></p>
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -1,15 +1,15 @@
 package nl.miwnn.ch17.briljant.receptenradar.controller;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+import nl.miwnn.ch17.briljant.receptenradar.model.Category;
 import nl.miwnn.ch17.briljant.receptenradar.model.Ingredient;
-import nl.miwnn.ch17.briljant.receptenradar.model.Recipe;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.IngredientRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 /**
  * @author Iris Loermans
@@ -34,9 +34,24 @@ public class IngredientController {
 
     @GetMapping("/add")
     public String showRecipeForm(Model datamodel) {
-        datamodel.addAttribute("formIngredient", new Ingredient());
+        return showIngredientForm(datamodel, new Ingredient());
+    }
 
-        return ("ingredientForm");
+    @GetMapping("/edit/{ingredientName}")
+    public String showEditIngredientForm(@PathVariable("ingredientName") String ingredientName, Model datamodel) {
+        Optional<Ingredient> optionalIngredient = ingredientRepository.findByIngredientName(ingredientName);
+
+        if (optionalIngredient.isPresent()) {
+            return showIngredientForm(datamodel, optionalIngredient.get());
+        }
+
+        return ("redirect:/ingredient/all");
+    }
+
+    private String showIngredientForm(Model datamodel, Ingredient ingredient) {
+        datamodel.addAttribute("formIngredient", ingredient);
+
+        return "ingredientForm";
     }
 
     @PostMapping("/save")
