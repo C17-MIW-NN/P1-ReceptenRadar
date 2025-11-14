@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
-    <title>Nieuwe categorie</title>
+    <title th:if="${formCategory.categoryId == null}">ReceptenRadar | Nieuwe category</title>
+    <title th:unless="${formCategory.categoryId == null}" th:text="'ReceptenRadar | ' + ${formCategory.categoryName}"></title>
 </head>
 
 <body>

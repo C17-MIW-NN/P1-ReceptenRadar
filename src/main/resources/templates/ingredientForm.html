@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
     <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
-        <title>ReceptenRadar | Nieuw Ingrediënt</title>
+        <title th:if="${formIngredient.ingredientId == null}">ReceptenRadar | Nieuw Ingrediënt</title>
+        <title th:unless="${formIngredient.ingredientId == null}" th:text="'ReceptenRadar | ' + ${formIngredient.ingredientName}"></title>
     </head>
 
     <body>
