@@ -36,7 +36,8 @@ public class InitializeController {
     private final Map<String, Ingredient> ingredientCache;
     private final Map<String, Category> categoryCache;
 
-    public InitializeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository,
+    public InitializeController(RecipeRepository recipeRepository,
+                                IngredientRepository ingredientRepository,
                                 CategoryRepository categoryRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
@@ -100,12 +101,7 @@ public class InitializeController {
 
             for (String[] recipeLine : reader) {
 
-                Recipe recipe = makeRecipe(
-                        recipeLine[0],
-                        Integer.parseInt(recipeLine[1]),
-                        Integer.parseInt(recipeLine[2]),
-                        Integer.parseInt(recipeLine[3]),
-                        recipeLine[4]);
+                Recipe recipe = makeRecipe(recipeLine);
 
                 addRecipeIngredient(recipeLine[5], recipe);
 
@@ -118,15 +114,14 @@ public class InitializeController {
         }
     }
 
-    private Recipe makeRecipe(String recipeName, int preparationTime, int forAmountOfPeople, int calories,
-                             String coverImageUrl) {
+    private Recipe makeRecipe(String[] recipeLine) {
         Recipe recipe = new Recipe();
 
-        recipe.setRecipeName(recipeName);
-        recipe.setPreparationTime(preparationTime);
-        recipe.setForAmountOfPeople(forAmountOfPeople);
-        recipe.setCalories(calories);
-        recipe.setImageUrl(coverImageUrl);
+        recipe.setRecipeName(recipeLine[0]);
+        recipe.setPreparationTime(Integer.parseInt(recipeLine[1]));
+        recipe.setForAmountOfPeople(Integer.parseInt(recipeLine[2]));
+        recipe.setCalories(Integer.parseInt(recipeLine[3]));
+        recipe.setImageUrl(recipeLine[4]);
         recipe.setRecipeIngredients(new HashSet<>());
 
         return recipe;
@@ -161,9 +156,15 @@ public class InitializeController {
 
         for (String categoryName : recipeLine.split(", ")) {
             Category category = categoryCache.get(categoryName);
+
+            if (category == null) {
+                System.out.println("Categorie niet gevonden: " + categoryName);
+                continue;
+            }
+
             categories.add(category);
         }
-        recipe.setCategories(categories);
 
+        recipe.setCategories(categories);
     }
 }
