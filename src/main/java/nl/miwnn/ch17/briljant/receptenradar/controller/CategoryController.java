@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 /**
- * @author Iris Loermans
- * Handle requests regarding ingredients.
+ * @author Johan Elzinga
+ * Handle requests regarding categories.
  */
 
 @Controller
