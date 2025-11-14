@@ -1,16 +1,14 @@
 package nl.miwnn.ch17.briljant.receptenradar.controller;
 
 import nl.miwnn.ch17.briljant.receptenradar.model.Category;
-import nl.miwnn.ch17.briljant.receptenradar.model.Ingredient;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.CategoryRepository;
-import nl.miwnn.ch17.briljant.receptenradar.repositories.IngredientRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 /**
  * @author Iris Loermans
@@ -36,16 +34,41 @@ public class CategoryController {
 
     @GetMapping("/add")
     public String showCategoryForm(Model datamodel) {
-        datamodel.addAttribute("formCategory", new Category());
+        return showCategoryForm(datamodel, new Category());
+    }
 
-        return ("categoryForm");
+    @GetMapping("/edit/{categoryName}")
+    public String showEditCategoryForm(@PathVariable("categoryName") String categoryName, Model datamodel) {
+        Optional<Category> optionalCategory = categoryRepository.findByCategoryName(categoryName);
+
+        if (optionalCategory.isPresent()) {
+            return showCategoryForm(datamodel, optionalCategory.get());
+        }
+
+        return ("redirect:/category/all");
+    }
+
+    private String showCategoryForm(Model datamodel, Category category) {
+        datamodel.addAttribute("formCategory", category);
+
+        return "categoryForm";
     }
 
     @PostMapping("/save")
-    public String saveOrUpdateCategpry (@ModelAttribute("formCatagory") Category category, BindingResult result) {
-        if (!result.hasErrors()) {
-            categoryRepository.save(category);
+    public String saveOrUpdateCategpry (@ModelAttribute("formCatagory") Category categoryToBeSaved,
+                                        BindingResult result,
+                                        Model datamodel) {
+        Optional<Category> categoryWithSameName = categoryRepository
+                                                    .findByCategoryName(categoryToBeSaved.getCategoryName());
+        if (categoryWithSameName.isPresent() &&
+                !categoryWithSameName.get().getCategoryId().equals(categoryToBeSaved.getCategoryId())) {
+            result.addError(new FieldError("Category", "categoryName", "deze category bestaat al."));
         }
+
+        if (result.hasErrors()) {
+            return showCategoryForm(datamodel, categoryToBeSaved);
+        }
+        categoryRepository.save(categoryToBeSaved);
 
         return ("redirect:/category/all");
     }

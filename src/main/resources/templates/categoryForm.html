@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+    <title>Nieuwe categorie</title>
+</head>
+
+<body>
+<div th:replace="~{fragments/general :: navbar}"></div>
+
+<div class="container">
+    <h1 th:if="${formCategory.categoryId == null}">Voeg een nieuwe category toe</h1>
+    <h1 th:unless="${formCategory.categoryId == null}" th:text="|Wijzig ${formCategory.categoryName}|"></h1>
+
+    <form th:action="@{/category/save}" th:object="${formCategory}" method="post">
+        <input type="hidden" th:field="*{categoryId}">
+        <label for="categoryName">Hoe wil je deze category noemen?:</label>
+        <input type="text" th:field="*{categoryName}" id="categoryName">
+        <input type="submit" value="Opslaan">
+    </form>
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+</body>
+
+</html>
