@@ -26,6 +26,14 @@ public class Direction {
         this.steps = steps;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public List<String> getSteps() {
         return steps;
     }
