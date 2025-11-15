@@ -13,8 +13,6 @@
             <h1 th:if="${formIngredient.ingredientId == null}">Voeg een nieuw ingrediënt toe</h1>
             <h1 th:unless="${formIngredient.ingredientId == null}" th:text="|Wijzig ${formIngredient.ingredientName}|"></h1>
 
-<!--            <h1>Voeg een nieuw ingrediënt toe</h1>-->
-
             <form th:action="@{/ingredient/save}" th:object="${formIngredient}" method="post">
                 <input type="hidden" th:field="*{ingredientId}">
                 <label for="ingredientName">Welk ingrediënt wil je toevoegen?:</label>

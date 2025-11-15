@@ -55,8 +55,8 @@ public class InitializeController {
 
     private void initializeDatabase() {
         loadIngredients();
-        loadRecipes();
         loadCategories();
+        loadRecipes();
     }
 
     private void loadIngredients() {

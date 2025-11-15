@@ -7,13 +7,17 @@
 
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.min.css}">
-
-        <link rel="stylesheet" type="text/css" href="/css/receptenradar.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" >
+        <link rel="stylesheet" th:href="@{/css/receptenradar.css}">
     </head>
 
     <body>
-        <div th:fragment="navbar" class="navbar bg-body-tertiary">
-            <div class="container-fluid justify-content-center">
+        <div th:fragment="navbar" class="navbar customNavbar">
+            <div class="container">
+                <a class="navbar-logo" href="/">
+                    <img src="/images/logoReceptenRadar.png" alt="Recepten Radar" height="64" >
+                </a>
+
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/recipe/all}">Recepten</a>
@@ -67,6 +71,31 @@
                 </div>
             </div>
         </div>
+
+    <div th:fragment="recipeOverviewCard">
+        <div class = "recipeOverviewCard">
+
+            <div class="image-wrapper">
+                <a th:href="@{/recipe/detail/{recipeName}(recipeName=${recipe.recipeName})}">
+                    <img th:src="${recipe.imageUrl}" alt="Image not found">
+                </a>
+            </div>
+
+            <Div class="recipeOverviewCardInfo">
+                <p><i class="bi bi-clock"></i> <span th:text="${recipe.preparationTime}"></span> Min.</p>
+                <p><i class="bi bi-people-fill"></i> <span th:text="${recipe.forAmountOfPeople}"></span></p>
+                <p><i class="bi bi-fire"></i> <span th:text="${recipe.calories}"></span></p></div>
+
+            <h2 class="card-title"><span th:text="${recipe.recipeName}"></span></h2>
+
+
+        </div>
+    </div>
+
+
+
     </body>
+
+
 
 </html>

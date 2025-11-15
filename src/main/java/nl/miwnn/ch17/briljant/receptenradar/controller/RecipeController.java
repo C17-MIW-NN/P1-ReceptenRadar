@@ -42,6 +42,7 @@ public class RecipeController {
         ArrayList<Recipe> recipes = new ArrayList<>(recipeRepository.findAll());
 
         datamodel.addAttribute("allRecipes", recipeRepository.findAll());
+        datamodel.addAttribute("formRecipe", new Recipe());
 
         return "recipeOverview";
     }
