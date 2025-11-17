@@ -1,19 +1,36 @@
-// Function to add a new step input dynamically
-function addStep() {
-    const stepsContainer = document.getElementById("steps-container");
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('step-container');
+    const addBtn = document.getElementById('add-step-btn');
 
-    // Count current step inputs to know the index for the new one
-    const index = stepsContainer.querySelectorAll(".step").length;
+    function renumber() {
+        container.querySelectorAll('.step-row').forEach((row, i) => {
+            row.querySelector('.step-label').textContent = `Step ${i + 1}:`;
+            row.querySelector('input').name = `steps[${i}]`;
+        });
+    }
 
-    // Create a wrapper div for the new step
-    const newStepDiv = document.createElement("div");
-    newStepDiv.classList.add("step");
+    addBtn.addEventListener('click', () => {
+        const div = document.createElement('div');
+        div.classList.add('step-row');
+        div.innerHTML = `
+            <label class="step-label"></label>
+            <input type="text" />
+            <button type="button" class="remove-step-btn">Remove</button>
+        `;
+        container.appendChild(div);
 
-    // Create label and input
-    newStepDiv.innerHTML = `
-                <label>Step ${index + 1}:</label>
-                <input type="text" name="steps[${index}].description" />
-            `;
+        div.querySelector('.remove-step-btn').addEventListener('click', () => {
+            div.remove();
+            renumber();
+        });
 
-    stepsContainer.appendChild(newStepDiv);
-}
+        renumber();
+    });
+
+    container.querySelectorAll('.remove-step-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            btn.closest('.step-row').remove();
+            renumber();
+        });
+    });
+});

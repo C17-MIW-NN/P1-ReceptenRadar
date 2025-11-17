@@ -1,65 +1,68 @@
 package nl.miwnn.ch17.briljant.receptenradar.controller;
 
-import nl.miwnn.ch17.briljant.receptenradar.model.Direction;
 import nl.miwnn.ch17.briljant.receptenradar.model.Recipe;
-import nl.miwnn.ch17.briljant.receptenradar.repositories.DirectionsRepository;
+import nl.miwnn.ch17.briljant.receptenradar.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 
 /**
  * @author Iris Loermans
- * Handles requests regarding Directions.
+ * Handles requests regarding the directions from a specific recipe.
  */
 
 @Controller
-@RequestMapping("/directions")
+@RequestMapping("/recipe/detail/{recipeName}")
 public class DirectionsController {
-    private DirectionsRepository directionsRepository;
+    private final RecipeRepository recipeRepository;
 
-    public DirectionsController(DirectionsRepository directionsRepository) {
-        this.directionsRepository = directionsRepository;
+    public DirectionsController(RecipeRepository recipeRepository) {
+        this.recipeRepository = recipeRepository;
     }
 
-    @GetMapping
-    public String showDirectionsForm(Model datamodel) {
-        datamodel.addAttribute("direction", new Direction());
+    @GetMapping("/directions")
+    public String showDirectionsForm(@PathVariable("recipeName") String recipeName, Model datamodel) {
+        Optional<Recipe> recipeToShow = recipeRepository.findByRecipeName(recipeName);
 
-        return "DirectionsForm";
-    }
+        if (recipeToShow.isPresent()) {
+            Recipe recipe = recipeToShow.get();
 
-    public String showDirectionsForm (Model datamodel, Direction direction) {
-        datamodel.addAttribute("DirectionForm", direction);
-        datamodel.addAttribute("allDirections", directionsRepository.findAll());
-
-        return "DirectionForm";
-    }
-
-    @PostMapping("/add-step")
-    public String addStep(@ModelAttribute Direction direction, Model datamodel) {
-        // Add a new empty step to the list
-        direction.getSteps().add("");
-        datamodel.addAttribute("direction", direction);
-        return "DirectionsForm";
-    }
-
-    @PostMapping("/save")
-    public String saveOrUpdateRecipe(@ModelAttribute ("DirectionsForm") Direction directionToBeSaved,
-                                     BindingResult result, Model datamodel) {
-
-            directionsRepository.save(directionToBeSaved);
-
-            if (!result.hasErrors()) {
-                directionsRepository.save(directionToBeSaved);
+            if (recipe.getSteps() == null) {
+                recipe.setSteps(new ArrayList<>());
             }
 
-        return "redirect:/recipe/detail/" + directionToBeSaved;
+            if (recipe.getDirections() != null && !recipe.getDirections().isEmpty()) {
+                recipe.setSteps(new ArrayList<>(Arrays.asList(recipe.getDirections().split(";"))));
+            }
+
+            if (recipe.getSteps().isEmpty() || !recipe.getSteps().get(recipe.getSteps().size() - 1).isEmpty()) {
+                recipe.getSteps().add("");
+            }
+
+            datamodel.addAttribute("recipe", recipe);
+            return "DirectionsForm";
+        }
+        return "redirect:/recipe/detail/{recipeName}";
+    }
+
+    @PostMapping("/directions/save")
+    public String saveOrUpdateRecipe(
+            @PathVariable("recipeName") String recipeName,
+            @ModelAttribute Recipe recipeToSave) {
+
+        Recipe recipe = recipeRepository.findByRecipeName(recipeName)
+                .orElseThrow(() -> new RuntimeException("Recipe not found"));
+
+        String directions = String.join(";", recipeToSave.getSteps());
+        recipe.setDirections(directions);
+
+        recipeRepository.save(recipe);
+
+        return "redirect:/recipe/detail/" + recipeName;
     }
 }
+

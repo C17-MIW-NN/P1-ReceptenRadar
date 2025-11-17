@@ -5,25 +5,31 @@
     <title>Directions</title>
 </head>
 
-<body>
 <div th:replace="~{fragments/general :: navbar}"></div>
 
 <div class="container">
 
-    <form th:object="${direction}" action="#" method="post" th:action="@{/description/save}">
+    <form th:object="${recipe}" class="form" action="#" method="post"
+          th:action="@{/recipe/detail/{recipeName}/directions/save(recipeName=${recipe.recipeName})}">
+
         <div id="step-container">
-            <div th:each="String, iter : *{steps}">
-                <label For="NextStep">Step [[${iter.index}+1]]:</label>
-                <input type="text" id="NextStep" th:field="*{steps[__${iter.index}__]}">
+            <div class="step-row" th:each="step, iter : *{steps}">
+                <label class="step-label">Step [[${iter.index} + 1]]:</label>
+                <input type="text" th:field="*{steps[__${iter.index}__]}"/>
+                <button type="button" class="remove-step-btn">Remove</button>
             </div>
         </div>
 
-        <button type="submit" formaction="/directions/add-step">Voeg een stap toe</button>
-        <button type="submit" formaction="/directions/save">Bewaar recept</button>
+        <div id="buttons-container" style="margin-top: 1em;">
+            <button type="button" id="add-step-btn">Add Step</button>
+            <button type="submit">Save Recipe</button>
+        </div>
     </form>
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
+<script th:src="@{/js/DirectionsScript.js}"></script>
 </body>
+
 </html>

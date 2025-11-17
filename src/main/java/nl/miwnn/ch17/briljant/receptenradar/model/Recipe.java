@@ -29,14 +29,17 @@ public class Recipe {
 
     private String imageUrl;
 
+    @Column
+    private String directions;
+
+    @Transient
+    private List<String> steps = new ArrayList<>();
+
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RecipeIngredient> recipeIngredients = new HashSet<>();
 
     @ManyToMany
     private List<Category> categories = new ArrayList<>();
-
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Direction> directions = new ArrayList<>();
 
     public Long getRecipeId() {
         return recipeId;
@@ -84,6 +87,22 @@ public class Recipe {
 
     public void setImageUrl(String coverImageUrl) {
         this.imageUrl = coverImageUrl;
+    }
+
+    public String getDirections() {
+        return directions;
+    }
+
+    public void setDirections(String directions) {
+        this.directions = directions;
+    }
+
+    public List<String> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<String> steps) {
+        this.steps = steps;
     }
 
     public Set<RecipeIngredient> getRecipeIngredients() {
