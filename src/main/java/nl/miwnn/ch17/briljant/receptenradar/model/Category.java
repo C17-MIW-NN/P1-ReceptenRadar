@@ -1,10 +1,6 @@
 package nl.miwnn.ch17.briljant.receptenradar.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-
+import jakarta.persistence.*;
 import java.util.Set;
 
 /**
@@ -18,6 +14,7 @@ public class Category {
     @Id @GeneratedValue
     private Long categoryId;
 
+    @Column(unique=true)
     private String categoryName;
 
     @ManyToMany(mappedBy = "categories")

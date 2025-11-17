@@ -33,7 +33,7 @@ public class Recipe {
     private Set<RecipeIngredient> recipeIngredients = new HashSet<>();
 
     @ManyToMany
-    private Set<Category> categories = new HashSet<>();
+    private List<Category> categories = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Direction> directions = new ArrayList<>();
@@ -94,11 +94,11 @@ public class Recipe {
         this.recipeIngredients = recipeIngredients;
     }
 
-    public Set<Category> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 }

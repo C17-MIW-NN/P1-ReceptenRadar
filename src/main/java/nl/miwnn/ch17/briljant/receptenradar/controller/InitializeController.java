@@ -152,7 +152,7 @@ public class InitializeController {
     }
 
     private void addCategory(String recipeLine, Recipe recipe) {
-        Set<Category> categories = new HashSet<>();
+        List<Category> categories = new ArrayList<>();
 
         for (String categoryName : recipeLine.split(", ")) {
             Category category = categoryCache.get(categoryName);
