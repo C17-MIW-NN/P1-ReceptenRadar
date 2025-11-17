@@ -96,6 +96,28 @@ body {
     font-size: 14px;
 }
 
+.category-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-width: 70px;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    background-color: rgba(95, 137, 29, 0.8);
+    border: none;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.category-link:hover {
+    background-color: rgba(95, 137, 29, 1.0);
+}
+
+
 .newRecipeContainer {
     display : flex;
     justify-content: center;
@@ -137,7 +159,7 @@ button {
     border-radius: 6px;
     overflow: hidden;
     padding: 0;
-    background-color: rgba(95, 137, 29, 0.6);
+    background-color: rgba(95, 137, 29, 0.8);
     border: none;
     box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
 
@@ -156,11 +178,14 @@ button {
     width: 100%;
     height: 100%;
     border: none;
-    background-color: #5f891d;
+    background-color: rgba(95, 137, 29, 0.8);
     color: white;
     font-size: 18px;
     cursor: pointer;
     border-radius: 0;
+}
+#button button:hover {
+    background-color: rgba(95, 137, 29, 1.0);
 }
 
 .formCategoryIngredient {
