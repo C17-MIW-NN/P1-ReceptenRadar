@@ -55,9 +55,9 @@ public class CategoryController {
     }
 
     @PostMapping("/save")
-    public String saveOrUpdateCategpry (@ModelAttribute("formCatagory") Category categoryToBeSaved,
-                                        BindingResult result,
-                                        Model datamodel) {
+    public String saveOrUpdateCategory(@ModelAttribute("formCatagory") Category categoryToBeSaved,
+                                       BindingResult result,
+                                       Model datamodel) {
         Optional<Category> categoryWithSameName = categoryRepository
                                                     .findByCategoryName(categoryToBeSaved.getCategoryName());
         if (categoryWithSameName.isPresent() &&

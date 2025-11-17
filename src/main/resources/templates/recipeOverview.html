@@ -25,12 +25,13 @@
 
         <div class="container">
             <div class="container-title">
-             <h1>Alle recepten</h1>
-
+                <h1>Alle recepten</h1>
             </div>
 
-            <div class="row">
-                <div th:each="recipe : ${allRecipes}" class="col-3 mb-4">
+            <div th:replace="~{fragments/general :: categorySelector}"></div>
+
+            <div class="container-body">
+                <div th:each="recipe : ${allRecipes}" class="container-body-cards">
                     <div th:replace="~{fragments/general :: recipeOverviewCard}"></div>
                 </div>
             </div>

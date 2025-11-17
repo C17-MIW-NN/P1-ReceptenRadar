@@ -1,12 +1,6 @@
 body {
-    background-color:#eae3da;
-    font-family:"Noto Sans", sans-serif;
-}
-
-.container-fluid {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: #eae3da;
+    font-family: "Noto Sans", sans-serif;
 }
 
 .container-title {
@@ -19,23 +13,20 @@ body {
     margin-bottom: 2rem;
 }
 
-.container-title .btn{
-    background-color: #5f891d;
-    color: #eae3da;
-    border: none;
- }
+.container-body{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
 
-.navbar.customNavbar{
-      background-color: #d81b1b;
+.customNavbar{
+      background-color: #5e881d;
       height: 100px;
   }
 
-.navbar {
-    padding: 10px 0;
-    border-bottom: 1px solid #cbcdd3;
-}
-
-.nav-link {
+.navLink {
     font-size: 17px;
     font-weight: 600;
     margin: 0 15px;
@@ -44,19 +35,19 @@ body {
     text-transform: uppercase;
 }
 
-.nav-link:hover {
+.navLink:hover {
     color: #ffffff;
     text-decoration: underline;
 }
 
-.nav-link.active {
+.navLink.active {
     color: #ffffff;
     border-bottom: 2px solid #ffffff;
 }
 
 .recipeOverviewCard {
     width: 300px;
-    height: 320px;
+    height: 360px;
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
@@ -84,26 +75,32 @@ body {
 }
 
 .recipeOverviewCardInfo {
-    height: 30px;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    text-align: center;
+    height: 30px;
     gap: 24px;
     font-size: 14px;
     color: #555;
     margin-top: 8px;
     background-color: #f2f2f2;
-    padding: 6px 10px;
     border-radius: 6px;
+}
+
+.recipeOverviewCategories{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 30px;
+    gap: 16px;
+    font-size: 14px;
 }
 
 .newRecipeContainer {
     display : flex;
     justify-content: center;
     align-items: center;
-    height: 400px;
-
+    height: 300px;
     background-image:url("../images/healthy-food-table.webp") ;
     background-repeat: no-repeat;
     background-size: cover;
@@ -133,6 +130,17 @@ form {
     height: 100%;
     border: none;
     padding-left: 30px;
+}
+
+button {
+    width: 70px;
+    border-radius: 6px;
+    overflow: hidden;
+    padding: 0;
+    background-color: rgba(95, 137, 29, 0.6);
+    border: none;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+
 }
 
 #button {
