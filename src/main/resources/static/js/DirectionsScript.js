@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         div.innerHTML = `
             <label class="step-label"></label>
             <input type="text" />
-            <button type="button" class="remove-step-btn">Remove</button>
+            <button type="button" class="remove-step-btn button-styling">Remove</button>
         `;
         container.appendChild(div);
 

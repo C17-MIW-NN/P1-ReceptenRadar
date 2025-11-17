@@ -206,6 +206,7 @@ button {
     overflow: hidden;
     padding: 0;
     background-color: rgba(95, 137, 29, 0.8);
+    color: white;
     border: none;
     box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
 
@@ -283,5 +284,42 @@ button {
 .close:focus {
     color: #000;
     text-decoration: none;
+    cursor: pointer;
+}
+
+/*CSS voor de directions form*/
+.form-directions {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: start;
+    width:70%;
+    height: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+#step-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+    width: 30%;
+    gap: 16px;
+}
+
+.button-styling {
+    padding: 5px;
+    width: 115px;
+    border-radius: 6px;
+    background-color: rgba(95, 137, 29, 0.8);
+    border: none;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
     cursor: pointer;
 }
