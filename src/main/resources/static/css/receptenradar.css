@@ -3,6 +3,10 @@ body {
     font-family: "Noto Sans", sans-serif;
 }
 
+.container {
+    max-width: 1200px;
+}
+
 .container-title {
     display: flex;
     align-items: center;
@@ -13,12 +17,37 @@ body {
     margin-bottom: 2rem;
 }
 
+.categorySelector{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    margin-top: -1rem;
+    max-height: 100px;
+}
+
 .container-body{
     display: flex;
     justify-content: start;
     align-items: center;
     gap: 2rem;
     flex-wrap: wrap;
+}
+
+.editRecipeForm{
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    gap: 1rem;
+    margin-top:300px;
+}
+
+.editRecipeForm form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .customNavbar{
@@ -113,10 +142,27 @@ body {
     transition: background-color 0.2s ease;
 }
 
+.allCategoriesLink{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-width: 70px;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    background-color: rgb(246, 134, 53);
+    border: none;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+}
+
 .category-link:hover {
     background-color: rgba(95, 137, 29, 1.0);
 }
-
 
 .newRecipeContainer {
     display : flex;
@@ -129,7 +175,7 @@ body {
     background-position-y: -200px;
 }
 
-form {
+.newRecipeForm {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -184,6 +230,7 @@ button {
     cursor: pointer;
     border-radius: 0;
 }
+
 #button button:hover {
     background-color: rgba(95, 137, 29, 1.0);
 }
@@ -199,4 +246,42 @@ button {
 
 .formNameLabel, .formNameInput {
     margin-right: 5px
+}
+
+/*CSS for Modal*/
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }

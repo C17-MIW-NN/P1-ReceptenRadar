@@ -50,10 +50,15 @@
                 </ul>
 
                 <a th:href="@{/recipe/edit/{recipeName}(recipeName=${recipe.recipeName})}">Pas aan</a>
-                <a th:href="@{/recipe/detail/{recipeName}/directions(recipeName=${recipe.recipeName})}">
-                    Pas stappenplan aan</a>
+
+
+
+                <a th:href="@{/directions}">Pas stappenplan aan</a>
+
             </div>
         </div>
+
+
 
         <div th:fragment="recipeOverviewCard" class="recipeOverviewCard">
 
@@ -80,13 +85,16 @@
 
         </div>
 
-        <div th:fragment="categorySelector">
-            <a th:each="category : ${categories}"
-               th:href="@{/category/edit/{name}(name=${category.categoryName})}"
+        <div th:fragment="categorySelector" class="categorySelector">
+            <a th:each="category : ${allCategories}"
+               th:href="@{/category/edit/{categoryName}(categoryName=${category.categoryName})}"
                class="category-link">
                 <span th:text="${category.categoryName}"></span>
             </a>
 
+            <a th:href="@{category/all}" class="allCategoriesLink">
+                Alle recepten
+            </a>
         </div>
 
         <div th:fragment="footer" class="footer">
@@ -96,7 +104,43 @@
         <div th:fragment="bottomScripts">
             <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+            <script th:src="@{/js/edit-modal.js}"></script>
         </div>
+
+    <div th:fragment="editRecipeModal">
+        <div id="editRecipeModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="editRecipeForm" th:action="@{/recipe/save}" th:object="${recipe}" method="post">
+
+                    <label for="recipeName">Naam van recept:</label>
+                    <input type="text" th:field="*{recipeName}" id="recipeName" />
+
+                    <label for="preparationTime">Bereidingstijd (in minuten):</label>
+                    <input type="number" th:field="*{preparationTime}" id="preparationTime" />
+
+                    <label for="forAmountOfPeople">Aantal personen:</label>
+                    <input type="number" th:field="*{forAmountOfPeople}" id="forAmountOfPeople" />
+
+                    <label for="calories">Calorieën:</label>
+                    <input type="number" th:field="*{calories}" id="calories" />
+
+                    <label for="imageUrl">Afbeeldings-URL:</label>
+                    <input type="text" th:field="*{imageUrl}" id="imageUrl" />
+
+                    <label for="categories">Categorieën:</label>
+                    <select th:field="*{categories}" multiple id="categories">
+                        <option th:each="categorie : ${allCategories}"
+                                th:value="${categorie.categoryId}"
+                                th:text="${categorie.categoryName}">
+                        </option>
+                    </select>
+
+                    <button type="submit">Opslaan</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 

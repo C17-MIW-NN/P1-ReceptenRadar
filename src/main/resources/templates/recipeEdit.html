@@ -1,52 +1,48 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="https://www.thymeleaf.org">-->
 
-<head th:replace="fragments/general :: baseheader(~{::title})">
+<!--<head th:replace="~{fragments/general :: baseheader(~{:: title})}">-->
+<!--    <title>ReceptenRadar | Recepten </title>-->
+<!--</head>-->
 
-    <title>ReceptenRadar | Pas recept aan</title>
+<!--<body>-->
 
-</head>
+<!--    <div th:replace="~{fragments/general :: navbar}"></div>-->
 
-<body>
+<!--    <div class="container">-->
+<!--                <form id="editRecipeForm" th:action="@{/recipe/save}" th:object="${recipe}" method="post">-->
 
-<div th:replace="~{fragments/general :: navbar}"></div>
+<!--                    <label for="recipeName">Naam van recept:</label>-->
+<!--                    <input type="text" th:field="*{recipeName}" id="recipeName" />-->
 
-<div class="container">
-    <form th:action="@{/recipe/save}" th:object="${recipe}" method="post">
-        <input type="hidden" th:field="*{recipeId}" />
+<!--                    <label for="preparationTime">Bereidingstijd (in minuten):</label>-->
+<!--                    <input type="number" th:field="*{preparationTime}" id="preparationTime" />-->
 
-        <label for="recipeName">Naam van recept:</label>
-        <input type="text" th:field="*{recipeName}" id="recipeName" />
+<!--                    <label for="forAmountOfPeople">Aantal personen:</label>-->
+<!--                    <input type="number" th:field="*{forAmountOfPeople}" id="forAmountOfPeople" />-->
 
-        <label for="preparationTime">Bereidingstijd (in minuten):</label>
-        <input type="number" th:field="*{preparationTime}" id="preparationTime" />
+<!--                    <label for="calories">Calorieën:</label>-->
+<!--                    <input type="number" th:field="*{calories}" id="calories" />-->
 
-        <label for="forAmountOfPeople">Aantal personen:</label>
-        <input type="number" th:field="*{forAmountOfPeople}" id="forAmountOfPeople" />
+<!--                    <label for="imageUrl">Afbeeldings-URL:</label>-->
+<!--                    <input type="text" th:field="*{imageUrl}" id="imageUrl" />-->
 
-        <label for="calories">Calorieën:</label>
-        <input type="number" th:field="*{calories}" id="calories" />
+<!--                    <label for="categories">Categorieën:</label>-->
+<!--                    <select th:field="*{categories}" multiple id="categories">-->
+<!--                        <option th:each="categorie : ${allCategories}"-->
+<!--                                th:value="${categorie.categoryId}"-->
+<!--                                th:text="${categorie.categoryName}">-->
+<!--                        </option>-->
+<!--                    </select>-->
 
-        <label for="imageUrl">Afbeeldings-URL:</label>
-        <input type="text" th:field="*{imageUrl}" id="imageUrl" />
+<!--                    <button type="submit">Opslaan</button>-->
+<!--                </form>-->
+<!--            </div>-->
 
-        <label for="categories">Categorieën:</label>
-        <select th:field="*{categories}" multiple id="categories">
-            <option th:each="categorie : ${allCategories}"
-                    th:value="${categorie.categoryId}"
-                    th:text="${categorie.categoryName}">
-            </option>
-        </select>
+<!--    <div th:replace="~{fragments/general :: footer}"></div>-->
+<!--    <div th:replace="~{fragments/general :: bottomScripts}"></div>-->
 
-        <button type="submit">Opslaan</button>
-    </form>
-
-</div>
-
-<div th:replace="~{fragments/general :: footer}"></div>
-<div th:replace="~{fragments/general :: bottomScripts}"></div>
-
-</body>
+<!--</body>-->
 
 
-</html>
+<!--</html>-->

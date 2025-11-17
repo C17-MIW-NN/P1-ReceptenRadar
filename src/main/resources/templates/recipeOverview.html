@@ -10,7 +10,7 @@
 
         <div class="newRecipeContainer">
 
-                <form th:action="@{/recipe/save}" th:object="${formRecipe}" method="post">
+                <form class="newRecipeForm" th:action="@{/recipe/save}" th:object="${formRecipe}" method="post">
 
                     <div id="field" class="newRecipeContainer-field">
                         <input type="text" th:field="*{recipeName}" id="recipeName" placeholder="Voeg een recept toe">
@@ -28,7 +28,7 @@
                 <h1>Alle recepten</h1>
             </div>
 
-            <div th:replace="~{fragments/general :: categorySelector}"></div>
+<!--            <div th:replace="~{fragments/general :: categorySelector}"></div>-->
 
             <div class="container-body">
                 <div th:each="recipe : ${allRecipes}" class="container-body-cards">
