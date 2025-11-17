@@ -155,14 +155,15 @@ form {
     border-radius: 0;
 }
 
+.formCategoryIngredient {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width:auto;
+    height: 45px;
+}
 
-
-
-
-
-
-
-
-
-
-
+.formNameLabel, .formNameInput {
+    margin-right: 5px
+}

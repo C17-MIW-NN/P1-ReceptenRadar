@@ -13,10 +13,10 @@
     <h1 th:if="${formCategory.categoryId == null}">Voeg een nieuwe category toe</h1>
     <h1 th:unless="${formCategory.categoryId == null}" th:text="|Wijzig ${formCategory.categoryName}|"></h1>
 
-    <form th:action="@{/category/save}" th:object="${formCategory}" method="post">
+    <form class="formCategoryIngredient" th:action="@{/category/save}" th:object="${formCategory}" method="post">
         <input type="hidden" th:field="*{categoryId}">
-        <label for="categoryName">Hoe wil je deze category noemen?:</label>
-        <input type="text" th:field="*{categoryName}" id="categoryName">
+        <label class="formNameLabel" for="categoryName">Hoe wil je deze category noemen?:</label>
+        <input class="formNameInput" type="text" th:field="*{categoryName}" id="categoryName">
         <input type="submit" value="Opslaan">
     </form>
 </div>
