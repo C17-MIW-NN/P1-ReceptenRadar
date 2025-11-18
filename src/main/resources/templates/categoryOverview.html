@@ -12,18 +12,15 @@
 
             <h1>Overzicht van alle categorieën</h1>
 
-            <div class="ingredient-card-display row">
-                <div th:each="category : ${allCategories}" class="mb-4">
-                    <div class="card text-center" style="width: 18rem;">
-                        <div class="card-body">
-                            <a th:href="@{/category/edit/{categoryName}(categoryName = ${category.categoryName})}">
-                                <p th:text="${category.categoryName}"></p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div>
+<!--                <div class="categoryOverview">-->
+                    <a th:each="category : ${allCategories}"
+                       th:href="@{/category/edit/{name}(name = ${category.categoryName})}"
+                       class="category-link">
+                        <span th:text="${category.categoryName}"></span>
+                    </a>
+<!--                </div>-->
             </div>
-
             <a th:href="@{/category/add}" class="btn btn-primary">Nieuwe categorie</a>
 
         </div>

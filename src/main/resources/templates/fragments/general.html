@@ -35,25 +35,33 @@
 
 
         <div th:fragment="recipeDetailCard">
-            <img th:src="${recipe.imageUrl}" class="img-fluid rounded-start" alt="Image not found">
+            <div class="recipeDetailContainerBorder">
+                <div class="recipeDetailContainer">
+                    <div class="recipeName">
+                        <h1><span th:text="${recipe.recipeName}"></span>&nbsp;<i id="openModalButton" class="bi bi-pencil"></i></h1>
 
-            <div class="card-body">
-                <h1 class="card-title"><span th:text="${recipe.recipeName}"></span></h1>
-
-                <p><i class="bi bi-clock"></i><span th:text="${recipe.preparationTime}"></span> Min.</p>
-                <p><i class="bi bi-people-fill"></i><span th:text="${recipe.forAmountOfPeople}"></span></p>
-                <p><i class="bi bi-fire"></i><span th:text="${recipe.calories}"></span></p>
-
-                <p>Categorieën</p>
-                <ul>
-                    <li th:each="category : ${recipe.categories}" th:text="${category.categoryName}"></li>
-                </ul>
-
-                <a th:href="@{/recipe/edit/{recipeName}(recipeName=${recipe.recipeName})}">Pas aan</a>
-                <a th:href="@{/recipe/detail/{recipeName}/directions
-                                                (recipeName=${recipe.recipeName})}">Pas stappenplan aan</a>
-
-
+                    </div>
+                    <div class="recipePicture">
+                        <img th:src="${recipe.imageUrl}" class="img-fluid rounded" alt="Image not found">
+                    </div>
+                    <div class="recipeMetadata">
+                        <p><i class="bi bi-clock"></i>&nbsp;<span th:text="${recipe.preparationTime}"></span> Min.</p>
+                        <p><i class="bi bi-people-fill"></i>&nbsp;<span th:text="${recipe.forAmountOfPeople}"></span></p>
+                        <p><i class="bi bi-fire"></i>&nbsp;<span th:text="${recipe.calories}"></span></p>
+                        <ul>
+                            <li th:each="category : ${recipe.categories}" th:text="${category.categoryName}"></li>
+                        </ul>
+                    </div>
+                    <div class="recipeIngredients">
+                        <h2>Ingredienten:</h2>
+                        <ul>
+                            <li th:each="ingredient : ${recipe.recipeIngredients}" th:text="${ingredient.getIngredient().getIngredientName()}"></li>
+                        </ul>
+                    </div>
+                    <div class="recipeDirections">
+                        <h2>Stappenplan:</h2>
+                    </div>
+                </div>
             </div>
         </div>
 

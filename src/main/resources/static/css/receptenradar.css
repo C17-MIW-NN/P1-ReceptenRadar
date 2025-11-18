@@ -323,3 +323,51 @@ button {
     box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
     cursor: pointer;
 }
+.categoryOverview{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 30px;
+    gap: 5px;
+    font-size: 14px;
+    width: 100px;
+}
+
+/*CSS for Recipe Overview page*/
+.recipeDetailContainerBorder {
+  background-color: #eae3da;
+  border: 1px solid #5e881d;
+  margin-top: 10px;
+}
+.recipeDetailContainer {
+  display: grid;
+  grid-template-areas:
+    "recipeName recipeName"
+    "recipePicture recipeMetadata"
+    "recipeIngredients recipeDirections";
+  grid-template-columns: 1fr 2fr;
+  gap: 1px;
+  background-color: #eae3da;
+  padding: 1px;
+}
+.recipeDetailContainer div {
+  background-color: #eae3da;
+  border: 1px solid #5e881d;
+  padding: 10px;
+}
+.recipeDetailContainer div.recipeName {
+  grid-area: recipeName;
+}
+.recipeDetailContainer div.recipePicture {
+  grid-area: recipePicture;
+}
+.recipeDetailContainer div.recipeMetadata {
+  grid-area: recipeMetadata;
+}
+.recipeDetailContainer div.recipeIngredients {
+  grid-area: recipeIngredients;
+}
+.recipeDetailContainer div.recipeDirections {
+  grid-area: recipeDirections;
+}
