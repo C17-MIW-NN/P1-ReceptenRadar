@@ -27,3 +27,7 @@ body {
     gap: 2rem;
     flex-wrap: wrap;
 }
+
+.footer{
+    margin-top:3rem;
+}

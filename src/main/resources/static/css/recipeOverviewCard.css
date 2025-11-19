@@ -2,7 +2,7 @@
 
 .recipeOverviewCard {
     width: 300px;
-    height: 360px;
+    height: 380px;
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
@@ -42,9 +42,12 @@
     justify-content: center;
     text-align: center;
     flex-wrap: wrap;
-    height: 30px;
+    height: 35px;
+    margin-top: 2rem;
     gap: 16px;
     font-size: 14px;
+    overflow:hidden;
+
 }
 
 .category-link {
@@ -53,7 +56,8 @@
     align-items: center;
     text-align: center;
     min-width: 70px;
-    flex: 0 0 70px;
+    max-width: 100%;
+    flex: 0 1 auto;
     padding: 0.4rem 0.8rem;
     border-radius: 6px;
     background-color: rgba(95, 137, 29, 0.8);
@@ -63,6 +67,10 @@
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.2s ease;
+}
+
+.category-link:hover {
+    background-color: rgba(95, 137, 29, 1.0);
 }
 
 .recipeOverviewCard h2 {
