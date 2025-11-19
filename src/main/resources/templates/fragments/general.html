@@ -68,11 +68,18 @@
                             <li th:each="ingredient : ${recipe.recipeIngredients}" th:text="${ingredient.getIngredient().getIngredientName()}"></li>
                         </ul>
                     </div>
-                    <div class="recipeDirections">
-                        <h2>Stappenplan:</h2>
-                        <p th:text="${recipe.directions}"></p>
+                        <div class="recipeDirections">
+                            <h3>Stappenplan:</h3>
 
-<!--TODO split String on ':'-->
+                            <ol class="fancy-steps">
+                                <li th:each="direction : ${recipe.directions}"
+                                    th:text="${direction.direction}">
+                                    Step description here
+                                </li>
+                            </ol>
+                        </div>
+
+                        <!--TODO split String on ':'-->
 <!--                        <ol th:if="${not #strings.isEmpty(recipe.directions)}">-->
 <!--                            <li th:each="step : ${#strings.split(recipe.directions, ';')}"-->
 <!--                                th:text="${#strings.trim(step)}"></li>-->
@@ -143,20 +150,19 @@
 
                         <button type="submit">Opslaan</button>
                     </form>
-                    <form th:object="${recipe}" class="form-directions"
+                    <form th:object="${recipe}"
                           th:action="@{/recipe/detail/{recipeName}/directions/save(recipeName=${recipe.recipeName})}" method="post">
-
                         <div id="step-container">
-                            <div class="step-row" th:each="step, iter : *{steps}">
+                            <div class="step-row" th:each="direction, iter : *{directions}">
                                 <label class="step-label">Step [[${iter.index} + 1]]:</label>
-                                <input type="text" th:field="*{steps[__${iter.index}__]}"/>
-                                <button type="button" class="remove-step-btn button-styling">Remove</button>
+                                <input type="text" th:field="*{directions[__${iter.index}__].direction}"/>
+                                <button type="button" class="remove-step-btn">Remove</button>
                             </div>
                         </div>
 
-                        <div id="buttons-container" style="margin-top: 1em;">
-                            <button type="button" class="button-styling" id="add-step-btn">Add Step</button>
-                            <button type="submit" class="button-styling">Save Recipe</button>
+                        <div style="margin-top: 1em;">
+                            <button type="button" id="add-step-btn">Add Step</button>
+                            <button type="submit">Save Directions</button>
                         </div>
                     </form>
                 </div>

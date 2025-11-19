@@ -35,3 +35,35 @@
 .recipeDetailContainer div.recipeDirections {
     grid-area: recipeDirections;
 }
+
+.fancy-steps {
+    counter-reset: step;
+    list-style: none;
+    padding-left: 0;
+    padding-top: 1em;
+}
+
+.fancy-steps li {
+    counter-increment: step;
+    position: relative;
+    margin-bottom: 1em;
+    border-radius: 6px;
+    padding: 0.5em 3em;
+}
+
+.fancy-steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    font-size: 1.2em;
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    line-height: 2em;
+    border-radius: 50%;
+    background-color: #5e881d;
+    color: white;
+}

@@ -36,7 +36,7 @@ public class Recipe {
     @ManyToMany
     private List<Category> categories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Direction>directions = new ArrayList<Direction>();
 
     public Long getRecipeId() {
