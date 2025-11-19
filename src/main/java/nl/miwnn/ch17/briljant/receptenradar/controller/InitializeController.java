@@ -122,14 +122,14 @@ public class InitializeController {
         recipe.setForAmountOfPeople(Integer.parseInt(recipeLine[2]));
         recipe.setCalories(Integer.parseInt(recipeLine[3]));
         recipe.setImageUrl(recipeLine[4]);
-        recipe.setRecipeIngredients(new HashSet<>());
+        recipe.setRecipeIngredients(new ArrayList<>());
 
         return recipe;
     }
 
     private void addRecipeIngredient(String recipeLine, Recipe recipe) {
 
-        Set<RecipeIngredient> recipeIngredients = new HashSet<>();
+        List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
         for (String ingredientName : recipeLine.split(", ")) {
             Ingredient ingredient = ingredientCache.get(ingredientName);

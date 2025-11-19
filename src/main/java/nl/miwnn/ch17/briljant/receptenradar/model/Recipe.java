@@ -3,9 +3,7 @@ package nl.miwnn.ch17.briljant.receptenradar.model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Douwe Jan Hamersma
@@ -36,7 +34,7 @@ public class Recipe {
     private List<String> steps = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RecipeIngredient> recipeIngredients = new HashSet<>();
+    private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
     @ManyToMany
     private List<Category> categories = new ArrayList<>();
@@ -105,11 +103,11 @@ public class Recipe {
         this.steps = steps;
     }
 
-    public Set<RecipeIngredient> getRecipeIngredients() {
+    public List<RecipeIngredient> getRecipeIngredients() {
         return recipeIngredients;
     }
 
-    public void setRecipeIngredients(Set<RecipeIngredient> recipeIngredients) {
+    public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
         this.recipeIngredients = recipeIngredients;
     }
 
