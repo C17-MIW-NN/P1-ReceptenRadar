@@ -27,6 +27,9 @@ public class Recipe {
 
     private String imageUrl;
 
+    @Column(columnDefinition = "TEXT")
+    private String recipeDescription;
+
     @Column
     private String directions;
 
@@ -117,5 +120,13 @@ public class Recipe {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    public String getRecipeDescription() {
+        return recipeDescription;
+    }
+
+    public void setRecipeDescription(String recipeDescription) {
+        this.recipeDescription = recipeDescription;
     }
 }
