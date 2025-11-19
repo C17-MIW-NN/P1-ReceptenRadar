@@ -123,6 +123,7 @@ public class InitializeController {
         recipe.setCalories(Integer.parseInt(recipeLine[3]));
         recipe.setImageUrl(recipeLine[4]);
         recipe.setRecipeIngredients(new ArrayList<>());
+        recipe.setRecipeDescription(recipeLine[7]);
 
         return recipe;
     }
