@@ -1,35 +1,35 @@
 <!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
+<html lang="en">
 
-<!--<head th:replace="~{fragments/general :: baseheader(~{:: title})}">-->
-<!--    <title>Directions</title>-->
-<!--</head>-->
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+    <title>Directions</title>
+</head>
 
-<!--<div th:replace="~{fragments/general :: navbar}"></div>-->
+<div th:replace="~{fragments/general :: navbar}"></div>
 
-<!--<div class="container">-->
+<div class="container">
 
-<!--    <form th:object="${recipe}" class="form-directions"-->
-<!--          th:action="@{/recipe/detail/{recipeName}/directions/save(recipeName=${recipe.recipeName})}" method="post">-->
+    <form th:object="${recipe}" class="form-directions"
+          th:action="@{/recipe/detail/{recipeName}/directions/save(recipeName=${recipe.recipeName})}" method="post">
 
-<!--        <div id="step-container">-->
-<!--            <div class="step-row" th:each="step, iter : *{steps}">-->
-<!--                <label class="step-label">Step [[${iter.index} + 1]]:</label>-->
-<!--                <input type="text" th:field="*{steps[__${iter.index}__]}"/>-->
-<!--                <button type="button" class="remove-step-btn button-styling">Remove</button>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div id="step-container">
+            <div class="step-row" th:each="step, iter : *{directions}">
+                <label class="step-label">Step [[${iter.index} + 1]]:</label>
+                <input type="text" th:field="*{directions[__${iter.index}__].direction}" />
+                <button type="button" class="remove-step-btn button-styling">Remove</button>
+            </div>
+        </div>
 
-<!--        <div id="buttons-container" style="margin-top: 1em;">-->
-<!--            <button type="button" class="button-styling" id="add-step-btn">Add Step</button>-->
-<!--            <button type="submit" class="button-styling">Save Recipe</button>-->
-<!--        </div>-->
-<!--    </form>-->
-<!--</div>-->
+        <div id="buttons-container" style="margin-top: 1em;">
+            <button type="button" class="button-styling" id="add-step-btn">Add Step</button>
+            <button type="submit" class="button-styling">Save Recipe</button>
+        </div>
+    </form>
+</div>
 
-<!--<div th:replace="~{fragments/general :: footer}"></div>-->
-<!--<div th:replace="~{fragments/general :: bottomScripts}"></div>-->
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
 
-<!--</body>-->
+</body>
 
-<!--</html>-->
+</html>

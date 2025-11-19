@@ -30,17 +30,14 @@ public class Recipe {
     @Column(columnDefinition = "TEXT")
     private String recipeDescription;
 
-    @Column
-    private String directions;
-
-    @Transient
-    private List<String> steps = new ArrayList<>();
-
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
     @ManyToMany
     private List<Category> categories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "recipe")
+    private List<Direction>directions = new ArrayList<Direction>();
 
     public Long getRecipeId() {
         return recipeId;
@@ -90,22 +87,6 @@ public class Recipe {
         this.imageUrl = coverImageUrl;
     }
 
-    public String getDirections() {
-        return directions;
-    }
-
-    public void setDirections(String directions) {
-        this.directions = directions;
-    }
-
-    public List<String> getSteps() {
-        return steps;
-    }
-
-    public void setSteps(List<String> steps) {
-        this.steps = steps;
-    }
-
     public List<RecipeIngredient> getRecipeIngredients() {
         return recipeIngredients;
     }
@@ -120,6 +101,14 @@ public class Recipe {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    public List<Direction> getDirections() {
+        return directions;
+    }
+
+    public void setDirections(List<Direction> directions) {
+        this.directions = directions;
     }
 
     public String getRecipeDescription() {

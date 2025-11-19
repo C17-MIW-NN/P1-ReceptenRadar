@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renumber() {
         container.querySelectorAll('.step-row').forEach((row, i) => {
             row.querySelector('.step-label').textContent = `Step ${i + 1}:`;
-            row.querySelector('input').name = `steps[${i}]`;
+            row.querySelector('input').name = `directions[${i}].direction`;
         });
     }
 
