@@ -51,9 +51,28 @@ public class RecipeController {
 
     @GetMapping("/recipe/add")
     public String showRecipeForm(Model datamodel) {
-        datamodel.addAttribute("formRecipe", new Recipe());
+        Recipe newRecipe = new Recipe();
+        newRecipe.getDirections().add(new Direction()); // optioneel: 1 lege stap
+        datamodel.addAttribute("recipe", newRecipe);
+        datamodel.addAttribute("allCategories", categoryRepository.findAll());
 
-        return ("recipeForm");
+        return "recipeForm";
+    }
+
+    @GetMapping("/recipe/edit/{recipeName}")
+    public String showRecipeEditPage(@PathVariable("recipeName") String recipeName, Model datamodel) {
+        Optional <Recipe> recipeToEdit = recipeRepository.findByRecipeName(recipeName);
+
+        if (recipeToEdit.isEmpty()) {
+            return "redirect:/recipe/all";
+        }
+
+        List<Category> allCategories = categoryRepository.findAll();
+        datamodel.addAttribute("allCategories", allCategories);
+        datamodel.addAttribute("allIngredients",ingredientRepository.findAll());
+        datamodel.addAttribute("recipe", recipeToEdit.get());
+
+        return "recipeEdit";
     }
 
     public String showRecipeForm (Model datamodel, Recipe recipe) {
@@ -86,14 +105,12 @@ public class RecipeController {
             recipeRepository.save(recipeToBeSaved);
         }
 
+        return "redirect:/recipe/detail/" + recipeToBeSaved.getRecipeName();
 
-        return isNewRecipe
-                ? "redirect:/recipe/edit/" + recipeToBeSaved.getRecipeName()
-                : "redirect:/recipe/detail/" + recipeToBeSaved.getRecipeName();
     }
 
-    @GetMapping("recipe/detail/{recipeName}")
-    public String showRecipeDetailPage(@PathVariable("recipeName") String recipeName, Model datamodel) {
+    @GetMapping("recipe/detail/{recipeId}")
+    public String showRecipeDetailPage(@PathVariable("recipeId") String recipeName, Model datamodel) {
         Optional<Recipe> recipeToShow = recipeRepository.findByRecipeName(recipeName);
 
         if (recipeToShow.isEmpty()){
@@ -106,20 +123,6 @@ public class RecipeController {
         return "recipeDetail";
     }
 
-    @GetMapping("/recipe/edit/{recipeName}")
-    public String showRecipeEditPage(@PathVariable("recipeName") String recipeName, Model datamodel) {
-        Optional <Recipe> recipeToEdit = recipeRepository.findByRecipeName(recipeName);
 
-        if (recipeToEdit.isEmpty()) {
-            return "redirect:/recipe/all";
-        }
-
-        List<Category> allCategories = categoryRepository.findAll();
-        datamodel.addAttribute("allCategories", allCategories);
-        datamodel.addAttribute("allIngredients",ingredientRepository.findAll());
-        datamodel.addAttribute("recipe", recipeToEdit.get());
-
-        return "recipeEdit";
-    }
 
 }

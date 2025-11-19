@@ -104,6 +104,11 @@
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <h1>Voeg een nieuw recept toe.</h1>
+                        <form th:action="@{/recipe/save}" th:object="${formRecipe}" method="post">
+                            <label for="recipeName">Hoe wil je dit recept noemen?:</label>
+                            <input type="text" th:field="*{recipeName}" id="recipeName">
+                            <input type="submit" value="Opslaan">
+                        </form>
                 </div>
             </div>
         </div>

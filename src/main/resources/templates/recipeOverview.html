@@ -9,18 +9,19 @@
         <div th:replace="~{fragments/general :: navbar}"></div>
 
         <div class="newRecipeContainer">
+<!--Please leave this form so we can convert it to a search-bar!-->
 
-                <form class="newRecipeForm" th:action="@{/recipe/save}" th:object="${formRecipe}" method="post">
+<!--                <form class="newRecipeForm" th:action="@{/recipe/save}" th:object="${formRecipe}" method="post">-->
 
-                    <div id="field" class="newRecipeContainer-field">
-                        <input type="text" th:field="*{recipeName}" id="recipeName" placeholder="Voeg een recept toe">
-                    </div>
+<!--                    <div id="field" class="newRecipeContainer-field">-->
+<!--                        <input type="text" th:field="*{recipeName}" id="recipeName" placeholder="Voeg een recept toe">-->
+<!--                    </div>-->
 
-                    <div id="button" class="newRecipeContainer-button">
-                        <button type="submit" value="Opslaan">Opslaan</button>
-                    </div>
+<!--                    <div id="button" class="newRecipeContainer-button">-->
+<!--                        <button type="submit" value="Opslaan">Opslaan</button>-->
+<!--                    </div>-->
 
-                </form>
+<!--                </form>-->
         </div>
 
         <div class="container">
