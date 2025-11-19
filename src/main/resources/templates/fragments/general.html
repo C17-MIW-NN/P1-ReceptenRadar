@@ -44,40 +44,77 @@
 
 
 
-        <div th:fragment="recipeDetailCard">
-            <div class="recipeDetailContainerBorder">
+        <div th:fragment="recipeDetailCard" class="recipeOverviewCard recipeDetailCard">
                 <div class="recipeDetailContainer">
                     <div class="recipeName">
-                        <h1><span th:text="${recipe.recipeName}"></span>&nbsp;<i id="openEditModalButton" class="bi bi-pencil"></i></h1>
+                            <h1><span th:text="${recipe.recipeName}"></span>&nbsp;<i id="openEditModalButton" class="bi bi-pencil"></i></h1>
+
                     </div>
                     <div class="recipePicture">
-                        <img th:src="${recipe.imageUrl}" class="img-fluid rounded" alt="Image not found">
+                        <div class="image-wrapper">
+                            <img th:src="${recipe.imageUrl}" class="img-fluid rounded" alt="Image not found">
+                        </div>
+
                     </div>
                     <div class="recipeMetadata">
-                        <p><i class="bi bi-clock"></i>&nbsp;<span th:text="${recipe.preparationTime}"></span> Min.</p>
-                        <p><i class="bi bi-people-fill"></i>&nbsp;<span th:text="${recipe.forAmountOfPeople}"></span></p>
-                        <p><i class="bi bi-fire"></i>&nbsp;<span th:text="${recipe.calories}"></span></p>
-                        <ul>
-                            <li th:each="category : ${recipe.categories}" th:text="${category.categoryName}"></li>
-                        </ul>
-                    </div>
-                    <div class="recipeIngredients">
-                        <h2>Ingrediënten:</h2>
-                        <ul>
-                            <li th:each="ingredient : ${recipe.recipeIngredients}" th:text="${ingredient.getIngredient().getIngredientName()}"></li>
-                        </ul>
-                    </div>
-                        <div class="recipeDirections">
-                            <h3>Stappenplan:</h3>
-
-                            <ol class="fancy-steps">
-                                <li th:each="direction : ${recipe.directions}"
-                                    th:text="${direction.direction}">
-                                    Step description here
-                                </li>
-                            </ol>
+                        <div class="recipeOverviewCard-Info recipeDetailInfo">
+                            <p><i class="bi bi-clock"></i>&nbsp;<span th:text="${recipe.preparationTime}"></span> Min.</p>
+                            <p><i class="bi bi-people-fill"></i>&nbsp;<span th:text="${recipe.forAmountOfPeople}"></span></p>
+                            <p><i class="bi bi-fire"></i>&nbsp;<span th:text="${recipe.calories}"></span></p>
+                        </div>
+                        <div class="recipeOverviewCard-Categories recipeDetailCategories">
+                            <a th:each="category : ${recipe.categories}"
+                               th:href="@{/category/edit/{name}(name=${category.categoryName})}"
+                               class="category-link">
+                                <span th:text="${category.categoryName}"></span>
+                            </a>
                         </div>
                     </div>
+
+                    <div class="recipeIngredients">
+                        <h3>Ingredienten:</h3>
+                        <p th:each="ingredient : ${recipe.recipeIngredients}">
+                            <span th:text="${ingredient.getQuantity()}"></span>
+<!--                            &nbsp;-->
+                            <span th:text="${ingredient.getUnit()}"></span>
+<!--                            &nbsp;-->
+                            <span th:text="${ingredient.getIngredient().getIngredientName()}"></span>
+                        </p>
+                    </div>
+
+                    <div class="recipeDirections">
+                        <h3>Stappenplan:</h3>
+
+                        <ol class="fancy-steps">
+                            <li th:each="direction : ${recipe.directions}"
+                                th:text="${direction.direction}">
+                                Step description here
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+        </div>
+
+        <div th:fragment="addRecipeCard" class="card">
+            <div class="addRecipeContent">
+                <i id="openAddModalButton" class="bi bi-plus-square-fill"></i>
+            </div>
+        </div>
+
+        <div th:fragment="addRecipeModal">
+            <div id="addRecipeModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h1>Voeg een nieuw recept toe.</h1>
+                </div>
+            </div>
+        </div>
+
+        <div th:fragment="editRecipeModal">
+            <div id="editRecipeModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div th:replace="~{fragments/general :: recipeForm}"></div>
                 </div>
             </div>
         </div>
@@ -102,34 +139,6 @@
                    class="category-link">
                     <span th:text="${category.categoryName}"></span>
                 </a>
-            </div>
-        </div>
-
-        <div th:fragment="addRecipeCard" class="card">
-            <div class="addRecipeContent">
-                <i id="openAddModalButton" class="bi bi-plus-square-fill"></i>
-
-
-            </div>
-
-
-        </div>
-
-        <div th:fragment="addRecipeModal">
-            <div id="addRecipeModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h1>Voeg een nieuw recept toe.</h1>
-                </div>
-            </div>
-        </div>
-
-        <div th:fragment="editRecipeModal">
-            <div id="editRecipeModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <div th:replace="~{fragments/general :: recipeForm}"></div>
-                </div>
             </div>
         </div>
 
