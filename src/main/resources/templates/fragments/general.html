@@ -48,8 +48,7 @@
             <div class="recipeDetailContainerBorder">
                 <div class="recipeDetailContainer">
                     <div class="recipeName">
-                        <h1><span th:text="${recipe.recipeName}"></span>&nbsp;<i id="openModalButton" class="bi bi-pencil"></i></h1>
-
+                        <h1><span th:text="${recipe.recipeName}"></span>&nbsp;<i id="openEditModalButton" class="bi bi-pencil"></i></h1>
                     </div>
                     <div class="recipePicture">
                         <img th:src="${recipe.imageUrl}" class="img-fluid rounded" alt="Image not found">
@@ -63,7 +62,7 @@
                         </ul>
                     </div>
                     <div class="recipeIngredients">
-                        <h2>Ingredienten:</h2>
+                        <h2>Ingrediënten:</h2>
                         <ul>
                             <li th:each="ingredient : ${recipe.recipeIngredients}" th:text="${ingredient.getIngredient().getIngredientName()}"></li>
                         </ul>
@@ -78,19 +77,12 @@
                                 </li>
                             </ol>
                         </div>
-
-                        <!--TODO split String on ':'-->
-<!--                        <ol th:if="${not #strings.isEmpty(recipe.directions)}">-->
-<!--                            <li th:each="step : ${#strings.split(recipe.directions, ';')}"-->
-<!--                                th:text="${#strings.trim(step)}"></li>-->
-<!--                        </ol>-->
-
                     </div>
                 </div>
             </div>
         </div>
 
-        <div th:fragment="recipeOverviewCard" class="recipeOverviewCard">
+        <div th:fragment="recipeOverviewCard" class="card">
             <div class="image-wrapper">
                 <a th:href="@{/recipe/detail/{recipeName}(recipeName=${recipe.recipeName})}">
                     <img th:src="${recipe.imageUrl}" alt="Image not found">
@@ -113,60 +105,82 @@
             </div>
         </div>
 
+        <div th:fragment="addRecipeCard" class="card">
+            <div class="addRecipeContent">
+                <i id="openAddModalButton" class="bi bi-plus-square-fill"></i>
+
+
+            </div>
+
+
+        </div>
+
+        <div th:fragment="addRecipeModal">
+            <div id="addRecipeModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h1>Voeg een nieuw recept toe.</h1>
+                </div>
+            </div>
+        </div>
 
         <div th:fragment="editRecipeModal">
             <div id="editRecipeModal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
-                    <form class="modal-editRecipeForm" th:action="@{/recipe/save}" th:object="${recipe}" method="post">
-                        <input type="hidden" th:field="*{recipeId}" />
-
-                        <label for="recipeName">Naam van recept:</label>
-                        <input type="text" th:field="*{recipeName}" id="recipeName" />
-
-                        <label for="preparationTime">Bereidingstijd (in minuten):</label>
-                        <input type="number" th:field="*{preparationTime}" id="preparationTime" />
-
-                        <label for="forAmountOfPeople">Aantal personen:</label>
-                        <input type="number" th:field="*{forAmountOfPeople}" id="forAmountOfPeople" />
-
-                        <label for="calories">Calorieën:</label>
-                        <input type="number" th:field="*{calories}" id="calories" />
-
-                        <label for="imageUrl">Afbeeldings-URL:</label>
-                        <input type="text" th:field="*{imageUrl}" id="imageUrl" />
-
-                        <label>Categorieën:</label>
-                        <div class="category-checkboxes">
-                            <div th:each="category : ${allCategories}">
-                                <label>
-                                    <input type="checkbox"
-                                           th:value="${category.categoryId}"
-                                           th:field="*{categories}" />
-                                    <span th:text="${category.categoryName}"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <button type="submit">Opslaan</button>
-                    </form>
-                    <form th:object="${recipe}"
-                          th:action="@{/recipe/detail/{recipeName}/directions/save(recipeName=${recipe.recipeName})}" method="post">
-                        <div id="step-container">
-                            <div class="step-row" th:each="direction, iter : *{directions}">
-                                <label class="step-label">Step [[${iter.index} + 1]]:</label>
-                                <input type="text" th:field="*{directions[__${iter.index}__].direction}"/>
-                                <button type="button" class="remove-step-btn">Remove</button>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 1em;">
-                            <button type="button" id="add-step-btn">Add Step</button>
-                            <button type="submit">Save Directions</button>
-                        </div>
-                    </form>
+                    <div th:replace="~{fragments/general :: recipeForm}"></div>
                 </div>
             </div>
+        </div>
+
+        <div th:fragment="recipeForm">
+            <form class="modal-editRecipeForm" th:action="@{/recipe/save}" th:object="${recipe}" method="post">
+                <input type="hidden" th:field="*{recipeId}" />
+
+                <label for="recipeName">Naam van recept:</label>
+                <input type="text" th:field="*{recipeName}" id="recipeName" />
+
+                <label for="preparationTime">Bereidingstijd (in minuten):</label>
+                <input type="number" th:field="*{preparationTime}" id="preparationTime" />
+
+                <label for="forAmountOfPeople">Aantal personen:</label>
+                <input type="number" th:field="*{forAmountOfPeople}" id="forAmountOfPeople" />
+
+                <label for="calories">Calorieën:</label>
+                <input type="number" th:field="*{calories}" id="calories" />
+
+                <label for="imageUrl">Afbeeldings-URL:</label>
+                <input type="text" th:field="*{imageUrl}" id="imageUrl" />
+
+                <label>Categorieën:</label>
+                <div class="category-checkboxes">
+                    <div th:each="category : ${allCategories}">
+                        <label>
+                            <input type="checkbox"
+                                   th:value="${category.categoryId}"
+                                   th:field="*{categories}" />
+                            <span th:text="${category.categoryName}"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit">Opslaan</button>
+            </form>
+            <form th:object="${recipe}"
+                  th:action="@{/recipe/detail/{recipeName}/directions/save(recipeName=${recipe.recipeName})}" method="post">
+                <div id="step-container">
+                    <div class="step-row" th:each="direction, iter : *{directions}">
+                        <label class="step-label">Step [[${iter.index} + 1]]:</label>
+                        <input type="text" th:field="*{directions[__${iter.index}__].direction}"/>
+                        <button type="button" class="remove-step-btn">Remove</button>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1em;">
+                    <button type="button" id="add-step-btn">Add Step</button>
+                    <button type="submit">Save Directions</button>
+                </div>
+            </form>
         </div>
 
         <div th:fragment="footer" class="footer">
@@ -176,7 +190,7 @@
         <div th:fragment="bottomScripts">
             <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-            <script th:src="@{/js/edit-modal.js}"></script>
+            <script th:src="@{/js/modalHandler.js}"></script>
             <script th:src="@{/js/DirectionsScript.js}"></script>
         </div>
     </body>

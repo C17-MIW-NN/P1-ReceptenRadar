@@ -29,12 +29,17 @@
             </div>
 
             <div class="container-body">
+
+                <div th:replace="~{fragments/general :: addRecipeCard}"></div>
+
                 <div th:each="recipe : ${allRecipes}" class="container-body-cards">
                     <div th:replace="~{fragments/general :: recipeOverviewCard}"></div>
                 </div>
             </div>
 
         </div>
+
+        <div th:replace="~{fragments/general :: addRecipeModal}"></div>
 
         <div th:replace="~{fragments/general :: footer}"></div>
 
