@@ -1,0 +1,25 @@
+/*Navbar Styling*/
+
+.customNavbar{
+    background-color: #5e881d;
+    height: 100px;
+}
+
+.navLink {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+    color: #eae3da;
+    text-transform: uppercase;
+}
+
+.navLink:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.navLink.active {
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+}

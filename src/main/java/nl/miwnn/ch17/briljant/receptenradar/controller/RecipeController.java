@@ -79,11 +79,9 @@ public class RecipeController {
             recipeRepository.save(recipeToBeSaved);
         }
 
-        if (isNewRecipe) {
-            return "redirect:/recipe/edit/" + recipeToBeSaved.getRecipeName();
-        }else {
-            return "redirect:/recipe/detail/" + recipeToBeSaved.getRecipeName();
-        }
+        return isNewRecipe
+                ? "redirect:/recipe/edit/" + recipeToBeSaved.getRecipeName()
+                : "redirect:/recipe/detail/" + recipeToBeSaved.getRecipeName();
     }
 
     @GetMapping("recipe/detail/{recipeName}")
@@ -95,6 +93,8 @@ public class RecipeController {
         }
 
         datamodel.addAttribute("recipe", recipeToShow.get());
+        datamodel.addAttribute("allCategories", categoryRepository.findAll());
+        datamodel.addAttribute("allIngredients",ingredientRepository.findAll());
         return "recipeDetail";
     }
 
@@ -108,7 +108,7 @@ public class RecipeController {
 
         List<Category> allCategories = categoryRepository.findAll();
         datamodel.addAttribute("allCategories", allCategories);
-
+        datamodel.addAttribute("allIngredients",ingredientRepository.findAll());
         datamodel.addAttribute("recipe", recipeToEdit.get());
 
         return "recipeEdit";

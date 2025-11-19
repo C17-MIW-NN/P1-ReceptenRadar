@@ -1,0 +1,29 @@
+/*For the styling of containers*/
+
+
+body {
+    background-color: #eae3da;
+    font-family: "Noto Sans", sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.container-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 50px;
+    color: #5f891d;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.container-body{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}

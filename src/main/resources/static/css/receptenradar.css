@@ -1,205 +1,3 @@
-body {
-    background-color: #eae3da;
-    font-family: "Noto Sans", sans-serif;
-}
-
-.container {
-    max-width: 1200px;
-}
-
-.container-title {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 50px;
-    color: #5f891d;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-
-.categorySelector{
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    margin-bottom: 1rem;
-    margin-top: -1rem;
-    max-height: 100px;
-}
-
-.container-body{
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-}
-
-.editRecipeForm{
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    gap: 1rem;
-    margin-top:300px;
-}
-
-.editRecipeForm form{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.customNavbar{
-      background-color: #5e881d;
-      height: 100px;
-  }
-
-.navLink {
-    font-size: 17px;
-    font-weight: 600;
-    margin: 0 15px;
-    transition: color 0.3s ease;
-    color: #eae3da;
-    text-transform: uppercase;
-}
-
-.navLink:hover {
-    color: #ffffff;
-    text-decoration: underline;
-}
-
-.navLink.active {
-    color: #ffffff;
-    border-bottom: 2px solid #ffffff;
-}
-
-.recipeOverviewCard {
-    width: 300px;
-    height: 360px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
-    padding: 16px;
-    background-color: #fff;
-    text-align: center;
-}
-
-.recipeOverviewCard img {
-    width: 100%;
-    height: 200px;
-    border-radius: 8px;
-}
-
-.recipeOverviewCard .card-title {
-    object-fit: contain;
-    height: 30px;
-    width: 100%;
-    padding: 8px;
-}
-
-.recipeOverviewCard h2 {
-    font-size: 14px;
-    margin: 12px 0;
-}
-
-.recipeOverviewCardInfo {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    height: 30px;
-    gap: 24px;
-    font-size: 14px;
-    color: #555;
-    margin-top: 8px;
-    background-color: #f2f2f2;
-    border-radius: 6px;
-}
-
-.recipeOverviewCategories{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    height: 30px;
-    gap: 16px;
-    font-size: 14px;
-}
-
-.category-link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-width: 70px;
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
-    background-color: rgba(95, 137, 29, 0.8);
-    border: none;
-    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-    color: #fff;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.allCategoriesLink{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-width: 70px;
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
-    background-color: rgb(246, 134, 53);
-    border: none;
-    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-    color: #fff;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-
-}
-
-.category-link:hover {
-    background-color: rgba(95, 137, 29, 1.0);
-}
-
-.newRecipeContainer {
-    display : flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px;
-    background-image:url("../images/healthy-food-table.webp") ;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position-y: -200px;
-}
-
-.newRecipeForm {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width:30%;
-    height: 45px;
-}
-
-#field {
-    width: 80%;
-    height: 100%;
-    background-color: transparent;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    overflow: hidden;
-}
-
-#field input{
-    width: 100%;
-    height: 100%;
-    border: none;
-    padding-left: 30px;
-}
-
 button {
     width: 70px;
     border-radius: 6px;
@@ -209,165 +7,49 @@ button {
     color: white;
     border: none;
     box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-
 }
 
-#button {
-    width: 20%;
-    height: 100%;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    overflow: hidden;
-    padding: 0;
-}
+/*!*CSS voor de directions form*!*/
+/*.form-directions {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    align-items: start;*/
+/*    justify-content: start;*/
+/*    width:70%;*/
+/*    height: auto;*/
+/*    margin-top: 2rem;*/
+/*    margin-bottom: 2rem;*/
+/*}*/
 
-#button button {
-    width: 100%;
-    height: 100%;
-    border: none;
-    background-color: rgba(95, 137, 29, 0.8);
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 0;
-}
+/*#step-container {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    gap: 16px;*/
+/*}*/
 
-#button button:hover {
-    background-color: rgba(95, 137, 29, 1.0);
-}
+/*#buttons-container {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: start;*/
+/*    align-items: start;*/
+/*    width: 30%;*/
+/*    gap: 16px;*/
+/*}*/
 
-.formCategoryIngredient {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    width:auto;
-    height: 45px;
-}
+/*.button-styling {*/
+/*    padding: 5px;*/
+/*    width: 115px;*/
+/*    border-radius: 6px;*/
+/*    background-color: rgba(95, 137, 29, 0.8);*/
+/*    border: none;*/
+/*    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);*/
+/*    cursor: pointer;*/
+/*}*/
 
-.formNameLabel, .formNameInput {
-    margin-right: 5px
-}
 
-/*CSS for Modal*/
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-/* Modal Content */
-.modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
 
-/* The Close Button */
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
 
-/*CSS voor de directions form*/
-.form-directions {
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    justify-content: start;
-    width:70%;
-    height: auto;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
 
-#step-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
 
-#buttons-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: start;
-    width: 30%;
-    gap: 16px;
-}
 
-.button-styling {
-    padding: 5px;
-    width: 115px;
-    border-radius: 6px;
-    background-color: rgba(95, 137, 29, 0.8);
-    border: none;
-    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-    cursor: pointer;
-}
-.categoryOverview{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    height: 30px;
-    gap: 5px;
-    font-size: 14px;
-    width: 100px;
-}
-
-/*CSS for Recipe Overview page*/
-.recipeDetailContainerBorder {
-  background-color: #eae3da;
-  border: 1px solid #5e881d;
-  margin-top: 10px;
-}
-.recipeDetailContainer {
-  display: grid;
-  grid-template-areas:
-    "recipeName recipeName"
-    "recipePicture recipeMetadata"
-    "recipeIngredients recipeDirections";
-  grid-template-columns: 1fr 2fr;
-  gap: 1px;
-  background-color: #eae3da;
-  padding: 1px;
-}
-.recipeDetailContainer div {
-  background-color: #eae3da;
-  border: 1px solid #5e881d;
-  padding: 10px;
-}
-.recipeDetailContainer div.recipeName {
-  grid-area: recipeName;
-}
-.recipeDetailContainer div.recipePicture {
-  grid-area: recipePicture;
-}
-.recipeDetailContainer div.recipeMetadata {
-  grid-area: recipeMetadata;
-}
-.recipeDetailContainer div.recipeIngredients {
-  grid-area: recipeIngredients;
-}
-.recipeDetailContainer div.recipeDirections {
-  grid-area: recipeDirections;
-}

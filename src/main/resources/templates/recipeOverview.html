@@ -28,8 +28,6 @@
                 <h1>Alle recepten</h1>
             </div>
 
-<!--            <div th:replace="~{fragments/general :: categorySelector}"></div>-->
-
             <div class="container-body">
                 <div th:each="recipe : ${allRecipes}" class="container-body-cards">
                     <div th:replace="~{fragments/general :: recipeOverviewCard}"></div>

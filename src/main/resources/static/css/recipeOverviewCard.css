@@ -1,0 +1,76 @@
+/*For styling of recipeOverviewCards on homepage*/
+
+.recipeOverviewCard {
+    width: 300px;
+    height: 360px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+    padding: 16px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.recipeOverviewCard img {
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+}
+
+.recipeOverviewCard .card-title {
+    object-fit: contain;
+    height: 30px;
+    width: 100%;
+    padding: 8px;
+}
+
+.recipeOverviewCard-Info {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 30px;
+    gap: 24px;
+    font-size: 14px;
+    color: #555;
+    margin-top: 8px;
+    background-color: #f2f2f2;
+    border-radius: 6px;
+}
+
+.recipeOverviewCard-Categories{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+    height: 30px;
+    gap: 16px;
+    font-size: 14px;
+}
+
+.category-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-width: 70px;
+    flex: 0 0 70px;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    background-color: rgba(95, 137, 29, 0.8);
+    border: none;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.recipeOverviewCard h2 {
+    font-size: 14px;
+    margin: 12px 0;
+}
+
+.recipeOverviewCard-Categories > *:nth-child(n+4) {
+     display: none;
+ }
+
