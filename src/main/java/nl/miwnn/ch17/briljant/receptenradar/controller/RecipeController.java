@@ -1,6 +1,7 @@
 package nl.miwnn.ch17.briljant.receptenradar.controller;
 
 import nl.miwnn.ch17.briljant.receptenradar.model.Category;
+import nl.miwnn.ch17.briljant.receptenradar.model.Direction;
 import nl.miwnn.ch17.briljant.receptenradar.model.Recipe;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.CategoryRepository;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.IngredientRepository;
@@ -73,11 +74,18 @@ public class RecipeController {
                     "This name is already in use by another recipe"));
         }
         boolean isNewRecipe = (recipeToBeSaved.getRecipeId() == null);
-        recipeRepository.save(recipeToBeSaved);
 
         if (!result.hasErrors()) {
+            if (recipeToBeSaved.getDirections() != null) {
+                recipeToBeSaved.getDirections().removeIf(d -> d.getDirection() == null || d.getDirection().isBlank());
+                for (Direction direction : recipeToBeSaved.getDirections()) {
+                    direction.setRecipe(recipeToBeSaved);
+                }
+            }
+
             recipeRepository.save(recipeToBeSaved);
         }
+
 
         return isNewRecipe
                 ? "redirect:/recipe/edit/" + recipeToBeSaved.getRecipeName()

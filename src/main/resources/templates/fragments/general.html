@@ -17,8 +17,6 @@
         <link rel="stylesheet" th:href="@{/css/recipeOverviewPage.css}">
         <link rel="stylesheet" th:href="@{/css/homePageHeader.css}">
 
-
-
     </head>
 
     <body>
@@ -75,9 +73,9 @@
                         <h3>Ingredienten:</h3>
                         <p th:each="ingredient : ${recipe.recipeIngredients}">
                             <span th:text="${ingredient.getQuantity()}"></span>
-<!--                            &nbsp;-->
+
                             <span th:text="${ingredient.getUnit()}"></span>
-<!--                            &nbsp;-->
+
                             <span th:text="${ingredient.getIngredient().getIngredientName()}"></span>
                         </p>
                     </div>
@@ -143,7 +141,10 @@
         </div>
 
         <div th:fragment="recipeForm">
-            <form class="modal-editRecipeForm" th:action="@{/recipe/save}" th:object="${recipe}" method="post">
+            <form class="modal-editRecipeForm"
+                  th:action="@{/recipe/save}"
+                  th:object="${recipe}" method="post">
+
                 <input type="hidden" th:field="*{recipeId}" />
 
                 <label for="recipeName">Naam van recept:</label>
@@ -173,22 +174,19 @@
                     </div>
                 </div>
 
-                <button type="submit">Opslaan</button>
-            </form>
-            <form th:object="${recipe}"
-                  th:action="@{/recipe/detail/{recipeName}/directions/save(recipeName=${recipe.recipeName})}" method="post">
                 <div id="step-container">
                     <div class="step-row" th:each="direction, iter : *{directions}">
-                        <label class="step-label">Step [[${iter.index} + 1]]:</label>
+                        <label class="step-label">Stap [[${iter.index} + 1]]:</label>
                         <input type="text" th:field="*{directions[__${iter.index}__].direction}"/>
-                        <button type="button" class="remove-step-btn">Remove</button>
+                        <button type="button" class="remove-step-btn">Wissen</button>
                     </div>
                 </div>
 
                 <div style="margin-top: 1em;">
-                    <button type="button" id="add-step-btn">Add Step</button>
-                    <button type="submit">Save Directions</button>
+                <button type="button" id="add-step-btn">Voeg stap toe</button>
                 </div>
+
+                <button type="submit">Opslaan</button>
             </form>
         </div>
 
