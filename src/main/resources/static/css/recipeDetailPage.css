@@ -1,4 +1,4 @@
-/*CSS for Recipe Overview page*/
+/*CSS for Recipe Detail page*/
 .recipeDetailCard {
     margin: 10px;
     width: auto;
@@ -29,8 +29,6 @@
 .recipeDetailCategories {
     margin-top: 10px;
     justify-content: left;
-/*    height: 55px;
-    padding: 0px; */
 }
 
 .recipeDetailContainer {
@@ -74,7 +72,6 @@
 .ingredientsTable td {
     padding-right: 20px;
 }
-
 
 .fancy-steps {
     counter-reset: step;

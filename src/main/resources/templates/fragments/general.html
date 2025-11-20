@@ -14,7 +14,7 @@
         <link rel="stylesheet" th:href="@{/css/containerStyling.css}">
         <link rel="stylesheet" th:href="@{/css/modal.css}">
         <link rel="stylesheet" th:href="@{/css/recipeOverviewCard.css}">
-        <link rel="stylesheet" th:href="@{/css/recipeOverviewPage.css}">
+        <link rel="stylesheet" th:href="@{/css/recipeDetailPage.css}">
         <link rel="stylesheet" th:href="@{/css/homePageHeader.css}">
 
     </head>
@@ -72,7 +72,7 @@
                                 <span th:text="${recipe.calories}"></span>
                             </p>
                         </div>
-                        <div class="recipeOverviewCard-Categories recipeDetailCategories">
+                        <div class="recipeDetailCategories">
                             <a th:each="category : ${recipe.categories}"
                                th:href="@{/category/edit/{name}(name=${category.categoryName})}"
                                class="category-link">
