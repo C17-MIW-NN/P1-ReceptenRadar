@@ -1,8 +1,8 @@
 /*For styling of recipeOverviewCards on homepage*/
 
 .card {
-    width: 300px;
-    height: 380px;
+    width: 270px;
+    height: 375px;
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
@@ -12,6 +12,7 @@
 }
 
 .card img {
+    object-fit: cover;
     width: 100%;
     height: 200px;
     border-radius: 8px;
@@ -32,9 +33,13 @@
     gap: 24px;
     font-size: 14px;
     color: #555;
-    margin-top: 8px;
     background-color: #f2f2f2;
     border-radius: 6px;
+}
+
+.recipeOverviewCard-Info p{
+    margin-top: 4px;
+    margin-bottom: 0;
 }
 
 .recipeOverviewCard-Categories{
@@ -47,7 +52,6 @@
     gap: 16px;
     font-size: 14px;
     overflow:hidden;
-
 }
 
 .category-link {

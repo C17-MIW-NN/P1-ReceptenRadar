@@ -4,27 +4,35 @@
     width: auto;
     height: auto;
     text-align: left;
+    background-color: white;
+    padding: 16px;
+    border-radius: 20px;
 }
 
 .recipeDetailMetadata {
     height: 45px;
     font-size: 15px;
 }
+
 .recipeIngredients p {
     margin-bottom: 0px;
 }
+
 .recipeOverviewCard-Info {
     margin-top: 5px;
 }
+
 .recipeDetailInfo p {
     margin-top: 4px;
 }
+
 .recipeDetailCategories {
     margin-top: 10px;
     justify-content: left;
 /*    height: 55px;
     padding: 0px; */
 }
+
 .recipeDetailContainer {
     display: grid;
     grid-template-areas:
@@ -36,25 +44,30 @@
     padding: 0px;
     align-items: start;
 }
+
 .recipeDetailContainer div {
 /*    padding: 10px; */
 }
+
 .recipeDetailContainer div.recipeName {
     grid-area: recipeName;
     padding: 5px;
 }
+
 .recipeDetailContainer div.recipePicture {
     grid-area: recipePicture;
     padding: 10px;
 }
+
 .recipeDetailContainer div.recipeMetadata {
     grid-area: recipeMetadata;
     padding: 5px;
-
 }
+
 .recipeDetailContainer div.recipeIngredients {
     grid-area: recipeIngredients;
 }
+
 .recipeDetailContainer div.recipeDirections {
     grid-area: recipeDirections;
 }
