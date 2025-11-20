@@ -43,7 +43,7 @@ public class RecipeController {
         ArrayList<Recipe> recipes = new ArrayList<>(recipeRepository.findAll());
 
         datamodel.addAttribute("allRecipes", recipeRepository.findAll());
-        datamodel.addAttribute("formRecipe", new Recipe());
+        datamodel.addAttribute("recipe", new Recipe());
         datamodel.addAttribute("allCategories", categoryRepository.findAll());
 
         return "recipeOverview";
@@ -92,7 +92,6 @@ public class RecipeController {
             result.addError(new FieldError("recipe", "recipeName",
                     "This name is already in use by another recipe"));
         }
-        boolean isNewRecipe = (recipeToBeSaved.getRecipeId() == null);
 
         if (!result.hasErrors()) {
             if (recipeToBeSaved.getDirections() != null) {
@@ -106,7 +105,6 @@ public class RecipeController {
         }
 
         return "redirect:/recipe/detail/" + recipeToBeSaved.getRecipeName();
-
     }
 
     @GetMapping("recipe/detail/{recipeId}")
@@ -122,7 +120,5 @@ public class RecipeController {
         datamodel.addAttribute("allIngredients",ingredientRepository.findAll());
         return "recipeDetail";
     }
-
-
 
 }

@@ -18,7 +18,6 @@ function setupModal(modal, openBtn) {
     });
 }
 
-
 function waitForModal(modalId, openButtonId) {
     const tryRegister = () => {
         const modal = document.getElementById(modalId);

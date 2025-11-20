@@ -116,11 +116,7 @@
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <h1>Voeg een nieuw recept toe.</h1>
-                        <form th:action="@{/recipe/save}" th:object="${formRecipe}" method="post">
-                            <label for="recipeName">Hoe wil je dit recept noemen?:</label>
-                            <input type="text" th:field="*{recipeName}" id="recipeName">
-                            <input type="submit" value="Opslaan">
-                        </form>
+                    <div th:replace="~{fragments/general :: recipeForm}"></div>
                 </div>
             </div>
         </div>
@@ -162,51 +158,60 @@
                   th:action="@{/recipe/save}"
                   th:object="${recipe}" method="post">
 
-                <input type="hidden" th:field="*{recipeId}" />
+                <div class="recipeFormInfoContainer">
+                    <input type="hidden" th:field="*{recipeId}" />
 
-                <label for="recipeName">Naam van recept:</label>
-                <input type="text" th:field="*{recipeName}" id="recipeName" />
+                    <label for="recipeName">Naam van het recept:</label>
+                    <input type="text" th:field="*{recipeName}" id="recipeName" />
 
-                <label for="recipeDescription">Beschrijving:</label>
-                <input type="text" th:field="*{recipeDescription}" id="recipeDescription" />
+                    <label for="preparationTime">Bereidingstijd (in minuten):</label>
+                    <input type="number" th:field="*{preparationTime}" id="preparationTime" />
 
-                <label for="preparationTime">Bereidingstijd (in minuten):</label>
-                <input type="number" th:field="*{preparationTime}" id="preparationTime" />
+                    <label for="forAmountOfPeople">Aantal personen:</label>
+                    <input type="number" th:field="*{forAmountOfPeople}" id="forAmountOfPeople" />
 
-                <label for="forAmountOfPeople">Aantal personen:</label>
-                <input type="number" th:field="*{forAmountOfPeople}" id="forAmountOfPeople" />
+                    <label for="calories">Calorieën:</label>
+                    <input type="number" th:field="*{calories}" id="calories" />
 
-                <label for="calories">Calorieën:</label>
-                <input type="number" th:field="*{calories}" id="calories" />
+                    <label for="imageUrl">Afbeeldings-URL:</label>
+                    <input type="text" th:field="*{imageUrl}" id="imageUrl" />
 
-                <label for="imageUrl">Afbeeldings-URL:</label>
-                <input type="text" th:field="*{imageUrl}" id="imageUrl" />
-
-                <label>Categorieën:</label>
-                <div class="category-checkboxes">
-                    <div th:each="category : ${allCategories}">
-                        <label>
-                            <input type="checkbox"
-                                   th:value="${category.categoryId}"
-                                   th:field="*{categories}" />
-                            <span th:text="${category.categoryName}"></span>
-                        </label>
+                    <label>Categorieën:</label>
+                    <div class="category-checkboxes">
+                        <div th:each="category : ${allCategories}">
+                            <label>
+                                <input type="checkbox"
+                                       th:value="${category.categoryId}"
+                                       th:field="*{categories}" />
+                                <span th:text="${category.categoryName}"></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
 
-                <div id="step-container">
-                    <div class="step-row" th:each="direction, iter : *{directions}">
-                        <label class="step-label">Stap [[${iter.index} + 1]]:</label>
-                        <input type="text" th:field="*{directions[__${iter.index}__].direction}"/>
-                        <button type="button" class="remove-step-btn">Wissen</button>
+                <div class="recipeFormDirectionsContainer">
+
+                    <label for="recipeDescription">Beschrijving:</label>
+                    <textarea th:field="*{recipeDescription}" id="recipeDescription" />
+
+                    <label>Stappenplan:</label>
+                    <div class="directions-container" id="step-container">
+                        <div class="step-row" th:each="direction, iter : *{directions}">
+                            <label class="step-label">Stap [[${iter.index} + 1]]:</label>
+                            <input type="text" th:field="*{directions[__${iter.index}__].direction}"/>
+                            <button type="button" class="remove-step-btn">Wissen</button>
+                        </div>
+                    </div>
+
+                    <div class="add-step-button=">
+                        <button type="button" id="add-step-btn">Voeg stap toe</button>
                     </div>
                 </div>
-
-                <div style="margin-top: 1em;">
-                <button type="button" id="add-step-btn">Voeg stap toe</button>
+                <div class = "saveAndDeleteButtons">
+                    <button id="saveButton" type="submit">Opslaan</button>
+                    <button id="deleteButton" type="submit">Verwijderen</button>
                 </div>
 
-                <button type="submit">Opslaan</button>
             </form>
         </div>
 
