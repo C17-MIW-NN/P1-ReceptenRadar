@@ -45,7 +45,10 @@
         <div th:fragment="recipeDetailCard" class="recipeOverviewCard recipeDetailCard">
                 <div class="recipeDetailContainer" >
                     <div class="recipeName">
-                            <h1><span th:text="${recipe.recipeName}"></span>&nbsp;<i id="openEditModalButton" class="bi bi-pencil"></i></h1>
+                            <h1>
+                                <span th:text="${recipe.recipeName}"></span>&nbsp;
+                                <i id="openEditModalButton" class="bi bi-pencil"></i>
+                            </h1>
 
                     </div>
                     <div class="recipePicture">
@@ -56,9 +59,18 @@
                     </div>
                     <div class="recipeMetadata">
                         <div class="recipeOverviewCard-Info recipeDetailInfo">
-                            <p><i class="bi bi-clock"></i>&nbsp;<span th:text="${recipe.preparationTime}"></span> Min.</p>
-                            <p><i class="bi bi-people-fill"></i>&nbsp;<span th:text="${recipe.forAmountOfPeople}"></span></p>
-                            <p><i class="bi bi-fire"></i>&nbsp;<span th:text="${recipe.calories}"></span></p>
+                            <p>
+                                <i class="bi bi-clock"></i>&nbsp;
+                                <span th:text="${recipe.preparationTime}"></span> Min.
+                            </p>
+                            <p>
+                                <i class="bi bi-people-fill"></i>&nbsp;
+                                <span th:text="${recipe.forAmountOfPeople}"></span>
+                            </p>
+                            <p>
+                                <i class="bi bi-fire"></i>&nbsp;
+                                <span th:text="${recipe.calories}"></span>
+                            </p>
                         </div>
                         <div class="recipeOverviewCard-Categories recipeDetailCategories">
                             <a th:each="category : ${recipe.categories}"

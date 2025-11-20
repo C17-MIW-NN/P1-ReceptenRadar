@@ -45,10 +45,6 @@
     align-items: start;
 }
 
-.recipeDetailContainer div {
-/*    padding: 10px; */
-}
-
 .recipeDetailContainer div.recipeName {
     grid-area: recipeName;
     padding: 5px;
