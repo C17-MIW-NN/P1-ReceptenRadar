@@ -67,17 +67,17 @@
                                 <span th:text="${category.categoryName}"></span>
                             </a>
                         </div>
+                        <div th:text="${recipe.recipeDescription}" class="recipeDescription"></div>
                     </div>
 
                     <div class="recipeIngredients">
                         <h3>Ingredienten:</h3>
-                        <p th:each="ingredient : ${recipe.recipeIngredients}">
-                            <span th:text="${ingredient.getQuantity()}"></span>
-
-                            <span th:text="${ingredient.getUnit()}"></span>
-
-                            <span th:text="${ingredient.getIngredient().getIngredientName()}"></span>
-                        </p>
+                        <table class="ingredientsTable">
+                            <tr th:each="ingredient : ${recipe.recipeIngredients}">
+                                <td th:text="${ingredient.getQuantity()} + '&nbsp;' + ${ingredient.getUnit()}"></td>
+                                <td th:text="${ingredient.getIngredient().getIngredientName()}"></td>
+                            </tr>
+                        </table>
                     </div>
 
                     <div class="recipeDirections">

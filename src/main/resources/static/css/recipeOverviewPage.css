@@ -72,6 +72,14 @@
     grid-area: recipeDirections;
 }
 
+.recipeDescription {
+    padding-top: 5px
+}
+.ingredientsTable td {
+    padding-right: 20px;
+}
+
+
 .fancy-steps {
     counter-reset: step;
     list-style: none;
