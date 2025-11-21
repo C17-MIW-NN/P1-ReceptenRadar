@@ -10,18 +10,25 @@
 
         <div class="container">
 
-            <h1>Overzicht van alle categorieën</h1>
+            <h1 class="header-categorie-ingredient">Overzicht van alle categorieën</h1>
 
             <div>
                 <div class="categoryOverview">
-                    <a th:each="category : ${allCategories}"
-                       th:href="@{/category/edit/{name}(name = ${category.categoryName})}"
-                       class="category-link">
-                        <span th:text="${category.categoryName}"></span>
-                    </a>
+                    <div th:each="category : ${allCategories}" class="category-container">
+                        <a class="category category-name">
+                            <span th:text="${category.categoryName}"></span>
+                        </a>
+                        <a th:href="@{/category/edit/{name}(name = ${category.categoryName})}"
+                           class="btn category category-edit-link">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+                    </div>
                 </div>
+
+                <a th:href="@{/category/add}" class="btn category category-btn">Nieuwe categorie</a>
             </div>
-            <a th:href="@{/category/add}" class="btn btn-primary">Nieuwe categorie</a>
+
+
 
         </div>
 

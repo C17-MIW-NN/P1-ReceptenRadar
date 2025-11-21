@@ -1,0 +1,75 @@
+.header-categorie-ingredient {
+    padding: 20px;
+}
+
+.categoryOverview {
+    display: flex;
+    justify-content: start;
+    text-align: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.category-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.category {
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    background-color: rgba(95, 137, 29, 0.8);
+    border: none;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.category-name {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    width: 10rem;
+    flex: 0 1 auto;
+    background-color: #eae3da;
+    border: 2px solid rgba(95, 137, 29, 0.8);
+    color: black;
+}
+
+.category-edit-link {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    width: 2.5rem;
+    flex: 0 0 auto;
+}
+
+.category-btn {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    width: 10rem;
+    flex: 0 0 auto;
+    margin-top: 3rem;
+}
+
+.category-edit-link:hover {
+    background-color: rgba(95, 137, 29, 1.0);
+    color: #fff;
+}
+
+.category-btn:hover {
+    background-color: rgba(95, 137, 29, 1.0);
+    color: #fff;
+}
