@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
     <head th:fragment="baseheader(title)">
         <meta charset="UTF-8">
@@ -92,7 +92,7 @@
                     </div>
 
                     <div class="recipeIngredients">
-                        <h3>Ingredienten:</h3>
+                        <h3>Ingrediënten:</h3>
                         <table class="ingredientsTable">
                             <tr th:each="ingredient : ${recipe.recipeIngredients}">
                                 <td th:text="${ingredient.getQuantity()} + '&nbsp;' + ${ingredient.getUnit()}"></td>
@@ -199,9 +199,8 @@
                 </div>
 
                 <div class="recipeFormDirectionsContainer">
-
                     <label for="recipeDescription">Beschrijving:</label>
-                    <textarea th:field="*{recipeDescription}" id="recipeDescription" />
+                    <textarea th:field="*{recipeDescription}" id="recipeDescription"></textarea>
 
                     <label>Stappenplan:</label>
                     <div class="directions-container" id="step-container">
@@ -212,15 +211,18 @@
                         </div>
                     </div>
 
-                    <div class="add-step-button=">
+                    <div class="add-step-button">
                         <button type="button" id="add-step-btn">Voeg stap toe</button>
                     </div>
                 </div>
-                <div class = "saveAndDeleteButtons">
-                    <button id="saveButton" type="submit">Opslaan</button>
-                    <button id="deleteButton" type="submit">Verwijderen</button>
-                </div>
 
+                <div class="saveAndDeleteButtons">
+                    <button id="saveButton" type="submit" th:formaction="@{/recipe/save}">Opslaan</button>
+                    <button id="deleteButton" type="submit"
+                            th:formaction="@{/recipe/delete/{recipeId}(recipeId=${recipe.recipeId})}"
+                            th:if="${recipe.recipeId != null}">Verwijderen</button>
+
+                </div>
             </form>
         </div>
 

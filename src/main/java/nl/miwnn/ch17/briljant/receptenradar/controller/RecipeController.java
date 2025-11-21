@@ -52,7 +52,7 @@ public class RecipeController {
     @GetMapping("/recipe/add")
     public String showRecipeForm(Model datamodel) {
         Recipe newRecipe = new Recipe();
-        newRecipe.getDirections().add(new Direction()); // optioneel: 1 lege stap
+        newRecipe.getDirections().add(new Direction());
         datamodel.addAttribute("recipe", newRecipe);
         datamodel.addAttribute("allCategories", categoryRepository.findAll());
 
@@ -106,6 +106,16 @@ public class RecipeController {
 
         return "redirect:/recipe/detail/" + recipeToBeSaved.getRecipeName();
     }
+
+    @PostMapping("/recipe/delete/{recipeId}")
+    public String deleteRecipe(@PathVariable Long recipeId) {
+        Optional<Recipe> recipe = recipeRepository.findById(recipeId);
+        System.out.println("Deleting recipe with id: " + recipeId);
+        recipeRepository.deleteById(recipeId);
+        return "redirect:/recipe/all";
+    }
+
+
 
     @GetMapping("recipe/detail/{recipeId}")
     public String showRecipeDetailPage(@PathVariable("recipeId") String recipeName, Model datamodel) {

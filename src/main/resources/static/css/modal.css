@@ -113,6 +113,10 @@
     padding: 10px;
 }
 
+.step-label{
+    width: 100px;
+}
+
 .step-row input[type=text] {
     width: 80%;
 }
