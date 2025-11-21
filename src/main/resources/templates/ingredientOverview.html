@@ -9,22 +9,42 @@
         <div th:replace="~{fragments/general :: navbar}"></div>
 
         <div class="container">
-            <h1>Overzicht van alle ingrediënten</h1>
 
-            <div class="ingredient-card-display row">
-                <div th:each="ingredient : ${allIngredients}" class="mb-4">
-                    <div class=" card text-center" style="width: 18rem;">
-                        <div class="card-body">
-                            <a th:href="@{/ingredient/edit/{ingredientName}(ingredientName =
-                                ${ingredient.ingredientName})}">
-                                <p th:text="${ingredient.ingredientName}"></p>
-                            </a>
-                        </div>
+            <h1 class="header-categorie-ingredient">Overzicht van alle ingrediënten</h1>
+
+            <div>
+                <div class="typeOverview">
+                    <div th:each="ingredient : ${allIngredients}" class="type-container">
+                        <a class="type type-name">
+                            <span th:text="${ingredient.ingredientName}"></span>
+                        </a>
+                        <a th:href="@{/ingredient/edit/{ingredientName}(ingredientName = ${ingredient.ingredientName})}"
+                           class="btn type type-edit-link">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
                     </div>
                 </div>
+
+                <a th:href="@{/ingredient/add}" class="btn type type-btn">Nieuw ingrediënt</a>
             </div>
 
-            <a th:href="@{/ingredient/add}" class="btn btn-primary">Nieuw ingrediënt</a>
+<!--        <div class="container">-->
+<!--            <h1>Overzicht van alle ingrediënten</h1>-->
+
+<!--            <div class="ingredient-card-display row">-->
+<!--                <div th:each="ingredient : ${allIngredients}" class="mb-4">-->
+<!--                    <div class=" card text-center" style="width: 18rem;">-->
+<!--                        <div class="card-body">-->
+<!--                            <a th:href="@{/ingredient/edit/{ingredientName}(ingredientName =-->
+<!--                                ${ingredient.ingredientName})}">-->
+<!--                                <p th:text="${ingredient.ingredientName}"></p>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <a th:href="@{/ingredient/add}" class="btn btn-primary">Nieuw ingrediënt</a>-->
         </div>
 
         <div th:replace="~{fragments/general :: footer}"></div>

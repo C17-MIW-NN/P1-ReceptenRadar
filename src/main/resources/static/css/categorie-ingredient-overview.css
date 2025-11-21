@@ -2,15 +2,16 @@
     padding: 20px;
 }
 
-.categoryOverview {
+.typeOverview {
     display: flex;
     justify-content: start;
     text-align: center;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 15px;
+    padding-top: 10px;
 }
 
-.category-container {
+.type-container {
     display: flex;
     justify-content: center;
     text-align: center;
@@ -18,7 +19,7 @@
     gap: 5px;
 }
 
-.category {
+.type {
     padding: 0.4rem 0.8rem;
     border-radius: 6px;
     background-color: rgba(95, 137, 29, 0.8);
@@ -30,20 +31,21 @@
     transition: background-color 0.2s ease;
 }
 
-.category-name {
+.type-name {
     display: flex;
     justify-content: center;
     flex-direction: row;
     align-items: center;
     text-align: center;
-    width: 10rem;
+    width: auto;
+    padding: 5px;
     flex: 0 1 auto;
-    background-color: #eae3da;
+    background-color: #eae3da00;
     border: 2px solid rgba(95, 137, 29, 0.8);
     color: black;
 }
 
-.category-edit-link {
+.type-edit-link {
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -53,7 +55,7 @@
     flex: 0 0 auto;
 }
 
-.category-btn {
+.type-btn {
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -64,12 +66,12 @@
     margin-top: 3rem;
 }
 
-.category-edit-link:hover {
+.type-edit-link:hover {
     background-color: rgba(95, 137, 29, 1.0);
     color: #fff;
 }
 
-.category-btn:hover {
+.type-btn:hover {
     background-color: rgba(95, 137, 29, 1.0);
     color: #fff;
 }

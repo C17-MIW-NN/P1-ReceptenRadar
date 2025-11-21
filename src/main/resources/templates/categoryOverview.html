@@ -13,19 +13,19 @@
             <h1 class="header-categorie-ingredient">Overzicht van alle categorieën</h1>
 
             <div>
-                <div class="categoryOverview">
-                    <div th:each="category : ${allCategories}" class="category-container">
-                        <a class="category category-name">
+                <div class="typeOverview">
+                    <div th:each="category : ${allCategories}" class="type-container">
+                        <a class="type type-name">
                             <span th:text="${category.categoryName}"></span>
                         </a>
                         <a th:href="@{/category/edit/{name}(name = ${category.categoryName})}"
-                           class="btn category category-edit-link">
+                           class="btn type type-edit-link">
                             <i class="bi bi-pencil-fill"></i>
                         </a>
                     </div>
                 </div>
 
-                <a th:href="@{/category/add}" class="btn category category-btn">Nieuwe categorie</a>
+                <a th:href="@{/category/add}" class="btn type type-btn">Nieuwe categorie</a>
             </div>
 
 

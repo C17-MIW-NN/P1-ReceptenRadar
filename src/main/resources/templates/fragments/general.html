@@ -73,13 +73,21 @@
                                 <span th:text="${recipe.calories}"></span>
                             </p>
                         </div>
-                        <div class="recipeDetailCategories">
-                            <a th:each="category : ${recipe.categories}"
-                               th:href="@{/category/edit/{name}(name=${category.categoryName})}"
-                               class="category-link">
-                                <span th:text="${category.categoryName}"></span>
-                            </a>
+                        <div class="typeOverview">
+                            <div th:each="category : ${recipe.categories}" class="type-container"
+                                 th:href="@{/category/edit/{name}(name=${category.categoryName})}">
+                                <a class="type type-name">
+                                    <span th:text="${category.categoryName}"></span>
+                                </a>
+                            </div>
                         </div>
+<!--                        <div class="recipeDetailCategories">-->
+<!--                            <a th:each="category : ${recipe.categories}"-->
+<!--                               th:href="@{/category/edit/{name}(name=${category.categoryName})}"-->
+<!--                               class="category-link">-->
+<!--                                <span th:text="${category.categoryName}"></span>-->
+<!--                            </a>-->
+<!--                        </div>-->
                         <div th:text="${recipe.recipeDescription}" class="recipeDescription"></div>
                     </div>
 
