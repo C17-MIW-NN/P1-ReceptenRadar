@@ -54,7 +54,14 @@
                     </div>
                     <div class="recipePicture">
                         <div class="image-wrapper">
-                            <img th:src="${recipe.imageUrl}" class="img-fluid rounded" alt="Image not found">
+                            <img th:if="${#strings.isEmpty(recipe.imageUrl)}"
+                                 th:src="@{/images/no-image.png}" class="img-fluid rounded"
+                                 alt="Geen afbeelding beschikbaar"
+                            />
+                            <img th:unless="${#strings.isEmpty(recipe.imageUrl)}"
+                                 th:src="${recipe.imageUrl}" class="img-fluid rounded"
+                                 alt="Afbeelding van het recept"
+                            />
                         </div>
 
                     </div>
@@ -142,7 +149,15 @@
         <div th:fragment="recipeOverviewCard" class="card">
             <div class="image-wrapper">
                 <a th:href="@{/recipe/detail/{recipeName}(recipeName=${recipe.recipeName})}">
-                    <img th:src="${recipe.imageUrl}" alt="Image not found">
+
+                    <img th:if="${#strings.isEmpty(recipe.imageUrl)}"
+                         th:src="@{/images/no-image.png}"
+                         alt="Geen afbeelding beschikbaar"
+                    />
+                    <img th:unless="${#strings.isEmpty(recipe.imageUrl)}"
+                         th:src="${recipe.imageUrl}"
+                         alt="Afbeelding van het recept"
+                    />
                 </a>
             </div>
 
