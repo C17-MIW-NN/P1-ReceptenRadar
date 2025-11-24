@@ -1,7 +1,7 @@
 package nl.miwnn.ch17.briljant.receptenradar.service;
 
-import nl.miwnn.ch17.briljant.receptenradar.model.receptenRadarUser;
-import nl.miwnn.ch17.briljant.receptenradar.repositories.receptenRadarUserRepository;
+import nl.miwnn.ch17.briljant.receptenradar.model.ReceptenRadarUser;
+import nl.miwnn.ch17.briljant.receptenradar.repositories.ReceptenRadarUserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,21 +14,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class receptenRadarUserService implements UserDetailsService {
-    private final receptenRadarUserRepository receptenRadarUserRepository;
+    private final ReceptenRadarUserRepository receptenRadarUserRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public receptenRadarUserService(receptenRadarUserRepository receptenRadarUserRepository, PasswordEncoder passwordEncoder) {
+    public receptenRadarUserService(ReceptenRadarUserRepository receptenRadarUserRepository, PasswordEncoder passwordEncoder) {
         this.receptenRadarUserRepository = receptenRadarUserRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return receptenRadarUserRepository.findByUserName(username)
+        return receptenRadarUserRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User" + username + " not found"));
     }
 
-    public void saveUser(receptenRadarUser receptenRadarUser) {
+    public void saveUser(ReceptenRadarUser receptenRadarUser) {
         receptenRadarUser.setPassword(passwordEncoder.encode(receptenRadarUser.getPassword()));
         receptenRadarUserRepository.save(receptenRadarUser);
     }

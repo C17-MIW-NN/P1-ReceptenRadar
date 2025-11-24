@@ -1,12 +1,7 @@
 package nl.miwnn.ch17.briljant.receptenradar.controller;
 
-import nl.miwnn.ch17.briljant.receptenradar.model.Category;
-import nl.miwnn.ch17.briljant.receptenradar.model.Direction;
-import nl.miwnn.ch17.briljant.receptenradar.model.Recipe;
-import nl.miwnn.ch17.briljant.receptenradar.repositories.CategoryRepository;
-import nl.miwnn.ch17.briljant.receptenradar.repositories.IngredientRepository;
-import nl.miwnn.ch17.briljant.receptenradar.repositories.RecipeRepository;
-import nl.miwnn.ch17.briljant.receptenradar.service.RecipeCopyService;
+import nl.miwnn.ch17.briljant.receptenradar.model.*;
+import nl.miwnn.ch17.briljant.receptenradar.repositories.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,26 +23,40 @@ import java.util.Optional;
 
 @Controller
 public class RecipeController {
+    private static final int LIKE = 1;
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final CategoryRepository categoryRepository;
-    private final RecipeCopyService recipeCopyService;
+    private final ReceptenRadarUserRepository receptenRadarUserRepository;
 
+    public RecipeController(RecipeRepository recipeRepository,
+                            IngredientRepository ingredientRepository,
+                            CategoryRepository categoryRepository,
+                            ReceptenRadarUserRepository receptenRadarUserRepository) {
 
-    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, CategoryRepository categoryRepository, RecipeCopyService recipeCopyService) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         this.categoryRepository = categoryRepository;
-        this.recipeCopyService = recipeCopyService;
+        this.receptenRadarUserRepository = receptenRadarUserRepository;
     }
 
     @GetMapping({"/recipe/all","/"})
-    public String showRecipeOverview(Model datamodel) {
+    public String showRecipeOverview(Model datamodel, Principal principal) {
         ArrayList<Recipe> recipes = new ArrayList<>(recipeRepository.findAll());
+
 
         datamodel.addAttribute("allRecipes", recipeRepository.findAll());
         datamodel.addAttribute("recipe", new Recipe());
-        datamodel.addAttribute("allCategories", categoryRepository.findAll());
+
+        if (principal != null) {
+            receptenRadarUserRepository.findByUsername(principal.getName())
+                    .ifPresent(user -> datamodel.addAttribute("user", user));
+        } else {
+            datamodel.addAttribute("user", null);
+        }
+
+        datamodel.addAttribute("allCategories",
+                categoryRepository.findAllByOrderByCategoryLikesDesc());
 
         return "recipeOverview";
     }
@@ -117,8 +127,6 @@ public class RecipeController {
         return "redirect:/recipe/all";
     }
 
-
-
     @GetMapping("recipe/detail/{recipeId}")
     public String showRecipeDetailPage(@PathVariable("recipeId") String recipeName, Model datamodel) {
         Optional<Recipe> recipeToShow = recipeRepository.findByRecipeName(recipeName);
@@ -133,11 +141,34 @@ public class RecipeController {
         return "recipeDetail";
     }
 
-    @GetMapping("/recipe/detail/{recipeName}/copy")
-    public String copyRecipe(@PathVariable String recipeName) {
-        Recipe copy = recipeCopyService.copyFullRecipe(recipeName);
+    @PostMapping("/recipe/{recipeId}/like")
+    public String likeRecipeAndCategories(@PathVariable Long recipeId, Model datamodel, Principal principal) {
+        ReceptenRadarUser user = receptenRadarUserRepository.findByUsername(principal.getName())
+                .orElseThrow(() -> new RuntimeException("User not found for user:" + principal.getName()));
 
-        return "redirect:/recipe/detail/" + copy.getRecipeName();
+        Recipe recipe = recipeRepository.findById(recipeId)
+                .orElseThrow(() -> new RuntimeException("Recipe not found"));
+
+        if (!user.getLikedRecipes().contains(recipe)) {
+            user.getLikedRecipes().add(recipe);
+            recipe.getRecipeLikes().add(user);
+
+            for (Category category : recipe.getCategories()) {
+                category.setCategoryLikes(category.getCategoryLikes() + LIKE);
+            }
+
+            recipeRepository.save(recipe);
+            receptenRadarUserRepository.save(user);
+            categoryRepository.saveAll(recipe.getCategories());
+        }
+
+        datamodel.addAttribute("recipe", recipe);
+        datamodel.addAttribute("user", user);
+        datamodel.addAttribute("allCategories", categoryRepository.findAll());
+        datamodel.addAttribute("numberOfLikes", recipe.getRecipeLikes().size());
+
+        return "recipeDetail";
     }
+
 
 }

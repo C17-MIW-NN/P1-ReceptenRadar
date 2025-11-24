@@ -38,10 +38,10 @@
                         <a class="navLink" th:href="@{/category/all}">Categorieën</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAnonymous()">
-                        <a class="navLink" th:href="@{/login}">Inloggen</a>
+                        <a class="loginButton" th:href="@{/login}">Inloggen</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="navLink" th:href="@{/logout}">Uitloggen</a>
+                        <a class="loginButton" th:href="@{/logout}">Uitloggen</a>
                     </li>
                 </ul>
             </div>
@@ -58,6 +58,11 @@
                                     Kopieer recept
                                 </a>
                             </h1>
+                        <form th:action="@{/recipe/{recipeId}/like(recipeId=${recipe.recipeId})}" method="post">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-hand-thumbs-up"></i> Like
+                            </button>
+                        </form>
 
                     </div>
                     <div class="recipePicture">
@@ -87,7 +92,12 @@
                                 <i class="bi bi-fire"></i>&nbsp;
                                 <span th:text="${recipe.calories}"></span>
                             </p>
+                            <p>
+                                <i class="bi bi-hand-thumbs-up"></i>
+                                <span th:text="${recipe.recipeLikes.size()}"></span>
+                            </p>
                         </div>
+
                         <div class="typeOverview">
                             <div th:each="category : ${recipe.categories}" class="type-container"
                                  th:href="@{/category/edit/{name}(name=${category.categoryName})}">
@@ -96,13 +106,6 @@
                                 </a>
                             </div>
                         </div>
-<!--                        <div class="recipeDetailCategories">-->
-<!--                            <a th:each="category : ${recipe.categories}"-->
-<!--                               th:href="@{/category/edit/{name}(name=${category.categoryName})}"-->
-<!--                               class="category-link">-->
-<!--                                <span th:text="${category.categoryName}"></span>-->
-<!--                            </a>-->
-<!--                        </div>-->
                         <div th:text="${recipe.recipeDescription}" class="recipeDescription"></div>
                     </div>
 
@@ -170,9 +173,12 @@
             </div>
 
             <div class="recipeOverviewCard-Info">
-                <p><i class="bi bi-clock"></i> <span th:text="${recipe.preparationTime}"></span> Min.</p>
+                <p><i class="bi bi-clock-fill"></i> <span th:text="${recipe.preparationTime}"></span> Min.</p>
                 <p><i class="bi bi-people-fill"></i> <span th:text="${recipe.forAmountOfPeople}"></span></p>
-                <p><i class="bi bi-fire"></i> <span th:text="${recipe.calories}"></span></p></div>
+                <p><i class="bi bi-fire"></i> <span th:text="${recipe.calories}"></span></p>
+                <p><i class="bi bi-heart-fill"></i> <span th:text="${recipe.recipeLikes.size()}"></span>
+                </p>
+            </div>
 
             <h2 class="card-title"><span th:text="${recipe.recipeName}"></span></h2>
 

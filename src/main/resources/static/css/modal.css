@@ -56,7 +56,6 @@
 .recipeFormDirectionsContainer {
       align-items: center;
       justify-content: start;
-
   }
 
 .recipeFormInfoContainer input[type='text'],
@@ -74,8 +73,6 @@
     width: 80%;
     vertical-align: top;
 }
-
-
 
 .category-checkboxes{
     display: flex;

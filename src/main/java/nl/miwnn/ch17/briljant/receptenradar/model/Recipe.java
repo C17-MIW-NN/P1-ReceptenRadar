@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Douwe Jan Hamersma
@@ -18,6 +19,9 @@ public class Recipe {
 
     @Column(unique = true)
     private String recipeName;
+
+    @ManyToMany(mappedBy = "likedRecipes")
+    private Set<ReceptenRadarUser> recipeLikes;
 
     private int preparationTime;
 
@@ -117,5 +121,13 @@ public class Recipe {
 
     public void setRecipeDescription(String recipeDescription) {
         this.recipeDescription = recipeDescription;
+    }
+
+    public Set<ReceptenRadarUser> getRecipeLikes() {
+        return recipeLikes;
+    }
+
+    public void setRecipeLikes(Set<ReceptenRadarUser> recipeLikes) {
+        this.recipeLikes = recipeLikes;
     }
 }
