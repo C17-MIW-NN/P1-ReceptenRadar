@@ -53,6 +53,10 @@
                             <h1>
                                 <span th:text="${recipe.recipeName}"></span>&nbsp;
                                 <i id="openEditModalButton" class="bi bi-pencil"></i>
+                                <a class="btn btn-secondary"
+                                   th:href="@{'/recipe/detail/' + ${recipe.recipeName} + '/copy'}">
+                                    Kopieer recept
+                                </a>
                             </h1>
 
                     </div>

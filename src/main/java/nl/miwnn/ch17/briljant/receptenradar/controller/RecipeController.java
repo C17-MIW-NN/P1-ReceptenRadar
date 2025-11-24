@@ -6,6 +6,7 @@ import nl.miwnn.ch17.briljant.receptenradar.model.Recipe;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.CategoryRepository;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.IngredientRepository;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.RecipeRepository;
+import nl.miwnn.ch17.briljant.receptenradar.service.RecipeCopyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * @author Iris Loermans
@@ -30,12 +30,14 @@ public class RecipeController {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final CategoryRepository categoryRepository;
+    private final RecipeCopyService recipeCopyService;
 
 
-    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, CategoryRepository categoryRepository) {
+    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, CategoryRepository categoryRepository, RecipeCopyService recipeCopyService) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         this.categoryRepository = categoryRepository;
+        this.recipeCopyService = recipeCopyService;
     }
 
     @GetMapping({"/recipe/all","/"})
@@ -129,6 +131,13 @@ public class RecipeController {
         datamodel.addAttribute("allCategories", categoryRepository.findAll());
         datamodel.addAttribute("allIngredients",ingredientRepository.findAll());
         return "recipeDetail";
+    }
+
+    @GetMapping("/recipe/detail/{recipeName}/copy")
+    public String copyRecipe(@PathVariable String recipeName) {
+        Recipe copy = recipeCopyService.copyFullRecipe(recipeName);
+
+        return "redirect:/recipe/detail/" + copy.getRecipeName();
     }
 
 }
