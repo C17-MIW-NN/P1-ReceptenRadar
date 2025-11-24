@@ -114,7 +114,7 @@ public class InitializeController {
         }
     }
 
-    private Recipe makeRecipe(String[] recipeLine) {
+    public Recipe makeRecipe(String[] recipeLine) {
         Recipe recipe = new Recipe();
 
         recipe.setRecipeName(recipeLine[0]);
