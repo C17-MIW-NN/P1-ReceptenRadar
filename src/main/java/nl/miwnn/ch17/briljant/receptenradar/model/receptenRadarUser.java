@@ -53,7 +53,7 @@ public class receptenRadarUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return "";
+        return userName;
     }
 
     @Override

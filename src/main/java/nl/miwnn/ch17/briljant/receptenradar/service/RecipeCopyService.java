@@ -4,6 +4,8 @@ import nl.miwnn.ch17.briljant.receptenradar.model.Direction;
 import nl.miwnn.ch17.briljant.receptenradar.model.Recipe;
 import nl.miwnn.ch17.briljant.receptenradar.model.RecipeIngredient;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.RecipeRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import java.util.List;
 @Service
 public class RecipeCopyService {
 
-    private RecipeRepository recipeRepository;
+    private final RecipeRepository recipeRepository;
 
     public RecipeCopyService(RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;
@@ -31,45 +33,65 @@ public class RecipeCopyService {
         return recipeRepository.save(recipeCopy);
     }
 
-    public Recipe copyRecipe(Recipe originalRecipe) {
-        Recipe recipeCopy = new Recipe();
+    public Recipe copyRecipe(Recipe original) {
+        Recipe copy = new Recipe();
 
-        recipeCopy.setRecipeName(generateNewCopyName(originalRecipe.getRecipeName()));
+        copySimpleVariables(original, copy);
+        copy.setCategories(new ArrayList<>(original.getCategories()));
+        copy.setRecipeIngredients(copyIngredients(original, copy));
+        copy.setDirections(copyDirections(original, copy));
 
-        recipeCopy.setPreparationTime(originalRecipe.getPreparationTime());
-        recipeCopy.setForAmountOfPeople(originalRecipe.getForAmountOfPeople());
-        recipeCopy.setCalories(originalRecipe.getCalories());
-        recipeCopy.setImageUrl(originalRecipe.getImageUrl());
-        recipeCopy.setRecipeDescription(originalRecipe.getRecipeDescription());
+        return copy;
+    }
 
-        recipeCopy.setCategories(new ArrayList<>(originalRecipe.getCategories()));
-
-        List<RecipeIngredient> ingredientCopies = new ArrayList<>();
-        for (RecipeIngredient ingredient : originalRecipe.getRecipeIngredients()) {
-            RecipeIngredient newIngredient = new RecipeIngredient();
-            newIngredient.setQuantity(ingredient.getQuantity());
-            newIngredient.setUnit(ingredient.getUnit());
-            newIngredient.setIngredient(ingredient.getIngredient());
-            newIngredient.setRecipe(recipeCopy);
-
-            ingredientCopies.add(newIngredient);
-        }
-        recipeCopy.setRecipeIngredients(ingredientCopies);
-
-        List<Direction> directionCopies = new ArrayList<>();
-        for (Direction direction : originalRecipe.getDirections()) {
-            Direction newDirection = new Direction();
-            newDirection.setDirectionNumber(direction.getDirectionNumber());
-            newDirection.setDirection(direction.getDirection());
-            newDirection.setRecipe(recipeCopy);
-            directionCopies.add(newDirection);
-        }
-        recipeCopy.setDirections(directionCopies);
-
-        return recipeCopy;
+    private void copySimpleVariables(Recipe original, Recipe recipeCopy) {
+        recipeCopy.setRecipeName(generateNewCopyName(original.getRecipeName()));
+        recipeCopy.setPreparationTime(original.getPreparationTime());
+        recipeCopy.setForAmountOfPeople(original.getForAmountOfPeople());
+        recipeCopy.setCalories(original.getCalories());
+        recipeCopy.setImageUrl(original.getImageUrl());
+        recipeCopy.setRecipeDescription(original.getRecipeDescription());
     }
 
     private String generateNewCopyName(String baseName) {
-        return baseName + " a la Piet";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = (authentication != null) ? authentication.getName() : "UnknownUser";
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("Authentication: " + auth);
+        System.out.println("Username: " + (auth != null ? auth.getName() : "null"));
+
+        return baseName + " a la " + username;
+    }
+
+    private List<RecipeIngredient> copyIngredients(Recipe original, Recipe recipeCopy) {
+        List<RecipeIngredient> ingredients = new ArrayList<>();
+
+        for (RecipeIngredient originalIngredient : original.getRecipeIngredients()) {
+            RecipeIngredient ingredient = new RecipeIngredient();
+            ingredient.setQuantity(originalIngredient.getQuantity());
+            ingredient.setUnit(originalIngredient.getUnit());
+            ingredient.setIngredient(originalIngredient.getIngredient());
+            ingredient.setRecipe(recipeCopy);
+
+            ingredients.add(ingredient);
+        }
+
+        return ingredients;
+    }
+
+    private List<Direction> copyDirections(Recipe original, Recipe recipeCopy) {
+        List<Direction> directions = new ArrayList<>();
+
+        for (Direction originalDirection : original.getDirections()) {
+            Direction direction = new Direction();
+            direction.setDirectionNumber(originalDirection.getDirectionNumber());
+            direction.setDirection(originalDirection.getDirection());
+            direction.setRecipe(recipeCopy);
+
+            directions.add(direction);
+        }
+
+        return directions;
     }
 }
