@@ -5,6 +5,11 @@
     height: 100px;
 }
 
+.nav{
+    display: flex;
+    align-items: center;
+}
+
 .navLink {
     font-size: 17px;
     font-weight: 600;
@@ -12,6 +17,7 @@
     transition: color 0.3s ease;
     color: #eae3da;
     text-transform: uppercase;
+    text-decoration: none;
 }
 
 .navLink:hover {
@@ -23,3 +29,20 @@
     color: #ffffff;
     border-bottom: 2px solid #ffffff;
 }
+
+.loginButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    min-width: 100px;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 17px;
+    font-weight: 600;
+    color: #5f891d;
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+

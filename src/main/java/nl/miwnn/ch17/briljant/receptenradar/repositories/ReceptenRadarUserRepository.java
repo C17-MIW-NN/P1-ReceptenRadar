@@ -11,4 +11,6 @@ import java.util.Optional;
 
 public interface ReceptenRadarUserRepository extends JpaRepository<ReceptenRadarUser, Long> {
     Optional<ReceptenRadarUser> findByUsername(String username);
+
+    String username(String username);
 }

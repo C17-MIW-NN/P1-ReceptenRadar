@@ -27,7 +27,8 @@ public class CategoryController {
 
     @GetMapping("/all")
     public String showCategoryOverview(Model datamodel) {
-        datamodel.addAttribute("allCategories", categoryRepository.findAllByOrderByCategoryLikesDesc());
+        datamodel.addAttribute("allCategories",
+                categoryRepository.findAllByOrderByCategoryLikesDesc());
 
         return "categoryOverview";
     }

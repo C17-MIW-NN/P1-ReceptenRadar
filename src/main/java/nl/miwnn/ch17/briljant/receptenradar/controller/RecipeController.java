@@ -41,12 +41,22 @@ public class RecipeController {
     }
 
     @GetMapping({"/recipe/all","/"})
-    public String showRecipeOverview(Model datamodel) {
+    public String showRecipeOverview(Model datamodel, Principal principal) {
         ArrayList<Recipe> recipes = new ArrayList<>(recipeRepository.findAll());
+
 
         datamodel.addAttribute("allRecipes", recipeRepository.findAll());
         datamodel.addAttribute("recipe", new Recipe());
-        datamodel.addAttribute("allCategories", categoryRepository.findAll());
+
+        if (principal != null) {
+            receptenRadarUserRepository.findByUsername(principal.getName())
+                    .ifPresent(user -> datamodel.addAttribute("user", user));
+        } else {
+            datamodel.addAttribute("user", null);
+        }
+
+        datamodel.addAttribute("allCategories",
+                categoryRepository.findAllByOrderByCategoryLikesDesc());
 
         return "recipeOverview";
     }
