@@ -6,7 +6,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Douwe Jan Hamersma
@@ -25,6 +27,14 @@ public class ReceptenRadarUser implements UserDetails {
 
     private String password;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_likes",
+            joinColumns = @JoinColumn(name = "recepten_radar_user_id"),
+            inverseJoinColumns = @JoinColumn(name = "recipe_id"))
+    private Set<Recipe> likedRecipes;
+
+
     public long getId() {
         return id;
     }
@@ -35,6 +45,14 @@ public class ReceptenRadarUser implements UserDetails {
 
     public void setUsername(String userName) {
         this.username = userName;
+    }
+
+    public Set<Recipe> getLikedRecipes() {
+        return likedRecipes;
+    }
+
+    public void setLikedRecipes(Set<Recipe> likedRecipes) {
+        this.likedRecipes = likedRecipes;
     }
 
     @Override
@@ -49,7 +67,7 @@ public class ReceptenRadarUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return "";
+        return this.username;
     }
 
     @Override

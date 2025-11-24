@@ -132,23 +132,33 @@ public class RecipeController {
     }
 
     @PostMapping("/recipe/{recipeId}/like")
-    public String likeRecipeAndCategories(@PathVariable("recipeId") Long recipeId, Model datamodel) {
-        Recipe recipe = recipeRepository.findByRecipeId(recipeId)
-                .orElseThrow(() -> new RuntimeException("recipe not found"));
+    public String likeRecipeAndCategories(@PathVariable Long recipeId, Model datamodel, Principal principal) {
+        ReceptenRadarUser user = receptenRadarUserRepository.findByUsername(principal.getName())
+                .orElseThrow(() -> new RuntimeException("User not found for user:" + principal.getName()));
 
-            recipe.setRecipeLikes(recipe.getRecipeLikes() + LIKE);
-            recipeRepository.save(recipe);
+        Recipe recipe = recipeRepository.findById(recipeId)
+                .orElseThrow(() -> new RuntimeException("Recipe not found"));
 
-            for(Category category : recipe.getCategories()){
+        if (!user.getLikedRecipes().contains(recipe)) {
+            user.getLikedRecipes().add(recipe);
+            recipe.getRecipeLikes().add(user);
+
+            for (Category category : recipe.getCategories()) {
                 category.setCategoryLikes(category.getCategoryLikes() + LIKE);
-                categoryRepository.save(category);
             }
 
+            recipeRepository.save(recipe);
+            receptenRadarUserRepository.save(user);
+            categoryRepository.saveAll(recipe.getCategories());
+        }
+
         datamodel.addAttribute("recipe", recipe);
+        datamodel.addAttribute("user", user);
         datamodel.addAttribute("allCategories", categoryRepository.findAll());
+        datamodel.addAttribute("numberOfLikes", recipe.getRecipeLikes().size());
 
         return "recipeDetail";
-
     }
+
 
 }
