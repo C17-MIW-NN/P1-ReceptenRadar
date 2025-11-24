@@ -1,13 +1,11 @@
 package nl.miwnn.ch17.briljant.receptenradar.controller;
 
 import com.opencsv.CSVReader;
-import nl.miwnn.ch17.briljant.receptenradar.model.Category;
-import nl.miwnn.ch17.briljant.receptenradar.model.Ingredient;
-import nl.miwnn.ch17.briljant.receptenradar.model.Recipe;
-import nl.miwnn.ch17.briljant.receptenradar.model.RecipeIngredient;
+import nl.miwnn.ch17.briljant.receptenradar.model.*;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.CategoryRepository;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.IngredientRepository;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.RecipeRepository;
+import nl.miwnn.ch17.briljant.receptenradar.service.receptenRadarUserService;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ClassPathResource;
@@ -35,15 +33,17 @@ public class InitializeController {
     private final CategoryRepository categoryRepository;
     private final Map<String, Ingredient> ingredientCache;
     private final Map<String, Category> categoryCache;
+    private final receptenRadarUserService receptenRadarUserService;
 
     public InitializeController(RecipeRepository recipeRepository,
                                 IngredientRepository ingredientRepository,
-                                CategoryRepository categoryRepository) {
+                                CategoryRepository categoryRepository, receptenRadarUserService receptenRadarUserService) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         this.categoryRepository = categoryRepository;
         ingredientCache = new HashMap<>();
         categoryCache = new HashMap<>();
+        this.receptenRadarUserService = receptenRadarUserService;
     }
 
     @EventListener
@@ -54,6 +54,7 @@ public class InitializeController {
     }
 
     private void initializeDatabase() {
+        makeUser("Piet", "PietPW");
         loadIngredients();
         loadCategories();
         loadRecipes();
@@ -126,6 +127,17 @@ public class InitializeController {
         recipe.setRecipeDescription(recipeLine[7]);
 
         return recipe;
+    }
+
+    private receptenRadarUser makeUser(String username, String password) {
+        receptenRadarUser user = new receptenRadarUser();
+
+        user.setUserName(username);
+        user.setPassword(password);
+
+        receptenRadarUserService.saveUser(user);
+
+        return user;
     }
 
     private void addRecipeIngredient(String recipeLine, Recipe recipe) {
