@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 
     <head th:fragment="baseheader(title)">
         <meta charset="UTF-8">
@@ -37,11 +37,15 @@
                     <li class="nav-item">
                         <a class="navLink" th:href="@{/category/all}">Categorieën</a>
                     </li>
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="navLink" th:href="@{/login}">Inloggen</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="navLink" th:href="@{/logout}">Uitloggen</a>
+                    </li>
                 </ul>
             </div>
         </div>
-
-
 
         <div th:fragment="recipeDetailCard" class="recipeOverviewCard recipeDetailCard">
                 <div class="recipeDetailContainer" >
@@ -55,7 +59,7 @@
                     <div class="recipePicture">
                         <div class="image-wrapper">
                             <img th:if="${#strings.isEmpty(recipe.imageUrl)}"
-                                 th:src="@{/images/no-image.png}" class="img-fluid rounded"
+                                 th:src="@{/images/placeholder-image.png}" class="img-fluid rounded"
                                  alt="Geen afbeelding beschikbaar"
                             />
                             <img th:unless="${#strings.isEmpty(recipe.imageUrl)}"
@@ -151,7 +155,7 @@
                 <a th:href="@{/recipe/detail/{recipeName}(recipeName=${recipe.recipeName})}">
 
                     <img th:if="${#strings.isEmpty(recipe.imageUrl)}"
-                         th:src="@{/images/no-image.png}"
+                         th:src="@{/images/placeholder-image.png}"
                          alt="Geen afbeelding beschikbaar"
                     />
                     <img th:unless="${#strings.isEmpty(recipe.imageUrl)}"
