@@ -54,6 +54,11 @@
                                 <span th:text="${recipe.recipeName}"></span>&nbsp;
                                 <i id="openEditModalButton" class="bi bi-pencil"></i>
                             </h1>
+                        <form th:action="@{/recipe/{recipeId}/like(recipeId=${recipe.recipeId})}" method="post">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-hand-thumbs-up"></i> Like
+                            </button>
+                        </form>
 
                     </div>
                     <div class="recipePicture">
@@ -83,7 +88,12 @@
                                 <i class="bi bi-fire"></i>&nbsp;
                                 <span th:text="${recipe.calories}"></span>
                             </p>
+                            <p>
+                                <i class="bi bi-hand-thumbs-up"></i>
+                                <span th:text="${recipe.recipeLikes}"></span>
+                            </p>
                         </div>
+
                         <div class="typeOverview">
                             <div th:each="category : ${recipe.categories}" class="type-container"
                                  th:href="@{/category/edit/{name}(name=${category.categoryName})}">
@@ -92,13 +102,6 @@
                                 </a>
                             </div>
                         </div>
-<!--                        <div class="recipeDetailCategories">-->
-<!--                            <a th:each="category : ${recipe.categories}"-->
-<!--                               th:href="@{/category/edit/{name}(name=${category.categoryName})}"-->
-<!--                               class="category-link">-->
-<!--                                <span th:text="${category.categoryName}"></span>-->
-<!--                            </a>-->
-<!--                        </div>-->
                         <div th:text="${recipe.recipeDescription}" class="recipeDescription"></div>
                     </div>
 

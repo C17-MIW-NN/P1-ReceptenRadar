@@ -1,11 +1,7 @@
 package nl.miwnn.ch17.briljant.receptenradar.controller;
 
-import nl.miwnn.ch17.briljant.receptenradar.model.Category;
-import nl.miwnn.ch17.briljant.receptenradar.model.Direction;
-import nl.miwnn.ch17.briljant.receptenradar.model.Recipe;
-import nl.miwnn.ch17.briljant.receptenradar.repositories.CategoryRepository;
-import nl.miwnn.ch17.briljant.receptenradar.repositories.IngredientRepository;
-import nl.miwnn.ch17.briljant.receptenradar.repositories.RecipeRepository;
+import nl.miwnn.ch17.briljant.receptenradar.model.*;
+import nl.miwnn.ch17.briljant.receptenradar.repositories.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,10 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * @author Iris Loermans
@@ -27,15 +23,21 @@ import java.util.Set;
 
 @Controller
 public class RecipeController {
+    private static final int LIKE = 1;
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final CategoryRepository categoryRepository;
+    private final ReceptenRadarUserRepository receptenRadarUserRepository;
 
+    public RecipeController(RecipeRepository recipeRepository,
+                            IngredientRepository ingredientRepository,
+                            CategoryRepository categoryRepository,
+                            ReceptenRadarUserRepository receptenRadarUserRepository) {
 
-    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, CategoryRepository categoryRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         this.categoryRepository = categoryRepository;
+        this.receptenRadarUserRepository = receptenRadarUserRepository;
     }
 
     @GetMapping({"/recipe/all","/"})
@@ -115,8 +117,6 @@ public class RecipeController {
         return "redirect:/recipe/all";
     }
 
-
-
     @GetMapping("recipe/detail/{recipeId}")
     public String showRecipeDetailPage(@PathVariable("recipeId") String recipeName, Model datamodel) {
         Optional<Recipe> recipeToShow = recipeRepository.findByRecipeName(recipeName);
@@ -129,6 +129,26 @@ public class RecipeController {
         datamodel.addAttribute("allCategories", categoryRepository.findAll());
         datamodel.addAttribute("allIngredients",ingredientRepository.findAll());
         return "recipeDetail";
+    }
+
+    @PostMapping("/recipe/{recipeId}/like")
+    public String likeRecipeAndCategories(@PathVariable("recipeId") Long recipeId, Model datamodel) {
+        Recipe recipe = recipeRepository.findByRecipeId(recipeId)
+                .orElseThrow(() -> new RuntimeException("recipe not found"));
+
+            recipe.setRecipeLikes(recipe.getRecipeLikes() + LIKE);
+            recipeRepository.save(recipe);
+
+            for(Category category : recipe.getCategories()){
+                category.setCategoryLikes(category.getCategoryLikes() + LIKE);
+                categoryRepository.save(category);
+            }
+
+        datamodel.addAttribute("recipe", recipe);
+        datamodel.addAttribute("allCategories", categoryRepository.findAll());
+
+        return "recipeDetail";
+
     }
 
 }

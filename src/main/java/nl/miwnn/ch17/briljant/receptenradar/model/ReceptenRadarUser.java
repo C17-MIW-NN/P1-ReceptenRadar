@@ -14,14 +14,14 @@ import java.util.List;
  */
 
 @Entity
-public class receptenRadarUser implements UserDetails {
+public class ReceptenRadarUser implements UserDetails {
 
     @Id
     @GeneratedValue
     private long id;
 
     @Column(unique = true)
-    private String userName;
+    private String username;
 
     private String password;
 
@@ -33,12 +33,8 @@ public class receptenRadarUser implements UserDetails {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     @Override

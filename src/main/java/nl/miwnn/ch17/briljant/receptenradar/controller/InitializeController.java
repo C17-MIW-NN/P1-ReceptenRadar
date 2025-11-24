@@ -55,6 +55,7 @@ public class InitializeController {
 
     private void initializeDatabase() {
         makeUser("Piet", "PietPW");
+        makeUser("Corneel", "CorneelPW");
         loadIngredients();
         loadCategories();
         loadRecipes();
@@ -129,10 +130,10 @@ public class InitializeController {
         return recipe;
     }
 
-    private receptenRadarUser makeUser(String username, String password) {
-        receptenRadarUser user = new receptenRadarUser();
+    private ReceptenRadarUser makeUser(String username, String password) {
+        ReceptenRadarUser user = new ReceptenRadarUser();
 
-        user.setUserName(username);
+        user.setUsername(username);
         user.setPassword(password);
 
         receptenRadarUserService.saveUser(user);

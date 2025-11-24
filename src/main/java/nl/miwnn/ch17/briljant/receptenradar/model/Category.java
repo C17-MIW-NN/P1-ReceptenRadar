@@ -14,6 +14,9 @@ public class Category {
     @Id @GeneratedValue
     private Long categoryId;
 
+    @Column(nullable=false)
+    private int categoryLikes = 0;
+
     @Column(unique=true)
     private String categoryName;
 
@@ -44,4 +47,11 @@ public class Category {
         this.recipes = recipes;
     }
 
+    public int getCategoryLikes() {
+        return categoryLikes;
+    }
+
+    public void setCategoryLikes(int likes) {
+        this.categoryLikes = likes;
+    }
 }

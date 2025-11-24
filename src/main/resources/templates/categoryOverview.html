@@ -16,7 +16,9 @@
                 <div class="typeOverview">
                     <div th:each="category : ${allCategories}" class="type-container">
                         <a class="type type-name">
-                            <span th:text="${category.categoryName}"></span>
+                            <span th:text="${category.categoryName}"></span> &nbsp;
+                            <span> <i class="bi bi-suit-heart-fill"></i></span> &nbsp;
+                            <span th:text="${category.categoryLikes}"></span>
                         </a>
                         <a th:href="@{/category/edit/{name}(name = ${category.categoryName})}"
                            class="btn type type-edit-link">
@@ -27,8 +29,6 @@
 
                 <a th:href="@{/category/add}" class="btn type type-btn">Nieuwe categorie</a>
             </div>
-
-
 
         </div>
 

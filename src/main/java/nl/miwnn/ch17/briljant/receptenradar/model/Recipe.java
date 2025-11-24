@@ -19,6 +19,9 @@ public class Recipe {
     @Column(unique = true)
     private String recipeName;
 
+    @Column(nullable=false)
+    private int recipeLikes;
+
     private int preparationTime;
 
     private int forAmountOfPeople;
@@ -117,5 +120,13 @@ public class Recipe {
 
     public void setRecipeDescription(String recipeDescription) {
         this.recipeDescription = recipeDescription;
+    }
+
+    public int getRecipeLikes() {
+        return recipeLikes;
+    }
+
+    public void setRecipeLikes(int recipeLikes) {
+        this.recipeLikes = recipeLikes;
     }
 }
