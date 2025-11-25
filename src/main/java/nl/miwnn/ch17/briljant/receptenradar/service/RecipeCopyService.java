@@ -57,10 +57,6 @@ public class RecipeCopyService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = (authentication != null) ? authentication.getName() : "UnknownUser";
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("Authentication: " + auth);
-        System.out.println("Username: " + (auth != null ? auth.getName() : "null"));
-
         return baseName + " a la " + username;
     }
 
