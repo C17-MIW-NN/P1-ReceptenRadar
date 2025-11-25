@@ -2,6 +2,7 @@ package nl.miwnn.ch17.briljant.receptenradar.controller;
 
 import nl.miwnn.ch17.briljant.receptenradar.model.*;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.*;
+import nl.miwnn.ch17.briljant.receptenradar.service.RecipeCopyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,9 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Iris Loermans
@@ -28,35 +27,75 @@ public class RecipeController {
     private final IngredientRepository ingredientRepository;
     private final CategoryRepository categoryRepository;
     private final ReceptenRadarUserRepository receptenRadarUserRepository;
+    private final RecipeCopyService recipeCopyService;
 
     public RecipeController(RecipeRepository recipeRepository,
                             IngredientRepository ingredientRepository,
                             CategoryRepository categoryRepository,
-                            ReceptenRadarUserRepository receptenRadarUserRepository) {
+                            ReceptenRadarUserRepository receptenRadarUserRepository,
+                            RecipeCopyService recipeCopyService
+    ) {
 
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         this.categoryRepository = categoryRepository;
         this.receptenRadarUserRepository = receptenRadarUserRepository;
+        this.recipeCopyService = recipeCopyService;
     }
 
     @GetMapping({"/recipe/all","/"})
     public String showRecipeOverview(Model datamodel, Principal principal) {
-        ArrayList<Recipe> recipes = new ArrayList<>(recipeRepository.findAll());
-
-
         datamodel.addAttribute("allRecipes", recipeRepository.findAll());
         datamodel.addAttribute("recipe", new Recipe());
+        datamodel.addAttribute("allCategories",
+                categoryRepository.findAll());
+
+        if (principal != null) {
+            Optional<ReceptenRadarUser> optionalUser =
+                    receptenRadarUserRepository.findByUsername(principal.getName());
+
+            if (optionalUser.isPresent()) {
+                ReceptenRadarUser user = optionalUser.get();
+                datamodel.addAttribute("user", user);
+
+                Map<Category,Integer> userLikesPerCategory = new HashMap<>();
+                for (Recipe recipe : user.getLikedRecipes()) {
+                    for (Category category : recipe.getCategories()) {
+                        int currentCount = userLikesPerCategory.getOrDefault(category, 0);
+                        userLikesPerCategory.put(category, currentCount + LIKE);
+                    }
+                }
+
+                List<Category> sortedCategories = new ArrayList<>(userLikesPerCategory.keySet());
+                sortedCategories.sort(Comparator.comparingInt(userLikesPerCategory::get).reversed());
+
+                datamodel.addAttribute("userFavoriteCategories", sortedCategories);
+            }
+        } else {
+            datamodel.addAttribute("user", null);
+
+        }
+
+        return "recipeOverview";
+    }
+
+
+    @GetMapping("/recipe/all/{categoryName}")
+    public String showRecipesPerCategory(
+            @PathVariable String categoryName,
+            Model datamodel,
+            Principal principal) {
+
+        List<Recipe> recipes = recipeRepository.findByCategories_CategoryName(categoryName);
+
+        datamodel.addAttribute("allRecipes", recipes);
+        datamodel.addAttribute("selectedCategory", categoryName);
+        datamodel.addAttribute("allCategories", categoryRepository.findAllByOrderByCategoryLikesDesc());
 
         if (principal != null) {
             receptenRadarUserRepository.findByUsername(principal.getName())
                     .ifPresent(user -> datamodel.addAttribute("user", user));
-        } else {
-            datamodel.addAttribute("user", null);
         }
-
-        datamodel.addAttribute("allCategories",
-                categoryRepository.findAllByOrderByCategoryLikesDesc());
 
         return "recipeOverview";
     }
@@ -173,5 +212,9 @@ public class RecipeController {
         return "recipeDetail";
     }
 
-
+    @GetMapping("/recipe/detail/{recipeName}/copy")
+    public String copyRecipe(@PathVariable String recipeName) {
+        Recipe copy = recipeCopyService.copyFullRecipe(recipeName);
+        return "redirect:/recipe/detail/" + copy.getRecipeName();
+    }
 }

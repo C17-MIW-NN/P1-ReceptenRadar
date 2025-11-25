@@ -19,6 +19,16 @@
 
 
         <div class="container">
+            <div class="userFavoriteCategories">
+                <div th:each="category : ${allCategories}" class="userFavoriteCategoryItem">
+                    <a class="userFavoriteCategoryItem-item"
+                        th:href="@{/recipe/all/{categoryName}(categoryName=${category.categoryName})}">
+                        <span th:text="${category.categoryName}"></span> &nbsp;
+                    </a>
+                </div>
+            </div>
+
+
             <div class="container-title">
                 <h1>Alle recepten</h1>
             </div>

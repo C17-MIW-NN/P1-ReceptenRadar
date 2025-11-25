@@ -40,9 +40,14 @@
     background-color: white;
     font-size: 17px;
     font-weight: 600;
-    color: #5f891d;
+    color: rgba(95, 137, 29, 0.8);
     cursor: pointer;
     text-decoration: none;
     text-transform: uppercase;
+}
+
+.loginButton:hover{
+    color: rgba(95, 137, 29, 1.0);
+
 }
 

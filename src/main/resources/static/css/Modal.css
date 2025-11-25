@@ -1,0 +1,138 @@
+/*CSS for Modal*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    display:flex;
+    flex-direction: column;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-editRecipeForm{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.recipeFormInfoContainer,
+.recipeFormDirectionsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    height: 100%;
+    width:80%;
+    gap: 1rem;
+ }
+
+.recipeFormDirectionsContainer {
+      align-items: center;
+      justify-content: start;
+  }
+
+.recipeFormInfoContainer input[type='text'],
+.recipeFormInfoContainer input[type='number'] {
+    width: 100%;
+}
+
+.recipeFormDirectionsContainer textarea{
+    width: 100%;
+    height: 50%;
+}
+
+#recipeDescription{
+    min-height: 100px;
+    width: 80%;
+    vertical-align: top;
+}
+
+.category-checkboxes{
+    display: flex;
+    overflow-y:auto;
+    max-height: 200px;
+    flex-wrap: wrap;
+    column-gap: 30px;
+    row-gap: 15px;
+}
+
+.directions-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: scroll;
+    padding-right: 1rem;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+#step-container {
+    border: none;
+}
+
+.step-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+    padding: 10px;
+}
+
+.step-label{
+    width: 100px;
+}
+
+.step-row input[type=text] {
+    width: 80%;
+}
+
+.saveAndDeleteButtons {
+    grid-column: 2;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.saveAndDeleteButtons button {
+    width: auto;
+    padding: 10px;
+}
+
+#deleteButton{
+    background-color: #f10b0b;
+}
+
