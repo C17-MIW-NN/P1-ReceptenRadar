@@ -46,71 +46,51 @@ public class RecipeController {
     @GetMapping({"/recipe/all","/"})
     public String showRecipeOverview(Model datamodel, Principal principal) {
         datamodel.addAttribute("allRecipes", recipeRepository.findAll());
-        datamodel.addAttribute("recipe", new Recipe());
-        datamodel.addAttribute("allCategories",
-                categoryRepository.findAllByOrderByCategoryLikesDesc());
-
-        if (principal != null) {
-            Optional<ReceptenRadarUser> optionalUser =
-                    receptenRadarUserRepository.findByUsername(principal.getName());
-
-            if (optionalUser.isPresent()) {
-                ReceptenRadarUser user = optionalUser.get();
-                datamodel.addAttribute("user", user);
-
-                Map<Category,Integer> userLikesPerCategory = new HashMap<>();
-
-                for (Recipe recipe : user.getLikedRecipes()) {
-                    for (Category category : recipe.getCategories()) {
-                        int currentCount = userLikesPerCategory.getOrDefault(category, 0);
-                        userLikesPerCategory.put(category, currentCount + LIKE);
-                    }
-                }
-
-                List<Category> sortedCategories = new ArrayList<>(userLikesPerCategory.keySet());
-                sortedCategories.sort(Comparator.comparingInt(userLikesPerCategory::get).reversed());
-
-                datamodel.addAttribute("userFavoriteCategories", sortedCategories);
-            }
-        } else {
-            datamodel.addAttribute("user", null);
-        }
+        fillDatamodel(datamodel, principal);
         return "recipeOverview";
     }
 
     @GetMapping("/recipe/all/{categoryName}")
-    public String showRecipesPerCategory(
-            @PathVariable String categoryName,
-            Model datamodel,
-            Principal principal) {
-
-        List<Recipe> recipes = recipeRepository.findByCategories_CategoryName(categoryName);
-
-        datamodel.addAttribute("allRecipes", recipes);
-        datamodel.addAttribute("recipe", new Recipe());
+    public String showRecipesPerCategory(@PathVariable String categoryName,
+                                         Model datamodel,
+                                         Principal principal) {
+        datamodel.addAttribute("allRecipes", recipeRepository.findByCategories_CategoryName(categoryName));
         datamodel.addAttribute("selectedCategory", categoryName);
+        fillDatamodel(datamodel, principal);
+        return "recipeOverview";
+    }
+
+    private void fillDatamodel(Model datamodel, Principal principal) {
+        datamodel.addAttribute("recipe", new Recipe());
         datamodel.addAttribute("allCategories", categoryRepository.findAllByOrderByCategoryLikesDesc());
+        datamodel.addAttribute("user", null); // standaardwaarde
 
         if (principal != null) {
             receptenRadarUserRepository.findByUsername(principal.getName())
-                    .ifPresent(user -> {
-                        datamodel.addAttribute("user", user);
-
-                        Map<Category,Integer> userLikesPerCategory = new HashMap<>();
-                        for (Recipe recipe : user.getLikedRecipes()) {
-                            for (Category category : recipe.getCategories()) {
-                                int currentCount = userLikesPerCategory.getOrDefault(category, 0);
-                                userLikesPerCategory.put(category, currentCount + LIKE);
-                            }
-                        }
-                        List<Category> sortedCategories = new ArrayList<>(userLikesPerCategory.keySet());
-                        sortedCategories.sort(Comparator.comparingInt(userLikesPerCategory::get).reversed());
-                        datamodel.addAttribute("userFavoriteCategories", sortedCategories);
-                    });
-        } else {
-            datamodel.addAttribute("user", null);
+                    .ifPresent(user -> addUserDetails(datamodel, user));
         }
-        return "recipeOverview";
+    }
+
+    private void addUserDetails(Model datamodel, ReceptenRadarUser user) {
+        datamodel.addAttribute("user", user);
+        datamodel.addAttribute("userLikedCategories", calculateUserFavoriteCategories(user));
+    }
+
+    private List<Category> calculateUserFavoriteCategories(ReceptenRadarUser user) {
+        Map<Category, Integer> userLikesPerCategory = new HashMap<>();
+
+        for (Recipe recipe : user.getLikedRecipes()) {
+            for (Category category : recipe.getCategories()) {
+                int currentCount = userLikesPerCategory.getOrDefault(category, 0);
+                userLikesPerCategory.put(category, currentCount + LIKE);
+            }
+        }
+        List<Category> sortedCategories = new ArrayList<>(userLikesPerCategory.keySet());
+        sortedCategories.sort((c1, c2)
+                -> userLikesPerCategory.get(c2) - userLikesPerCategory.get(c1)
+        );
+
+        return sortedCategories;
     }
 
     @GetMapping("/recipe/add")
