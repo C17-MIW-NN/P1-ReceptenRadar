@@ -37,7 +37,8 @@ public class InitializeController {
 
     public InitializeController(RecipeRepository recipeRepository,
                                 IngredientRepository ingredientRepository,
-                                CategoryRepository categoryRepository, receptenRadarUserService receptenRadarUserService) {
+                                CategoryRepository categoryRepository,
+                                receptenRadarUserService receptenRadarUserService) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         this.categoryRepository = categoryRepository;

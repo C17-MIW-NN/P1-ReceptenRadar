@@ -97,17 +97,20 @@ public class RecipeController {
     }
 
     @PostMapping("/recipe/save")
-    public String saveOrUpdateRecipe (@ModelAttribute("formRecipe") Recipe recipeToBeSaved, BindingResult result, Model datamodel) {
+    public String saveOrUpdateRecipe (@ModelAttribute("formRecipe") Recipe recipeToBeSaved, BindingResult result,
+                                      Model datamodel) {
 
         Optional<Recipe> recipeWithSameName = recipeRepository.findByRecipeName(recipeToBeSaved.getRecipeName());
-        if (recipeWithSameName.isPresent() && !recipeWithSameName.get().getRecipeId().equals(recipeToBeSaved.getRecipeId())) {
+        if (recipeWithSameName.isPresent() &&
+                !recipeWithSameName.get().getRecipeId().equals(recipeToBeSaved.getRecipeId())) {
             result.addError(new FieldError("recipe", "recipeName",
                     "This name is already in use by another recipe"));
         }
 
         if (!result.hasErrors()) {
             if (recipeToBeSaved.getDirections() != null) {
-                recipeToBeSaved.getDirections().removeIf(d -> d.getDirection() == null || d.getDirection().isBlank());
+                recipeToBeSaved.getDirections().removeIf(d -> d.getDirection() == null ||
+                        d.getDirection().isBlank());
                 for (Direction direction : recipeToBeSaved.getDirections()) {
                     direction.setRecipe(recipeToBeSaved);
                 }

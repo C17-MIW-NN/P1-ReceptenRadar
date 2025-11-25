@@ -63,7 +63,8 @@ public class CategoryController {
                                                     .findByCategoryName(categoryToBeSaved.getCategoryName());
         if (categoryWithSameName.isPresent() &&
                 !categoryWithSameName.get().getCategoryId().equals(categoryToBeSaved.getCategoryId())) {
-            result.addError(new FieldError("Category", "categoryName", "deze category bestaat al."));
+            result.addError(new FieldError("Category", "categoryName",
+                    "deze category bestaat al."));
         }
 
         if (result.hasErrors()) {

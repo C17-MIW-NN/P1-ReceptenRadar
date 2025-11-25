@@ -1,7 +1,5 @@
 package nl.miwnn.ch17.briljant.receptenradar.controller;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import nl.miwnn.ch17.briljant.receptenradar.model.Category;
 import nl.miwnn.ch17.briljant.receptenradar.model.Ingredient;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.IngredientRepository;
 import org.springframework.stereotype.Controller;

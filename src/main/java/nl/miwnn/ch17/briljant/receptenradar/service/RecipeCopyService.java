@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @author Iris Loermans
- * Handles the making of a new recipe based on an old recipe
+ * Handles the making of a new recipe based on an old recipe.
  */
 
 @Service

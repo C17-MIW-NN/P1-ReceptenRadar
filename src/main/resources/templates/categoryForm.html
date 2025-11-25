@@ -3,7 +3,8 @@
 
 <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
     <title th:if="${formCategory.categoryId == null}">ReceptenRadar | Nieuwe category</title>
-    <title th:unless="${formCategory.categoryId == null}" th:text="'ReceptenRadar | ' + ${formCategory.categoryName}"></title>
+    <title th:unless="${formCategory.categoryId == null}"
+           th:text="'ReceptenRadar | ' + ${formCategory.categoryName}"></title>
 </head>
 
 <body>
