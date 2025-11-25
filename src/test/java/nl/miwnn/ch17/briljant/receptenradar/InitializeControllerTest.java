@@ -1,19 +1,19 @@
-package nl.miwnn.ch17.briljant.receptenradar;
-
-import nl.miwnn.ch17.briljant.receptenradar.controller.InitializeController;
-import nl.miwnn.ch17.briljant.receptenradar.model.Recipe;
-import nl.miwnn.ch17.briljant.receptenradar.repositories.CategoryRepository;
-import nl.miwnn.ch17.briljant.receptenradar.repositories.IngredientRepository;
-import nl.miwnn.ch17.briljant.receptenradar.repositories.RecipeRepository;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-/**
- * @author Johan Elzinga
- */
-
+//package nl.miwnn.ch17.briljant.receptenradar;
+//
+//import nl.miwnn.ch17.briljant.receptenradar.controller.InitializeController;
+//import nl.miwnn.ch17.briljant.receptenradar.model.Recipe;
+//import nl.miwnn.ch17.briljant.receptenradar.repositories.CategoryRepository;
+//import nl.miwnn.ch17.briljant.receptenradar.repositories.IngredientRepository;
+//import nl.miwnn.ch17.briljant.receptenradar.repositories.RecipeRepository;
+//import org.junit.jupiter.api.DisplayName;
+//import org.junit.jupiter.api.Test;
+//
+//import static org.junit.jupiter.api.Assertions.assertEquals;
+//
+///**
+// * @author Johan Elzinga
+// */
+//
 //public class InitializeControllerTest {
 //
 //    private RecipeRepository recipeRepository;
