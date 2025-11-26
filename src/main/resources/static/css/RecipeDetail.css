@@ -67,7 +67,8 @@
 }
 
 .recipeDescription {
-    padding-top: 5px
+    text-align: center;
+    padding-top: 10px
 }
 .ingredientsTable td {
     padding-right: 20px;
