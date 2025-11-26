@@ -3,6 +3,7 @@ package nl.miwnn.ch17.briljant.receptenradar.controller;
 import nl.miwnn.ch17.briljant.receptenradar.model.*;
 import nl.miwnn.ch17.briljant.receptenradar.repositories.*;
 import nl.miwnn.ch17.briljant.receptenradar.service.RecipeCopyService;
+import nl.miwnn.ch17.briljant.receptenradar.service.receptenRadarUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,25 +29,27 @@ public class RecipeController {
     private final CategoryRepository categoryRepository;
     private final ReceptenRadarUserRepository receptenRadarUserRepository;
     private final RecipeCopyService recipeCopyService;
+    private final receptenRadarUserService receptenRadarUserService;
 
     public RecipeController(RecipeRepository recipeRepository,
                             IngredientRepository ingredientRepository,
                             CategoryRepository categoryRepository,
                             ReceptenRadarUserRepository receptenRadarUserRepository,
-                            RecipeCopyService recipeCopyService
-    ) {
+                            RecipeCopyService recipeCopyService,
+                            receptenRadarUserService receptenRadarUserService) {
 
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         this.categoryRepository = categoryRepository;
         this.receptenRadarUserRepository = receptenRadarUserRepository;
         this.recipeCopyService = recipeCopyService;
+        this.receptenRadarUserService = receptenRadarUserService;
     }
 
     @GetMapping({"/recipe/all","/"})
     public String showRecipeOverview(Model datamodel, Principal principal) {
         datamodel.addAttribute("allRecipes", recipeRepository.findAll());
-        fillDatamodel(datamodel, principal);
+        fillDatamodel(datamodel, principal, new Recipe(), null);
         return "recipeOverview";
     }
 
@@ -56,18 +59,26 @@ public class RecipeController {
                                          Principal principal) {
         datamodel.addAttribute("allRecipes", recipeRepository.findByCategories_CategoryName(categoryName));
         datamodel.addAttribute("selectedCategory", categoryName);
-        fillDatamodel(datamodel, principal);
+        fillDatamodel(datamodel, principal, new Recipe(), null);
         return "recipeOverview";
     }
 
-    private void fillDatamodel(Model datamodel, Principal principal) {
-        datamodel.addAttribute("recipe", new Recipe());
-        datamodel.addAttribute("allCategories", categoryRepository.findAllByOrderByCategoryLikesDesc());
-        datamodel.addAttribute("user", null); // standaardwaarde
+    private void fillDatamodel(Model datamodel, Principal principal, Recipe recipe, ReceptenRadarUser user) {
+        datamodel.addAttribute("recipe", recipe);
+        datamodel.addAttribute("allCategories",
+                categoryRepository.findAllByOrderByCategoryLikesDesc());
+        datamodel.addAttribute("user", user);
+
+        List<Ingredient> ingredients = ingredientRepository.findAll();
+        for (Ingredient ingredient : ingredients) {
+            ingredient.getRecipeIngredients().clear();
+        }
+
+        datamodel.addAttribute("allIngredients",ingredients);
 
         if (principal != null) {
             receptenRadarUserRepository.findByUsername(principal.getName())
-                    .ifPresent(user -> addUserDetails(datamodel, user));
+                    .ifPresent(currentUser -> addUserDetails(datamodel, currentUser));
         }
     }
 
@@ -148,6 +159,15 @@ public class RecipeController {
                 }
             }
 
+            if (recipeToBeSaved.getRecipeIngredients() != null) {
+                recipeToBeSaved.getRecipeIngredients().removeIf(
+                        ri -> ri.getIngredient() == null || ri.getQuantity() == null
+                );
+                for (RecipeIngredient ri : recipeToBeSaved.getRecipeIngredients()) {
+                    ri.setRecipe(recipeToBeSaved); // koppeling terugzetten
+                }
+            }
+
             recipeRepository.save(recipeToBeSaved);
         }
 
@@ -172,17 +192,26 @@ public class RecipeController {
 
         datamodel.addAttribute("recipe", recipeToShow.get());
         datamodel.addAttribute("allCategories", categoryRepository.findAll());
+
+        List<Ingredient> ingredients = ingredientRepository.findAll();
+        for (Ingredient ingredient : ingredients) {
+            ingredient.getRecipeIngredients().clear();
+        }
+
         datamodel.addAttribute("allIngredients",ingredientRepository.findAll());
+
         return "recipeDetail";
     }
 
     @PostMapping("/recipe/{recipeId}/like")
     public String likeRecipeAndCategories(@PathVariable Long recipeId, Model datamodel, Principal principal) {
         ReceptenRadarUser user = receptenRadarUserRepository.findByUsername(principal.getName())
-                .orElseThrow(() -> new RuntimeException("User not found for user:" + principal.getName()));
+                .orElseThrow(() ->
+                        new RuntimeException("User not found for user:" + principal.getName()));
 
         Recipe recipe = recipeRepository.findById(recipeId)
-                .orElseThrow(() -> new RuntimeException("Recipe not found"));
+                .orElseThrow(() ->
+                        new RuntimeException("Recipe not found"));
 
         if (!user.getLikedRecipes().contains(recipe)) {
             user.getLikedRecipes().add(recipe);
@@ -201,6 +230,7 @@ public class RecipeController {
         datamodel.addAttribute("user", user);
         datamodel.addAttribute("allCategories", categoryRepository.findAll());
         datamodel.addAttribute("numberOfLikes", recipe.getRecipeLikes().size());
+        datamodel.addAttribute("allIngredients", ingredientRepository.findAll());
 
         return "recipeDetail";
     }

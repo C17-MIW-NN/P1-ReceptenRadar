@@ -39,7 +39,7 @@ public class Recipe {
     @Column(columnDefinition = "TEXT")
     private String recipeDescription;
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
     @ManyToMany
@@ -47,6 +47,5 @@ public class Recipe {
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Direction>directions = new ArrayList<Direction>();
-
 
 }
