@@ -148,3 +148,39 @@ button {
     padding: 10px;
 }
 
+.ingredient-row {
+    display: flex;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.ingredient-type {
+    width: 150px;
+    height: 40px;
+}
+
+.ingredient-amount {
+    width: 70px;
+}
+
+.ingredient-unit {
+    width: 70px;
+}
+
+.remove-ingredient-btn {
+    width: 90px;
+    padding: 9px;
+}
+
+#add-ingredient-btn {
+    height: 40px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.label-name {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}

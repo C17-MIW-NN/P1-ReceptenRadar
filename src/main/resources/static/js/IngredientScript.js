@@ -11,15 +11,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const newRow = document.createElement("div");
         newRow.classList.add("ingredient-row");
 
-        // Label
-        const label = document.createElement("label");
-        label.classList.add("ingredient-label");
-        label.textContent = `Ingrediënt ${index + 1}:`;
-        newRow.appendChild(label);
-
         // Select dropdown
         const select = document.createElement("select");
         select.name = `recipeIngredients[${index}].ingredient.ingredientId`;
+
+        select.classList.add("ingredient-type");
 
         // Vul opties vanuit Thymeleaf-JSON
         allIngredients.forEach(ingredient => {
@@ -36,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
         quantityInput.step = "0.1";
         quantityInput.name = `recipeIngredients[${index}].quantity`;
         quantityInput.placeholder = "Hoeveelheid";
+        quantityInput.classList.add("ingredient-amount");
         newRow.appendChild(quantityInput);
 
         // Unit
@@ -43,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
         unitInput.type = "text";
         unitInput.name = `recipeIngredients[${index}].unit`;
         unitInput.placeholder = "Eenheid (bijv. gram, ml)";
+        unitInput.classList.add("ingredient-unit");
         newRow.appendChild(unitInput);
 
         // Remove button

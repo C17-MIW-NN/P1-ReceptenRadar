@@ -239,15 +239,14 @@
 
                 <div class="recipeFormIngredientsContainer">
 
-                    <label for="recipeDescription">Beschrijving:</label>
+                    <label class="label-name" for="recipeDescription">Beschrijving:</label>
                     <textarea th:field="*{recipeDescription}" id="recipeDescription"></textarea>
 
-                    <label>Ingrediënten:</label>
+                    <label class="label-name">Ingrediënten:</label>
                     <div class="ingredients-container" id="ingredient-container">
                         <div class="ingredient-row" th:each="recipeIngredient, iter : *{recipeIngredients}">
-                            <label class="ingredient-label">Ingrediënt [[${iter.index} + 1]]:</label>
 
-                            <select th:field="*{recipeIngredients[__${iter.index}__].ingredient.ingredientId}">
+                            <select class="ingredient-type" th:field="*{recipeIngredients[__${iter.index}__].ingredient.ingredientId}">
                                 <option th:each="ingredient : ${allIngredients}"
                                         th:value="${ingredient.ingredientId}"
                                         th:text="${ingredient.ingredientName}">
@@ -255,12 +254,12 @@
                             </select>
 
                             <!-- Quantity -->
-                            <input type="number" step="0.1"
+                            <input class="ingredient-amount" type="number" step="0.1"
                                    th:field="*{recipeIngredients[__${iter.index}__].quantity}"
                                    placeholder="Hoeveelheid"/>
 
                             <!-- Unit -->
-                            <input type="text"
+                            <input class="ingredient-unit" type="text"
                                    th:field="*{recipeIngredients[__${iter.index}__].unit}"
                                    placeholder="Eenheid (bijv. gram, ml)"/>
 
@@ -272,7 +271,7 @@
                         <button type="button" id="add-ingredient-btn">Voeg ingrediënt toe</button>
                     </div>
 
-                    <label>Stappenplan:</label>
+                    <label class="label-name">Stappenplan:</label>
                     <div class="directions-container" id="step-container">
                         <div class="step-row" th:each="direction, iter : *{directions}">
                             <label class="step-label">Stap [[${iter.index} + 1]]:</label>
