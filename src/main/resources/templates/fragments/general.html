@@ -51,21 +51,25 @@
 
         <div th:fragment="recipeDetailCard" class="recipeOverviewCard recipeDetailCard">
                 <div class="recipeDetailContainer" >
-                    <div class="recipeName">
+                    <div class="recipeName typeOverview">
                             <h1>
                                 <span th:text="${recipe.recipeName}"></span>&nbsp;
-                                <i id="openEditModalButton" class="bi bi-pencil"></i>
-                                <a class="btn btn-secondary"
-                                   th:href="@{'/recipe/detail/' + ${recipe.recipeName} + '/copy'}">
-                                    Kopieer recept
-                                </a>
                             </h1>
-                        <form th:action="@{/recipe/{recipeId}/like(recipeId=${recipe.recipeId})}" method="post">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-hand-thumbs-up"></i> Like
-                            </button>
-                        </form>
+                        <div class="type-container">
+                            <a class="btn type type-edit-link">
+                                <i id="openEditModalButton" class="bi bi-pencil"></i>
+                            </a>
 
+                            <a class="btn type type-edit-link"
+                               th:href="@{'/recipe/detail/' + ${recipe.recipeName} + '/copy'}">
+                                <i class="bi bi-copy"></i>
+                            </a>
+                            <form th:action="@{/recipe/{recipeId}/like(recipeId=${recipe.recipeId})}" method="post">
+                                <button type="submit" class="btn type type-edit-link">
+                                    <i class="bi bi-hand-thumbs-up"></i>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                     <div class="recipePicture">
                         <div class="image-wrapper">

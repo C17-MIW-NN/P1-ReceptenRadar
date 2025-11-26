@@ -13,10 +13,12 @@
 
 .type-container {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     text-align: center;
     flex-wrap: wrap;
     gap: 5px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .type {
@@ -52,6 +54,7 @@
     align-items: center;
     text-align: center;
     width: 2.5rem;
+    height: 2.5rem;
     flex: 0 0 auto;
 }
 
