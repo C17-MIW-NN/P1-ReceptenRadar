@@ -182,8 +182,12 @@
                 <p><i class="bi bi-clock-fill"></i> <span th:text="${recipe.preparationTime}"></span> Min.</p>
                 <p><i class="bi bi-people-fill"></i> <span th:text="${recipe.forAmountOfPeople}"></span></p>
                 <p><i class="bi bi-fire"></i> <span th:text="${recipe.calories}"></span></p>
-                <p><i class="bi bi-heart-fill"></i> <span th:text="${recipe.recipeLikes.size()}"></span>
+
+                <p><i th:class="${user != null and user.likedRecipes.contains(recipe)} ?
+                'bi bi-hand-thumbs-up-fill' : 'bi bi-hand-thumbs-up'"></i>
+                    <span th:text="${recipe.recipeLikes.size()}"></span>
                 </p>
+
             </div>
 
             <h2 class="card-title"><span th:text="${recipe.recipeName}"></span></h2>
