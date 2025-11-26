@@ -25,18 +25,22 @@
             </div>
 
             <div th:if="${user != null}">
-                <div class="userFavoriteCategories" th:if="${userFavoriteCategories != null and !userFavoriteCategories.isEmpty()}">
-                    <div th:each="category : ${userFavoriteCategories}" class="userFavoriteCategoryItem">
+                <div class="userFavoriteCategories"
+                     th:if="${userLikedCategories != null and !userLikedCategories.isEmpty()}">
+
+                    <div th:each="category : ${userLikedCategories}" class="userFavoriteCategoryItem">
                         <a th:href="@{/recipe/all/{categoryName}(categoryName=${category.categoryName})}">
                             <span th:text="${category.categoryName}"></span>
                         </a>
                     </div>
                 </div>
 
-                <div th:if="${userFavoriteCategories == null or userFavoriteCategories.isEmpty()}">
+                <div th:if="${userLikedCategories == null or userLikedCategories.isEmpty()}">
                     <p>Je hebt nog geen recepten geliket.</p>
                 </div>
             </div>
+
+
 
 
             <div class="container-title">

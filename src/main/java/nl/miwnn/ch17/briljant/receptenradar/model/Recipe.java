@@ -1,6 +1,7 @@
 package nl.miwnn.ch17.briljant.receptenradar.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,11 @@ import java.util.Set;
  * @author Douwe Jan Hamersma
  * The concept of a recipe.
  */
-
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 public class Recipe {
 
@@ -43,91 +48,5 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Direction>directions = new ArrayList<Direction>();
 
-    public Long getRecipeId() {
-        return recipeId;
-    }
 
-    public void setRecipeId(Long recipeId) {
-        this.recipeId = recipeId;
-    }
-
-    public String getRecipeName() {
-        return recipeName;
-    }
-
-    public void setRecipeName(String recipeName) {
-        this.recipeName = recipeName;
-    }
-
-    public int getCalories() {
-        return calories;
-    }
-
-    public void setCalories(int calories) {
-        this.calories = calories;
-    }
-
-    public int getForAmountOfPeople() {
-        return forAmountOfPeople;
-    }
-
-    public void setForAmountOfPeople(int forAmountOfPeople) {
-        this.forAmountOfPeople = forAmountOfPeople;
-    }
-
-    public int getPreparationTime() {
-        return preparationTime;
-    }
-
-    public void setPreparationTime(int preparationTime) {
-        this.preparationTime = preparationTime;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String coverImageUrl) {
-        this.imageUrl = coverImageUrl;
-    }
-
-    public List<RecipeIngredient> getRecipeIngredients() {
-        return recipeIngredients;
-    }
-
-    public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
-        this.recipeIngredients = recipeIngredients;
-    }
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-
-    public List<Direction> getDirections() {
-        return directions;
-    }
-
-    public void setDirections(List<Direction> directions) {
-        this.directions = directions;
-    }
-
-    public String getRecipeDescription() {
-        return recipeDescription;
-    }
-
-    public void setRecipeDescription(String recipeDescription) {
-        this.recipeDescription = recipeDescription;
-    }
-
-    public Set<ReceptenRadarUser> getRecipeLikes() {
-        return recipeLikes;
-    }
-
-    public void setRecipeLikes(Set<ReceptenRadarUser> recipeLikes) {
-        this.recipeLikes = recipeLikes;
-    }
 }

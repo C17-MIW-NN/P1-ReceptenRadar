@@ -1,6 +1,10 @@
 package nl.miwnn.ch17.briljant.receptenradar.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +18,8 @@ import java.util.Set;
  * Any user of the ReceptenRadar software.
  */
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class ReceptenRadarUser implements UserDetails {
 

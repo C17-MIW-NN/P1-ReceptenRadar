@@ -1,6 +1,8 @@
 package nl.miwnn.ch17.briljant.receptenradar.model;
 
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.Set;
 
 /**
@@ -8,6 +10,11 @@ import java.util.Set;
  * An entity that is responsible for a category that can be added to a recipe
  */
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 public class Category {
 
@@ -23,35 +30,6 @@ public class Category {
     @ManyToMany(mappedBy = "categories")
     private Set<Recipe> recipes;
 
-    public Long getCategoryId() {
-        return categoryId;
-    }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
 
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public Set<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(Set<Recipe> recipes) {
-        this.recipes = recipes;
-    }
-
-    public int getCategoryLikes() {
-        return categoryLikes;
-    }
-
-    public void setCategoryLikes(int likes) {
-        this.categoryLikes = likes;
-    }
 }
