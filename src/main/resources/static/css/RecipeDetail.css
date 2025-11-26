@@ -105,3 +105,12 @@
     background-color: #5e881d;
     color: white;
 }
+
+
+.recipePicture .image-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    overflow: hidden;
+}
